@@ -1,0 +1,27 @@
+@use "../../../styles/variables/effects.scss";
+//@import "./../../../styles/variables/colors.scss";
+
+.list-container {
+  padding: 1rem;
+  background-color: var(--secondary-dark);
+  color: white;
+
+  h2 {
+    color: var(--primary-light);
+  }
+
+  a {
+    line-height: 1.75rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .default-list {
+    padding-top: 1rem;
+    list-style: none;
+  }
+}
+
+.sidebar {
+  @include effects.shadow;
+}

@@ -11,6 +11,11 @@ export const PostQuery = gql`
           name
         }
       }
+      contentBlocks {
+        __typename
+        blockName
+        data
+      }
     }
   }
 `;

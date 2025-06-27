@@ -5,7 +5,9 @@
     "build": "graphql-codegen --config codegen.ts && node ./add-ts-nocheck.js && next build",
     "start": "next start",
     "lint": "next lint",
-    "codegen": "graphql-codegen --config codegen.ts && node ./add-ts-nocheck.js"
+    "codegen": "graphql-codegen --config codegen.ts && node ./add-ts-nocheck.js",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "graphql": "^16.9.0",
@@ -15,14 +17,36 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.6",
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/client-preset": "4.3.3",
     "@graphql-codegen/schema-ast": "^4.1.0",
+    "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/addon-onboarding": "^8.6.12",
+    "@storybook/blocks": "^8.6.12",
+    "@storybook/experimental-addon-test": "^8.6.12",
+    "@storybook/experimental-nextjs-vite": "^8.6.12",
+    "@storybook/nextjs": "^8.6.12",
+    "@storybook/react": "^8.6.12",
+    "@storybook/test": "^8.6.12",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vitest/browser": "^3.1.2",
+    "@vitest/coverage-v8": "^3.1.2",
     "eslint": "^9",
     "eslint-config-next": "latest",
-    "typescript": "^5"
+    "eslint-plugin-storybook": "^0.12.0",
+    "playwright": "^1.52.0",
+    "sass": "^1.87.0",
+    "sass-migrator": "^2.3.1",
+    "storybook": "^8.6.12",
+    "typescript": "^5",
+    "vitest": "^3.1.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
   }
 }

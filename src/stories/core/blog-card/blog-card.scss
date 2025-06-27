@@ -1,0 +1,21 @@
+@use "../../../styles/variables/effects.scss";
+
+.blog-card {
+    width: auto;
+    background-color: var(--secondary-dark);
+    color: white;
+    @include effects.shadow;
+    @include effects.zoom;
+
+    .card-bottom {
+        padding: 1.5rem;
+    }
+
+    h3 {
+        padding-bottom: 0.5rem;
+    }
+
+    p {
+        color: #E3E3E3;
+    }
+}

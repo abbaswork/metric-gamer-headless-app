@@ -1,0 +1,59 @@
+@use "../../../styles/util.scss";
+
+//conditional mobile class that changes behaviour of overlay and mobile bars
+.mobile-overlay {
+
+  .mobile-bars {
+    color: white;
+    position: relative;
+  }
+
+  .navlink-container {
+    width: 50%;
+    height: 100vh;
+  }
+
+  //display links, in a col format in the overlay 
+  .mobile-links {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    margin-top: 4rem;
+    //align-items: center;
+    margin-left: 1.3rem;
+  }
+}
+
+.navlink-container {
+
+  //overlay properties, only active on mobile displays
+  @include util.mobile-view() {
+    height: 100%;
+    width: 0%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow-x: hidden;
+    transition:0.1ms
+  }
+}
+
+.mobile-links {
+  display: flex;
+  gap: 1rem;
+  @include util.mobile-hide;
+}
+
+.mobile-bars {
+  width: 2rem;
+  margin-right: 0.5rem;
+
+  //clickable and always appears ontop
+  cursor: pointer;
+  z-index: 9;
+  
+  @include util.mobile-show;
+}

@@ -1,0 +1,44 @@
+@use "../../styles/layout.scss";
+@use "../../styles/util.scss";
+@use "../../styles/variables/effects.scss";
+
+.logo {
+  width:  2.25rem;
+  height: 2.25rem;
+  @include effects.flip;
+}
+
+.header-container {
+  /* standard padding for header */
+  padding: 15px 20px;
+  background-color: var(--secondary-dark);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  @include effects.shadow;
+  @include effects.sticky;
+
+  &.nav-layout {
+    @include layout.flex-spread;
+    // @include mobile-view {
+
+    // }
+  }
+}
+
+// link layout that changes based on mobile vs desktop view
+.nav-link-layout {
+  //default padding/setup
+  display: flex;
+  flex-direction: row-reverse;
+  // gap: 1rem; -- not supported in earlier ios
+  align-items: center;
+  color: white;
+
+  a{
+    margin-right: 1rem;
+  }
+
+  //switch order on mobile
+  @include util.mobile-view {
+    flex-direction: row;
+  }
+}
