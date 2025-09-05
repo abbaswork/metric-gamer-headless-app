@@ -1,7 +1,6 @@
-
-import Image from 'next/image';
-import './blog-card.scss';
-import Link from 'next/link';
+import Image from "next/image";
+import "./blog-card.scss";
+import Link from "next/link";
 
 export interface BlogCardProps {
   src: string;
@@ -12,29 +11,39 @@ export interface BlogCardProps {
   postCard?: true;
 }
 
-export const BlogCard = ({ src, alt, title, href, description, postCard = true }: BlogCardProps) => {
-
+export const BlogCard = ({
+  src,
+  alt,
+  title,
+  href,
+  description,
+  postCard = true,
+}: BlogCardProps) => {
   //if the image or title is undefined, don't render component
-  if (src === "" || title === "")
-    return <></>;
+  if (!src || src === "" || !title || title === "") return <></>;
 
   //format description if keywords are there
   const blogDescription = () => {
-
     //if there is an introduction section, use it as the title and format, otherwise return the description
-    if (!postCard || !description?.includes("Introduction"))
-      return <p>{description || ""}</p>
+    if (!postCard || !description?.includes("Introduction")) {
+      //render the description to remove html tags
+      return <p dangerouslySetInnerHTML={{ __html: description || "" }} />;
+    }
 
     var splitPostIntro = description.split("Introduction");
     var tags = splitPostIntro[0].replace("Metrics", "");
     var intro = splitPostIntro[1].replace("[…]", "...");
-    return (<><p>{tags}</p><br /><p>{intro}</p></>);
-
-
-  }
+    return (
+      <>
+        <p>{tags}</p>
+        <br />
+        <p>{intro}</p>
+      </>
+    );
+  };
 
   return (
-    <div className='blog-card'>
+    <div className="blog-card">
       <Link href={href}>
         {/* <Image
           // properties set to adjust to container for dynamic image
@@ -50,21 +59,19 @@ export const BlogCard = ({ src, alt, title, href, description, postCard = true }
         /> */}
         <Image
           // other properties (src, alt, priority, etc.)
-          width={1}
-          height={1}
-          layout="responsive"
-          placeholder="blur"
-          sizes="100vw"
-          blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0FQyoBwACMAEXcLbIuAAAAABJRU5ErkJggg=='
+          width={659}
+          height={370}
+          style={{ width: "100%", height: "auto" }} // ensures the image scales correctly
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0FQyoBwACMAEXcLbIuAAAAABJRU5ErkJggg=="
           src={src}
           alt={alt}
           priority={true}
-          />
-        <div className='card-bottom'>
+        />
+        <div className="card-bottom">
           <h3>{title}</h3>
           {blogDescription()}
         </div>
       </Link>
     </div>
-  )
-}
+  );
+};
