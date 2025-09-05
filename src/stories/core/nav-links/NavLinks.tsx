@@ -5,16 +5,9 @@ import './nav-links.scss';
 import { useRef } from "react"
 import { useOutsideRefClick } from './../../util/util';
 import Link from 'next/link';
-import { menuLinkProps } from '@/services/navigation/types';
+import { MenuItem } from "@/gql/graphql";
 
-//client component given the link behaviour
-
-type MenuProps = {
-  menuItems: menuLinkProps[]
-}
-
-
-export const NavLinks = ({ menuItems }: MenuProps) => {
+export const NavLinks = ({ menuItems }: { menuItems: MenuItem[] }) => {
 
   //button that opens mobile overlay
   const [showMobileOverlay, setshowMobileOverlay] = React.useState<boolean>(false);
@@ -25,9 +18,10 @@ export const NavLinks = ({ menuItems }: MenuProps) => {
   useOutsideRefClick(overlayRef, () => setshowMobileOverlay(false));
 
   //parse menu from menu links
-  const menu = (menuLinks: menuLinkProps[]) => {
-    return menuLinks.map((menu, index) => {
-      return (<Link key={index + 1} onClick={() => setshowMobileOverlay(false)} href={menu.href}>{menu.text}</Link>);
+  const menu = (menuItems: MenuItem[]) => {
+    return menuItems.map((menu, index) => {
+      if(!menu.label|| !menu.uri) return null;
+      return (<Link key={index + 1} onClick={() => setshowMobileOverlay(false)} href={menu.uri}>{menu.label}</Link>);
     })
   }
 

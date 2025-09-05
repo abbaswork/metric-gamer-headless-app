@@ -4,9 +4,8 @@ import { Inter } from "next/font/google";
 // import "@/app/globals.css";
 import "@/app/globals.scss";
 
-// import Navigation from "@/components/Globals/Navigation/Navigation";
+import Navigation from "@/components/Globals/Navigation/Navigation";
 import { PreviewNotice } from "@/components/Globals/PreviewNotice/PreviewNotice";
-import { Header } from "@/stories/header/Header";
 import { PageContent } from "@/stories/layouts/page-content/PageContent";
 import { SidePanel } from "@/stories/layouts/side-panel/SidePanel";
 import { ListContainer } from "@/stories/core/list-container/ListContainer";
@@ -23,9 +22,8 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      {/* <Navigation /> */}
       <body className="page-layout">
-        <Header />
+       <Navigation />
         {isEnabled && <PreviewNotice />}
         <PageContent>{children}</PageContent>
         <SidePanel>
