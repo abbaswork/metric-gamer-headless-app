@@ -11,23 +11,23 @@ export interface GameMetricsCardProps {
   imageSrc: string;
   imageAlt: string;
 
-  monthLabel: string;       // "March 2019"
-  genreName: string;        // "action-adventure"
-  featuredGame: string;     // "Game Title: Sekiro"
+  monthLabel: string; // "March 2019"
+  genreName: string; // "action-adventure"
+  featuredGame: string; // "Game Title: Sekiro"
 
-  subtitle?: string;        // short paragraph under the stars
+  subtitle?: string; // short paragraph under the stars
   // Stars + small round rating
   rating?: number | string; // 4.7
-  starRows?: StarRow[];     // 3 rows of stars
+  starRows?: StarRow[]; // 3 rows of stars
 
   // Pills
-  features?: string[];      // e.g., "2 Player","Cross Platform"
-  tags?: string[];          // e.g., "Tag 1","Tag 2"
+  features?: string[]; // e.g., "2 Player","Cross Platform"
+  tags?: string[]; // e.g., "Tag 1","Tag 2"
 
   // Accordion
-  accordionLabel?: string;  // bar text when collapsed
-  accordionTitle?: string;  // expanded panel title
-  accordionBody?: string;   // expanded panel text
+  accordionLabel?: string; // bar text when collapsed
+  accordionTitle?: string; // expanded panel title
+  accordionBody?: string; // expanded panel text
 }
 
 //rendering unicode stars based on value
@@ -38,11 +38,19 @@ const Stars = ({ value }: { value: number }) => {
   return (
     <span className="stars" aria-label={`${value} out of 5`}>
       {Array.from({ length: full }).map((_, i) => (
-        <span key={`f${i}`} className="star full" aria-hidden>★</span>
+        <span key={`f${i}`} className="star full" aria-hidden>
+          ★
+        </span>
       ))}
-      {half === 1 && <span className="star half" aria-hidden>★</span>}
+      {half === 1 && (
+        <span className="star half" aria-hidden>
+          ★
+        </span>
+      )}
       {Array.from({ length: empty }).map((_, i) => (
-        <span key={`e${i}`} className="star empty" aria-hidden>★</span>
+        <span key={`e${i}`} className="star empty" aria-hidden>
+          ★
+        </span>
       ))}
     </span>
   );
@@ -75,15 +83,18 @@ export const GameMetricsCard = ({
   accordionTitle = "Skill Ceiling",
   accordionBody = "",
 }: GameMetricsCardProps) => {
-  if (!href || !imageSrc || !featuredGame) return null;
-
   const [open, setOpen] = useState(false);
   const regionId = useId();
+
+  if (!href || !imageSrc || !featuredGame) return null;
 
   return (
     <div className={`game-metrics-card ${open ? "is-open" : ""}`}>
       {/* IMPORTANT: <a> stays the grid container for side-by-side layout */}
-      <Link href={href} aria-label={`Explore ${genreName}, featuring ${featuredGame}`}>
+      <Link
+        href={href}
+        aria-label={`Explore ${genreName}, featuring ${featuredGame}`}
+      >
         {/* Left Side : Text and metrics */}
         <div className="content">
           <div className="meta">
@@ -112,12 +123,16 @@ export const GameMetricsCard = ({
           <div className="pills">
             <div className="pill-group">
               {features.map((f, i) => (
-                <span key={`f-${i}`} className="pill feature">{f}</span>
+                <span key={`f-${i}`} className="pill feature">
+                  {f}
+                </span>
               ))}
             </div>
             <div className="pill-group">
               {tags.map((t, i) => (
-                <span key={`t-${i}`} className="pill tag">{t}</span>
+                <span key={`t-${i}`} className="pill tag">
+                  {t}
+                </span>
               ))}
             </div>
           </div>
@@ -143,7 +158,7 @@ export const GameMetricsCard = ({
           className="acc-trigger"
           aria-expanded={open}
           aria-controls={regionId}
-          onClick={() => setOpen(v => !v)}
+          onClick={() => setOpen((v) => !v)}
         >
           <span className="acc-label">{open ? "close" : accordionLabel}</span>
           <span className="caret" aria-hidden />
