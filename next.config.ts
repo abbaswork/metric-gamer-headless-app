@@ -7,7 +7,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: process.env.NEXT_PUBLIC_WORDPRESS_API_HOSTNAME,
+        hostname: "metric-gamer.local",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "metricgamer.com",
         port: "",
       },
     ],
