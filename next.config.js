@@ -1,3 +1,5 @@
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   trailingSlash: true,
@@ -13,3 +15,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+initOpenNextCloudflareForDev();
