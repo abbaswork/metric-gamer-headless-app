@@ -1,76 +1,66 @@
-import Image from 'next/image';
-import './score-card.scss';
-import { RatingIcons } from '../rating-icons/RatingIcons';
-import { RatingIconsTypes } from '../rating-icons/types';
+import Image from "next/image";
+import "./score-card.scss";
+import { RatingIcons } from "../rating-icons/RatingIcons";
+import { RatingIconsTypes } from "../rating-icons/types";
+import { Icons } from "../icons/Icon";
+import { icon } from "../icons/types";
+import { MouseEventHandler } from "react";
+import { BlockGameControlled, GameMetricControlled } from "@/stories/const/score";
 
-export interface ScoreCardProps {
-  src: string;
-  alt: string;
-  gameTitle?: string;
-  gameMetrics?: {
-    metricTitle: string;
-    metricScore: number;
-  }[];
-  gameThumbnail?: {
-    node: {
-      altText: string;
-      sourceUrl: string;
-    };
-  };
-  href?: string;
-  description?: string;
-  postCard?: true;
-}
+export type ScoreCardProps = BlockGameControlled & {
+  handleHideClick: (hideMetricID: number) => void;
+};
 
-export const ScoreCard = ({ gameTitle, src, alt }: ScoreCardProps) => {
-
-
+export const ScoreCard = ({
+  gameTitle,
+  averageScore,
+  gameMetrics,
+  gameThumbnail,
+  handleHideClick,
+}: ScoreCardProps) => {
   return (
-    <div className='score-card'>
-
+    <div className="score-card">
       {/* Use Next.js Image for background Image and optimized loading */}
       <Image
-        src={src}
-        alt={alt}
+        src={gameThumbnail.url}
+        alt={gameThumbnail.alt}
         layout="fill" // Makes the image fill the parent container
         objectFit="cover" // Ensures the image covers the container
         className="card-background-image"
         priority
       />
 
-      <h3 className='card-title'>{gameTitle}</h3>
-      <p className='card-score'>{}</p>
+      <h3 className="card-title">{gameTitle}</h3>
+      <p className="card-score">{averageScore}</p>
 
       {/* Metric Rankings */}
-      <div className='card-rankings'>
-        <div className='card-ranking-row'>
-          <span className='metric-text'>Story:</span>
-          <RatingIcons rank={5} icon={RatingIconsTypes.star}></RatingIcons>
-        </div>
-
-        <div className='card-ranking-row'>
-          <span className='metric-text'>Story:</span>
-          <RatingIcons rank={1} icon={RatingIconsTypes.star}></RatingIcons>
-        </div>
-
-        <div className='card-ranking-row'>
-          <span className='metric-text'>Story:</span>
-          <RatingIcons rank={2} icon={RatingIconsTypes.star}></RatingIcons>
-        </div>
-
-        <div className='card-ranking-row'>
-          <span className='metric-text'>Story:</span>
-          <RatingIcons rank={3} icon={RatingIconsTypes.star}></RatingIcons>
-        </div>
-
-        <div className='card-ranking-row'>
-          <span className='metric-text'>Story:</span>
-          <RatingIcons rank={4} icon={RatingIconsTypes.star}></RatingIcons>
-        </div>
+      <div className="card-rankings">
+        {gameMetrics &&
+          gameMetrics.map((metric: GameMetricControlled, index: number) => (
+            <div className="card-ranking-row" key={index}>
+              <div className="metric-text">
+                <button
+                  id={"" + metric.metricTitle[0].id}
+                  className="hide-metric-button"
+                  aria-label="Hide metric"
+                  onClick={(e) => handleHideClick(metric.metricTitle[0].id)}
+                >
+                  <Icons
+                    {...({ icon: icon.eyeSlash, color: metric.hidden ? "white" : "grey" } as any)}
+                  />
+                </button>
+                <span>{metric.metricTitle[0].name}:</span>
+              </div>
+              <RatingIcons
+                rank={Number(metric.metricScore)}
+                icon={RatingIconsTypes.star}
+              />
+            </div>
+          ))}
       </div>
 
       {/* Link Image as transparent background for card with black overlay */}
-      <div className='card-overlay'></div>
+      <div className="card-overlay"></div>
     </div>
-  )
-}
+  );
+};
