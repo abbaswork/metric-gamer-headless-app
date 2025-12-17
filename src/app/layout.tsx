@@ -1,8 +1,8 @@
 import { draftMode } from "next/headers";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk, Rajdhani } from "next/font/google";
 
-// import "@/app/globals.css";
-import "@/app/globals.scss";
+import "@/styles/globals.css";
+// import "@/app/globals.scss";
 
 import Navigation from "@/components/Globals/Navigation/Navigation";
 import { PreviewNotice } from "@/components/Globals/PreviewNotice/PreviewNotice";
@@ -11,7 +11,13 @@ import { SidePanel } from "@/stories/layouts/side-panel/SidePanel";
 import { ListContainer } from "@/stories/core/list-container/ListContainer";
 import ScrollUpButton from "@/stories/core/scroll-up-button/ScrollUpButton";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-heading" });
+const rajdhani = Rajdhani({ 
+  subsets: ["latin"], 
+  weight: ["300", "400", "500", "600", "700"], 
+  variable: "--font-mono" 
+});
 
 export default async function RootLayout({
   children,
@@ -22,7 +28,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className="page-layout">
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${rajdhani.variable} antialiased bg-background text-foreground`}>
        <Navigation />
         {isEnabled && <PreviewNotice />}
         <PageContent>{children}</PageContent>
