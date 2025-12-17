@@ -89,6 +89,7 @@ export function HeroSection({ selectedMonth, onMonthChange, game }: HeroSectionP
                src={imageSrc}
                alt={game.title} 
                fill
+               priority
                className="object-cover transition-transform duration-1000 group-hover:scale-105"
              />
              {/* Complex Gradient Overlay for Depth and Readability */}

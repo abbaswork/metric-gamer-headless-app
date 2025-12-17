@@ -49,6 +49,7 @@ export function BlogHeader({
           src={imageSrc} 
           alt="Hero" 
           fill
+          priority
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#160026] via-transparent to-transparent opacity-60" />

@@ -5,7 +5,7 @@ import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/component
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, Award, Star } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 // Reusing StarRating here
@@ -157,64 +157,62 @@ export function DetailedBreakdown({ games, activeMetrics }: DetailedBreakdownPro
                 </div>
               </div>
 
-              {/* Collapsible Content */}
-              <AnimatePresence>
-                {isExpanded && (
-                  <CollapsibleContent forceMount>
-                    <motion.div 
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="p-6 md:p-8 border-t border-white/10 bg-black/20">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                          <div className="bg-green-500/5 rounded-xl p-4 border border-green-500/20">
-                            <h4 className="text-green-400 font-bold mb-4 uppercase text-xs tracking-wider flex items-center gap-2">
-                              <div className="w-2 h-2 rounded-full bg-green-500" /> The Good
-                            </h4>
-                            <ul className="space-y-3">
-                              {game.analysis.pros.map((pro, i) => (
-                                <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
-                                  <ArrowRight className="w-4 h-4 text-green-500 shrink-0 mt-0.5" /> {pro}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div className="bg-red-500/5 rounded-xl p-4 border border-red-500/20">
-                            <h4 className="text-red-400 font-bold mb-4 uppercase text-xs tracking-wider flex items-center gap-2">
-                              <div className="w-2 h-2 rounded-full bg-red-500" /> The Bad
-                            </h4>
-                            <ul className="space-y-3">
-                              {game.analysis.cons.map((con, i) => (
-                                <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
-                                  <ArrowRight className="w-4 h-4 text-red-500 shrink-0 mt-0.5" /> {con}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
+              {/* Collapsible Content - Always rendered for SEO, hidden via height/opacity */}
+              <CollapsibleContent forceMount className="overflow-hidden data-[state=closed]:animate-collapse data-[state=open]:animate-expand">
+                <motion.div 
+                  initial={false}
+                  animate={{ 
+                    height: isExpanded ? "auto" : 0,
+                    opacity: isExpanded ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  <div className="p-6 md:p-8 border-t border-white/10 bg-black/20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="bg-green-500/5 rounded-xl p-4 border border-green-500/20">
+                        <h4 className="text-green-400 font-bold mb-4 uppercase text-xs tracking-wider flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-green-500" /> The Good
+                        </h4>
+                        <ul className="space-y-3">
+                          {game.analysis.pros.map((pro, i) => (
+                            <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+                              <ArrowRight className="w-4 h-4 text-green-500 shrink-0 mt-0.5" /> {pro}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="bg-red-500/5 rounded-xl p-4 border border-red-500/20">
+                        <h4 className="text-red-400 font-bold mb-4 uppercase text-xs tracking-wider flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-red-500" /> The Bad
+                        </h4>
+                        <ul className="space-y-3">
+                          {game.analysis.cons.map((con, i) => (
+                            <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+                              <ArrowRight className="w-4 h-4 text-red-500 shrink-0 mt-0.5" /> {con}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-8 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-[#F6CA56] flex items-center justify-center shrink-0">
+                          <Award className="w-6 h-6 text-black" />
                         </div>
-                        
-                        <div className="mt-8 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
-                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-full bg-[#F6CA56] flex items-center justify-center shrink-0">
-                              <Award className="w-6 h-6 text-black" />
-                            </div>
-                            <div>
-                              <h4 className="text-white font-bold mb-1">Our Verdict</h4>
-                              <p className="text-gray-400 text-sm italic">&quot;{game.analysis.verdict}&quot;</p>
-                            </div>
-                          </div>
-                          
-                          <div className="flex gap-4 w-full md:w-auto">
-                            <Button className="flex-1 md:flex-none bg-white/10 hover:bg-white/20">Read Full Review</Button>
-                          </div>
+                        <div>
+                          <h4 className="text-white font-bold mb-1">Our Verdict</h4>
+                          <p className="text-gray-400 text-sm italic">&quot;{game.analysis.verdict}&quot;</p>
                         </div>
                       </div>
-                    </motion.div>
-                  </CollapsibleContent>
-                )}
-              </AnimatePresence>
+                      
+                      <div className="flex gap-4 w-full md:w-auto">
+                        <Button className="flex-1 md:flex-none bg-white/10 hover:bg-white/20">Read Full Review</Button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </CollapsibleContent>
             </Collapsible>
           </motion.div>
         );

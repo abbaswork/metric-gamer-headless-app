@@ -29,7 +29,7 @@ export const scoreCards = [
         metricScore: "2",
       },
     ],
-    handleHideClick: () => console.log("click hide"),
+    handleHideClick: () => {},
   },
   {
     gameTitle: "Test Game 2",

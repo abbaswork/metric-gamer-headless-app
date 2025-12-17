@@ -34,6 +34,7 @@ export function GameHeader({
           src={imageSrc} 
           alt={title}
           fill
+          priority
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#160026] via-[#160026]/60 to-transparent" />
