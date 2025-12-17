@@ -9,7 +9,7 @@ const meta: Meta<typeof Icons> = {
   component: Icons,
   argTypes: {
     icon: {
-      control: 'select', options: icon
+      control: 'select', options: Object.values(icon)
     }
   }
 };

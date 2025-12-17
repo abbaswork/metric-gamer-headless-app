@@ -11,12 +11,13 @@ import PageTemplate from "@/components/Templates/Page/PageTemplate";
 import { nextSlugToWpSlug } from "@/utils/nextSlugToWpSlug";
 import PostTemplate from "@/components/Templates/Post/PostTemplate";
 import { SeoQuery } from "@/queries/general/SeoQuery";
+import { PageProps } from "../../../.next/types/app/[[...slug]]/page";
 
 type Props = {
   params: { slug: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const slug = nextSlugToWpSlug(resolvedParams.slug || "");
   const isPreview = slug.includes("preview");
@@ -47,7 +48,7 @@ export function generateStaticParams() {
   return [];
 }
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;
   const slug = nextSlugToWpSlug(resolvedParams.slug);
   const isPreview = slug.includes("preview");

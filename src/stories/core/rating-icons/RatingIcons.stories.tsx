@@ -9,10 +9,10 @@ const meta: Meta<typeof RatingIcons> = {
   component: RatingIcons,
   argTypes: {
     rank: {
-      control: { type: 'number', min: '1', max: '5' },
+      control: { type: 'number', min: 1, max: 5 },
     },
     icon: {
-      options: RatingIconsTypes,
+      options: Object.values(RatingIconsTypes),
       control: { type: 'select' }
     }
   }
