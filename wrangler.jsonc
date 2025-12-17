@@ -3,6 +3,7 @@
   "main": ".open-next/worker.js",
   "name": "metric-gamer-headless-app",
   "compatibility_date": "2024-12-30",
+  "account_id": "c66092bf72684bc5b91f2ca6ec6af9cd",
   "compatibility_flags": [
     // Enable Node.js API
     // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#nodejs-compatibility-flag
