@@ -1,0 +1,191 @@
+@use "../../../styles/variables/effects.scss";
+
+/* Card with glassy bar*/
+.feature-hero-card {
+  position: relative;
+  border-radius: 1.75rem;
+  overflow: hidden;
+  @include effects.shadow;
+  isolation: isolate; /* keep backdrop filters scoped */
+
+  a {
+    position: relative;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    min-height: 440px; /* desktop baseline height */
+  }
+
+  /*Background image */
+  .media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1);
+      transition: transform .6s cubic-bezier(.22,.61,.36,1);
+      will-change: transform;
+    }
+  }
+
+  /*dark overlay (40%) + gentle vignette */
+  .scrim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* Layer 1: global 60% dark veil
+       Layer 2: vignette to deepen edges for better readabilitu */
+    background:
+      radial-gradient(120% 140% at 50% 40%,
+        rgba(0,0,0,0.00) 0%,
+        rgba(0,0,0,0.25) 45%,
+        rgba(0,0,0,0.45) 70%,
+        rgba(0,0,0,0.60) 100%),
+      rgba(0,0,0,0.40);
+  }
+
+  /*Top-left content */
+  .content {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 2rem 10rem 2rem; /* leave space for bottom bar */
+    max-width: 56rem;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: .6rem 1rem;
+    border-radius: 1rem;
+    background: rgba(255,255,255,.85);
+    color: #2a2140;
+    font-weight: 800;
+    font-size: 1rem;
+    box-shadow: 0 6px 24px rgba(0,0,0,.25);
+  }
+
+  .title {
+    margin: 1rem 0 .75rem;
+    font-size: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+    line-height: 1.1;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0,0,0,.45);
+  }
+
+  .subtitle {
+    margin: 0;
+    color: rgba(255,255,255,.92);
+    font-size: clamp(1rem, .95rem + .2vw, 1.15rem);
+    line-height: 1.5;
+    max-width: 46rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,.35);
+  }
+
+  /* darker bar with game stats */
+  .meta-bar {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    z-index: 1;
+
+    background: rgba(8, 3, 18, 0.72);      /* <- darker, semi-transparent */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    border-top: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 -6px 24px rgba(0,0,0,0.35) inset;
+
+    padding: 1rem 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+  }
+
+  /* ---- stats ---- */
+  .stats {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 2.2rem;
+    align-items: start;
+    min-width: 0;
+  }
+
+  .stat {
+    min-width: 0;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0,0,0,.35);
+  }
+
+  .stat-head {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: #ffd24d; /* golden label */
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,.35));
+  }
+  .stat-head svg { flex: 0 0 auto; }
+
+  .stat-value {
+    margin-top: .35rem;
+    font-weight: 600;
+    font-size: clamp(1rem, .9rem + .4vw, .25rem);
+    white-space: nowrap; /* keep “87 hours” on a single line */
+    align-items: center;
+    color: #fff;
+    text-shadow: 0 1px 6px rgba(0,0,0,.35);
+  }
+
+  /* ---- CTA Button ---- */
+  .cta {
+    align-self: center;
+    justify-self: end;
+    background: #ffd24d;
+    color: #120f19;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: .95rem 1.6rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 28px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.5);
+    transition: transform .15s ease, box-shadow .2s ease;
+  }
+
+  /*Interactions */
+  &:hover .media img,
+  &:focus-within .media img { transform: scale(1.04); }
+  .cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 34px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.6);
+  }
+
+  /* Responsive container */
+  @media (max-width: 1024px) {
+    a { min-height: 520px; }
+    .content { padding: 1.5rem 1.25rem 9.5rem; }
+
+    .meta-bar {
+      grid-template-columns: 1fr;
+      gap: .75rem;
+    }
+    .stats {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .cta { justify-self: start; }
+  }
+
+  @media (max-width: 560px) {
+    a { min-height: 480px; }
+    .stats { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .media img, .cta { transition: none; }
+  }
+}
