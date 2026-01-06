@@ -48,7 +48,7 @@ export default async function PostTemplate({ node }: TemplateProps) {
       <div className={styles.author}>By {post.author?.node.name}</div>
       {componentMapper(post)} */}
 
-      <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
+      <div dangerouslySetInnerHTML={{ __html: (post as any).content || "" }} />
     </div>
   );
 }

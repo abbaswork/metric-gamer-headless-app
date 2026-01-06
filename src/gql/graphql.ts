@@ -17,7 +17,7 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
-/** Connection between the GamesBlockGames_Fields type and the ContentNode type */
+/** Connection between the PostpropertiesGamepostSelectGames_Fields type and the ContentNode type */
 export type AcfContentNodeConnection = Connection & ContentNodeConnection & {
   __typename?: 'AcfContentNodeConnection';
   /** Edges for the AcfContentNodeConnection connection */
@@ -70,16 +70,7 @@ export type AcfFieldGroupFields = {
   fieldGroupName?: Maybe<Scalars['String']['output']>;
 };
 
-/** Connection between the GamesBlockGames_Fields type and the MediaItem type */
-export type AcfMediaItemConnectionEdge = Edge & MediaItemConnectionEdge & OneToOneConnection & {
-  __typename?: 'AcfMediaItemConnectionEdge';
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /** The node of the connection, without the edges */
-  node: MediaItem;
-};
-
-/** Connection between the GamesBlockGamesGameMetrics_Fields type and the TermNode type */
+/** Connection between the PropertiesGameMetrics_Fields type and the TermNode type */
 export type AcfTermNodeConnection = Connection & TermNodeConnection & {
   __typename?: 'AcfTermNodeConnection';
   /** Edges for the AcfTermNodeConnection connection */
@@ -1663,12 +1654,30 @@ export enum ContentTypesOfCategoryEnum {
   Post = 'POST'
 }
 
+/** Allowed Content Types of the Crossplatform taxonomy. */
+export enum ContentTypesOfCrossplatformEnum {
+  /** The Type of Content object */
+  Game = 'GAME'
+}
+
 /** Allowed Content Types of the Metric taxonomy. */
 export enum ContentTypesOfMetricEnum {
   /** The Type of Content object */
   Game = 'GAME',
   /** The Type of Content object */
   Post = 'POST'
+}
+
+/** Allowed Content Types of the Platform taxonomy. */
+export enum ContentTypesOfPlatformEnum {
+  /** The Type of Content object */
+  Game = 'GAME'
+}
+
+/** Allowed Content Types of the Players taxonomy. */
+export enum ContentTypesOfPlayersEnum {
+  /** The Type of Content object */
+  Game = 'GAME'
 }
 
 /** Allowed Content Types of the PostFormat taxonomy. */
@@ -1747,14 +1756,37 @@ export type CreateCommentPayload = {
   success?: Maybe<Scalars['Boolean']['output']>;
 };
 
+/** Input for the createCrossplatform mutation. */
+export type CreateCrossplatformInput = {
+  /** The slug that the crossplatform will be an alias of */
+  aliasOf?: InputMaybe<Scalars['String']['input']>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The description of the crossplatform object */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The name of the crossplatform object to mutate */
+  name: Scalars['String']['input'];
+  /** If this argument exists then the slug will be checked to see if it is not an existing valid term. If that check succeeds (it is not a valid term), then it is added and the term id is given. If it fails, then a check is made to whether the taxonomy is hierarchical and the parent argument is not empty. If the second check succeeds, the term will be inserted and the term id will be given. If the slug argument is empty, then it will be calculated from the term name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the createCrossplatform mutation. */
+export type CreateCrossplatformPayload = {
+  __typename?: 'CreateCrossplatformPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The created crossplatform */
+  crossplatform?: Maybe<Crossplatform>;
+};
+
 /** Input for the createGame mutation. */
 export type CreateGameInput = {
   /** Set connections between the game and categories */
   categories?: InputMaybe<GameCategoriesInput>;
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** The content of the object */
-  content?: InputMaybe<Scalars['String']['input']>;
+  /** Set connections between the game and crossplatform */
+  crossplatform?: InputMaybe<GameCrossplatformInput>;
   /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
   date?: InputMaybe<Scalars['String']['input']>;
   /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
@@ -1763,6 +1795,10 @@ export type CreateGameInput = {
   metrics?: InputMaybe<GameMetricsInput>;
   /** The password used to protect the content of the object */
   password?: InputMaybe<Scalars['String']['input']>;
+  /** Set connections between the game and platform */
+  platform?: InputMaybe<GamePlatformInput>;
+  /** Set connections between the game and players */
+  players?: InputMaybe<GamePlayersInput>;
   /** The slug of the object */
   slug?: InputMaybe<Scalars['String']['input']>;
   /** The status of the object */
@@ -1883,6 +1919,52 @@ export type CreatePagePayload = {
   page?: Maybe<Page>;
 };
 
+/** Input for the createPlatform mutation. */
+export type CreatePlatformInput = {
+  /** The slug that the platform will be an alias of */
+  aliasOf?: InputMaybe<Scalars['String']['input']>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The description of the platform object */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The name of the platform object to mutate */
+  name: Scalars['String']['input'];
+  /** If this argument exists then the slug will be checked to see if it is not an existing valid term. If that check succeeds (it is not a valid term), then it is added and the term id is given. If it fails, then a check is made to whether the taxonomy is hierarchical and the parent argument is not empty. If the second check succeeds, the term will be inserted and the term id will be given. If the slug argument is empty, then it will be calculated from the term name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the createPlatform mutation. */
+export type CreatePlatformPayload = {
+  __typename?: 'CreatePlatformPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The created platform */
+  platform?: Maybe<Platform>;
+};
+
+/** Input for the createPlayers mutation. */
+export type CreatePlayersInput = {
+  /** The slug that the players will be an alias of */
+  aliasOf?: InputMaybe<Scalars['String']['input']>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The description of the players object */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The name of the players object to mutate */
+  name: Scalars['String']['input'];
+  /** If this argument exists then the slug will be checked to see if it is not an existing valid term. If that check succeeds (it is not a valid term), then it is added and the term id is given. If it fails, then a check is made to whether the taxonomy is hierarchical and the parent argument is not empty. If the second check succeeds, the term will be inserted and the term id will be given. If the slug argument is empty, then it will be calculated from the term name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the createPlayers mutation. */
+export type CreatePlayersPayload = {
+  __typename?: 'CreatePlayersPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The created players */
+  players?: Maybe<Players>;
+};
+
 /** Input for the createPostFormat mutation. */
 export type CreatePostFormatInput = {
   /** The slug that the post_format will be an alias of */
@@ -1916,8 +1998,6 @@ export type CreatePostInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   /** The comment status for the object */
   commentStatus?: InputMaybe<Scalars['String']['input']>;
-  /** The content of the object */
-  content?: InputMaybe<Scalars['String']['input']>;
   /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
   date?: InputMaybe<Scalars['String']['input']>;
   /** The excerpt of the object */
@@ -2027,6 +2107,323 @@ export type CreateUserPayload = {
   user?: Maybe<User>;
 };
 
+/** The crossplatform type */
+export type Crossplatform = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
+  __typename?: 'Crossplatform';
+  /** Connection between the Crossplatform type and the ContentNode type */
+  contentNodes?: Maybe<CrossplatformToContentNodeConnection>;
+  /** The number of objects connected to the object */
+  count?: Maybe<Scalars['Int']['output']>;
+  /**
+   * The id field matches the WP_Post-&gt;ID field.
+   * @deprecated Deprecated in favor of databaseId
+   */
+  crossplatformId?: Maybe<Scalars['Int']['output']>;
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int']['output'];
+  /** The description of the object */
+  description?: Maybe<Scalars['String']['output']>;
+  /** Connection between the TermNode type and the EnqueuedScript type */
+  enqueuedScripts?: Maybe<TermNodeToEnqueuedScriptConnection>;
+  /** Connection between the TermNode type and the EnqueuedStylesheet type */
+  enqueuedStylesheets?: Maybe<TermNodeToEnqueuedStylesheetConnection>;
+  /** Connection between the Crossplatform type and the game type */
+  games?: Maybe<CrossplatformToGameConnection>;
+  /** The globally unique ID for the object */
+  id: Scalars['ID']['output'];
+  /** Whether the node is a Comment */
+  isComment: Scalars['Boolean']['output'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean']['output'];
+  /** Whether the node represents the front page. */
+  isFrontPage: Scalars['Boolean']['output'];
+  /** Whether  the node represents the blog page. */
+  isPostsPage: Scalars['Boolean']['output'];
+  /** Whether the object is restricted from the current viewer */
+  isRestricted?: Maybe<Scalars['Boolean']['output']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean']['output'];
+  /** The link to the term */
+  link?: Maybe<Scalars['String']['output']>;
+  /** The human friendly name of the object. */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO data of the Crossplatform taxonomy. */
+  seo?: Maybe<TaxonomySeo>;
+  /** An alphanumeric identifier for the object unique to its type. */
+  slug?: Maybe<Scalars['String']['output']>;
+  /** Connection between the Crossplatform type and the Taxonomy type */
+  taxonomy?: Maybe<CrossplatformToTaxonomyConnectionEdge>;
+  /** The name of the taxonomy that the object is associated with */
+  taxonomyName?: Maybe<Scalars['String']['output']>;
+  /** The ID of the term group that this term object belongs to */
+  termGroupId?: Maybe<Scalars['Int']['output']>;
+  /** The taxonomy ID that the object is associated with */
+  termTaxonomyId?: Maybe<Scalars['Int']['output']>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** The crossplatform type */
+export type CrossplatformContentNodesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CrossplatformToContentNodeConnectionWhereArgs>;
+};
+
+
+/** The crossplatform type */
+export type CrossplatformEnqueuedScriptsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The crossplatform type */
+export type CrossplatformEnqueuedStylesheetsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The crossplatform type */
+export type CrossplatformGamesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CrossplatformToGameConnectionWhereArgs>;
+};
+
+/** A paginated collection of crossplatform Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of crossplatform Nodes */
+export type CrossplatformConnection = {
+  /** A list of edges (relational context) between RootQuery and connected crossplatform Nodes */
+  edges: Array<CrossplatformConnectionEdge>;
+  /** A list of connected crossplatform Nodes */
+  nodes: Array<Crossplatform>;
+  /** Information about pagination in a connection. */
+  pageInfo: CrossplatformConnectionPageInfo;
+};
+
+/** Represents a connection to a crossplatform. Contains both the crossplatform Node and metadata about the relationship. */
+export type CrossplatformConnectionEdge = {
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The connected crossplatform Node */
+  node: Crossplatform;
+};
+
+/** Pagination metadata specific to &quot;CrossplatformConnectionEdge&quot; collections. Provides cursors and flags for navigating through sets of &quot;CrossplatformConnectionEdge&quot; Nodes. */
+export type CrossplatformConnectionPageInfo = {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Identifier types for retrieving a specific Crossplatform. Determines which unique property (global ID, database ID, slug, etc.) is used to locate the Crossplatform. */
+export enum CrossplatformIdType {
+  /** The Database ID for the node */
+  DatabaseId = 'DATABASE_ID',
+  /** The hashed Global ID */
+  Id = 'ID',
+  /** The name of the node */
+  Name = 'NAME',
+  /** Url friendly name of the node */
+  Slug = 'SLUG',
+  /** The URI for the node */
+  Uri = 'URI'
+}
+
+/** Connection between the Crossplatform type and the ContentNode type */
+export type CrossplatformToContentNodeConnection = Connection & ContentNodeConnection & {
+  __typename?: 'CrossplatformToContentNodeConnection';
+  /** Edges for the CrossplatformToContentNodeConnection connection */
+  edges: Array<CrossplatformToContentNodeConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<ContentNode>;
+  /** Information about pagination in a connection. */
+  pageInfo: CrossplatformToContentNodeConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type CrossplatformToContentNodeConnectionEdge = ContentNodeConnectionEdge & Edge & {
+  __typename?: 'CrossplatformToContentNodeConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: ContentNode;
+};
+
+/** Pagination metadata specific to &quot;CrossplatformToContentNodeConnection&quot; collections. Provides cursors and flags for navigating through sets of CrossplatformToContentNodeConnection Nodes. */
+export type CrossplatformToContentNodeConnectionPageInfo = ContentNodeConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'CrossplatformToContentNodeConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the CrossplatformToContentNodeConnection connection */
+export type CrossplatformToContentNodeConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: InputMaybe<Array<InputMaybe<ContentTypesOfCrossplatformEnum>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Connection between the Crossplatform type and the game type */
+export type CrossplatformToGameConnection = Connection & GameConnection & {
+  __typename?: 'CrossplatformToGameConnection';
+  /** Edges for the CrossplatformToGameConnection connection */
+  edges: Array<CrossplatformToGameConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Game>;
+  /** Information about pagination in a connection. */
+  pageInfo: CrossplatformToGameConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type CrossplatformToGameConnectionEdge = Edge & GameConnectionEdge & {
+  __typename?: 'CrossplatformToGameConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: Game;
+};
+
+/** Pagination metadata specific to &quot;CrossplatformToGameConnection&quot; collections. Provides cursors and flags for navigating through sets of CrossplatformToGameConnection Nodes. */
+export type CrossplatformToGameConnectionPageInfo = GameConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'CrossplatformToGameConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the CrossplatformToGameConnection connection */
+export type CrossplatformToGameConnectionWhereArgs = {
+  /** Category ID */
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of category IDs, used to display objects from one category OR another */
+  categoryIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Use Category Slug */
+  categoryName?: InputMaybe<Scalars['String']['input']>;
+  /** Array of category IDs, used to display objects from one category OR another */
+  categoryNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Tag Slug */
+  tag?: InputMaybe<Scalars['String']['input']>;
+  /** Use Tag ID */
+  tagId?: InputMaybe<Scalars['String']['input']>;
+  /** Array of tag IDs, used to display objects from one tag OR another */
+  tagIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of tag IDs, used to display objects from one tag OR another */
+  tagNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of tag slugs, used to display objects from one tag AND another */
+  tagSlugAnd?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of tag slugs, used to include objects in ANY specified tags */
+  tagSlugIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Connection between the Crossplatform type and the Taxonomy type */
+export type CrossplatformToTaxonomyConnectionEdge = Edge & OneToOneConnection & TaxonomyConnectionEdge & {
+  __typename?: 'CrossplatformToTaxonomyConnectionEdge';
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The node of the connection, without the edges */
+  node: Taxonomy;
+};
+
 /** An object that has a unique numeric identifier in the database. Provides consistent access to the database ID across different object types. */
 export type DatabaseIdentifier = {
   /** The unique identifier stored in the database */
@@ -2120,6 +2517,25 @@ export type DeleteCommentPayload = {
   deletedId?: Maybe<Scalars['ID']['output']>;
 };
 
+/** Input for the deleteCrossplatform mutation. */
+export type DeleteCrossplatformInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the crossplatform to delete */
+  id: Scalars['ID']['input'];
+};
+
+/** The payload for the deleteCrossplatform mutation. */
+export type DeleteCrossplatformPayload = {
+  __typename?: 'DeleteCrossplatformPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The deleted term object */
+  crossplatform?: Maybe<Crossplatform>;
+  /** The ID of the deleted object */
+  deletedId?: Maybe<Scalars['ID']['output']>;
+};
+
 /** Input for the deleteGame mutation. */
 export type DeleteGameInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
@@ -2206,6 +2622,44 @@ export type DeletePagePayload = {
   page?: Maybe<Page>;
 };
 
+/** Input for the deletePlatform mutation. */
+export type DeletePlatformInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the platform to delete */
+  id: Scalars['ID']['input'];
+};
+
+/** The payload for the deletePlatform mutation. */
+export type DeletePlatformPayload = {
+  __typename?: 'DeletePlatformPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The ID of the deleted object */
+  deletedId?: Maybe<Scalars['ID']['output']>;
+  /** The deleted term object */
+  platform?: Maybe<Platform>;
+};
+
+/** Input for the deletePlayers mutation. */
+export type DeletePlayersInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the players to delete */
+  id: Scalars['ID']['input'];
+};
+
+/** The payload for the deletePlayers mutation. */
+export type DeletePlayersPayload = {
+  __typename?: 'DeletePlayersPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The ID of the deleted object */
+  deletedId?: Maybe<Scalars['ID']['output']>;
+  /** The deleted term object */
+  players?: Maybe<Players>;
+};
+
 /** Input for the deletePostFormat mutation. */
 export type DeletePostFormatInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
@@ -2286,29 +2740,6 @@ export type DeleteUserPayload = {
   deletedId?: Maybe<Scalars['ID']['output']>;
   /** The deleted user object */
   user?: Maybe<User>;
-};
-
-/** The &quot;Description&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type Description = AcfFieldGroup & AcfFieldGroupFields & Description_Fields & {
-  __typename?: 'Description';
-  /** Description that is used in the display cards on the homepage and on the blog its self */
-  description?: Maybe<Scalars['String']['output']>;
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-};
-
-/** Interface representing fields of the ACF &quot;Description&quot; Field Group */
-export type Description_Fields = {
-  /** Description that is used in the display cards on the homepage and on the blog its self */
-  description?: Maybe<Scalars['String']['output']>;
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
 };
 
 /** The discussion setting type */
@@ -2509,7 +2940,7 @@ export type EnqueuedStylesheetConnectionPageInfo = {
 };
 
 /** The game type */
-export type Game = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithContentEditor & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfGameSettings & {
+export type Game = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfPropertiesGame & {
   __typename?: 'Game';
   /**
    * The ancestors of the content node.
@@ -2518,12 +2949,12 @@ export type Game = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   ancestors?: Maybe<GameToGameConnection>;
   /** Connection between the Game type and the category type */
   categories?: Maybe<GameToCategoryConnection>;
-  /** The content of the post. */
-  content?: Maybe<Scalars['String']['output']>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
   /** The name of the Content Type the node belongs to */
   contentTypeName: Scalars['String']['output'];
+  /** Connection between the Game type and the crossplatform type */
+  crossplatform?: Maybe<GameToCrossplatformConnection>;
   /** The unique identifier stored in the database */
   databaseId: Scalars['Int']['output'];
   /** Post publishing date. */
@@ -2551,8 +2982,6 @@ export type Game = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
    * @deprecated Deprecated in favor of the databaseId field
    */
   gameId: Scalars['Int']['output'];
-  /** Fields of the GameSettings ACF Field Group */
-  gameSettings?: Maybe<GameSettings>;
   /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
   guid?: Maybe<Scalars['String']['output']>;
   /** Whether the game object is password protected. */
@@ -2590,12 +3019,18 @@ export type Game = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   parent?: Maybe<GameToParentConnectionEdge>;
   /** The password for the game object. */
   password?: Maybe<Scalars['String']['output']>;
+  /** Connection between the Game type and the platform type */
+  platform?: Maybe<GameToPlatformConnection>;
+  /** Connection between the Game type and the players type */
+  players?: Maybe<GameToPlayersConnection>;
   /** Connection between the game type and the game type */
   preview?: Maybe<GameToPreviewConnectionEdge>;
   /** The database id of the preview node */
   previewRevisionDatabaseId?: Maybe<Scalars['Int']['output']>;
   /** Whether the object is a node in the preview state */
   previewRevisionId?: Maybe<Scalars['ID']['output']>;
+  /** Fields of the PropertiesGame ACF Field Group */
+  propertiesGame?: Maybe<PropertiesGame>;
   /** The Yoast SEO data of the ContentNode */
   seo?: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
@@ -2635,8 +3070,12 @@ export type GameCategoriesArgs = {
 
 
 /** The game type */
-export type GameContentArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
+export type GameCrossplatformArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<GameToCrossplatformConnectionWhereArgs>;
 };
 
 
@@ -2665,6 +3104,26 @@ export type GameMetricsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<GameToMetricConnectionWhereArgs>;
+};
+
+
+/** The game type */
+export type GamePlatformArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<GameToPlatformConnectionWhereArgs>;
+};
+
+
+/** The game type */
+export type GamePlayersArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<GameToPlayersConnectionWhereArgs>;
 };
 
 
@@ -2745,6 +3204,26 @@ export type GameConnectionPageInfo = {
   startCursor?: Maybe<Scalars['String']['output']>;
 };
 
+/** Set relationships between the game to crossplatform */
+export type GameCrossplatformInput = {
+  /** If true, this will append the crossplatform to existing related crossplatform. If false, this will replace existing relationships. Default true. */
+  append?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The input list of items to set. */
+  nodes?: InputMaybe<Array<InputMaybe<GameCrossplatformNodeInput>>>;
+};
+
+/** List of crossplatform to connect the game to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists. */
+export type GameCrossplatformNodeInput = {
+  /** The description of the crossplatform. This field is used to set a description of the crossplatform if a new one is created during the mutation. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the crossplatform. If present, this will be used to connect to the game. If no existing crossplatform exists with this ID, no connection will be made. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** The name of the crossplatform. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the crossplatform. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** Identifier types for retrieving a specific Game. Specifies which unique attribute is used to find an exact Game. */
 export enum GameIdType {
   /** Identify a resource by the Database ID. */
@@ -2777,106 +3256,44 @@ export type GameMetricsNodeInput = {
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** The &quot;GameSettings&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type GameSettings = AcfFieldGroup & AcfFieldGroupFields & GameSettings_Fields & {
-  __typename?: 'GameSettings';
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;GameSettings&quot; Field Group */
-  gameDescription?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;GameSettings&quot; Field Group */
-  gameMetrics?: Maybe<Array<Maybe<GameSettingsGameMetrics>>>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;GameSettings&quot; Field Group */
-  gameName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;image&quot; Field Type added to the schema as part of the &quot;GameSettings&quot; Field Group */
-  gameThumbnail?: Maybe<AcfMediaItemConnectionEdge>;
-  /** Field of the &quot;taxonomy&quot; Field Type added to the schema as part of the &quot;GameSettings&quot; Field Group */
-  platforms?: Maybe<AcfTermNodeConnection>;
+/** Set relationships between the game to platform */
+export type GamePlatformInput = {
+  /** If true, this will append the platform to existing related platform. If false, this will replace existing relationships. Default true. */
+  append?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The input list of items to set. */
+  nodes?: InputMaybe<Array<InputMaybe<GamePlatformNodeInput>>>;
 };
 
-
-/** The &quot;GameSettings&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type GameSettingsPlatformsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
+/** List of platform to connect the game to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists. */
+export type GamePlatformNodeInput = {
+  /** The description of the platform. This field is used to set a description of the platform if a new one is created during the mutation. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the platform. If present, this will be used to connect to the game. If no existing platform exists with this ID, no connection will be made. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** The name of the platform. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the platform. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation. */
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** The &quot;GameSettingsGameMetrics&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type GameSettingsGameMetrics = AcfFieldGroup & AcfFieldGroupFields & GameSettingsGameMetrics_Fields & {
-  __typename?: 'GameSettingsGameMetrics';
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;taxonomy&quot; Field Type added to the schema as part of the &quot;GameSettingsGameMetrics&quot; Field Group */
-  gameMetric?: Maybe<AcfTermNodeConnection>;
-  /** Field of the &quot;number&quot; Field Type added to the schema as part of the &quot;GameSettingsGameMetrics&quot; Field Group */
-  gameScore?: Maybe<Scalars['Float']['output']>;
+/** Set relationships between the game to players */
+export type GamePlayersInput = {
+  /** If true, this will append the players to existing related players. If false, this will replace existing relationships. Default true. */
+  append?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The input list of items to set. */
+  nodes?: InputMaybe<Array<InputMaybe<GamePlayersNodeInput>>>;
 };
 
-
-/** The &quot;GameSettingsGameMetrics&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type GameSettingsGameMetricsGameMetricArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Interface representing fields of the ACF &quot;GameSettingsGameMetrics&quot; Field Group */
-export type GameSettingsGameMetrics_Fields = {
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;taxonomy&quot; Field Type added to the schema as part of the &quot;GameSettingsGameMetrics&quot; Field Group */
-  gameMetric?: Maybe<AcfTermNodeConnection>;
-  /** Field of the &quot;number&quot; Field Type added to the schema as part of the &quot;GameSettingsGameMetrics&quot; Field Group */
-  gameScore?: Maybe<Scalars['Float']['output']>;
-};
-
-
-/** Interface representing fields of the ACF &quot;GameSettingsGameMetrics&quot; Field Group */
-export type GameSettingsGameMetrics_FieldsGameMetricArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Interface representing fields of the ACF &quot;GameSettings&quot; Field Group */
-export type GameSettings_Fields = {
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;GameSettings&quot; Field Group */
-  gameDescription?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;GameSettings&quot; Field Group */
-  gameMetrics?: Maybe<Array<Maybe<GameSettingsGameMetrics>>>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;GameSettings&quot; Field Group */
-  gameName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;image&quot; Field Type added to the schema as part of the &quot;GameSettings&quot; Field Group */
-  gameThumbnail?: Maybe<AcfMediaItemConnectionEdge>;
-  /** Field of the &quot;taxonomy&quot; Field Type added to the schema as part of the &quot;GameSettings&quot; Field Group */
-  platforms?: Maybe<AcfTermNodeConnection>;
-};
-
-
-/** Interface representing fields of the ACF &quot;GameSettings&quot; Field Group */
-export type GameSettings_FieldsPlatformsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
+/** List of players to connect the game to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists. */
+export type GamePlayersNodeInput = {
+  /** The description of the players. This field is used to set a description of the players if a new one is created during the mutation. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the players. If present, this will be used to connect to the game. If no existing players exists with this ID, no connection will be made. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** The name of the players. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the players. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation. */
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Set relationships between the game to tags */
@@ -2938,6 +3355,87 @@ export type GameToCategoryConnectionPageInfo = CategoryConnectionPageInfo & Page
 
 /** Arguments for filtering the GameToCategoryConnection connection */
 export type GameToCategoryConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Connection between the Game type and the crossplatform type */
+export type GameToCrossplatformConnection = Connection & CrossplatformConnection & {
+  __typename?: 'GameToCrossplatformConnection';
+  /** Edges for the GameToCrossplatformConnection connection */
+  edges: Array<GameToCrossplatformConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Crossplatform>;
+  /** Information about pagination in a connection. */
+  pageInfo: GameToCrossplatformConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type GameToCrossplatformConnectionEdge = CrossplatformConnectionEdge & Edge & {
+  __typename?: 'GameToCrossplatformConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary crossplatform */
+  isPrimary?: Maybe<Scalars['Boolean']['output']>;
+  /** The item at the end of the edge */
+  node: Crossplatform;
+};
+
+/** Pagination metadata specific to &quot;GameToCrossplatformConnection&quot; collections. Provides cursors and flags for navigating through sets of GameToCrossplatformConnection Nodes. */
+export type GameToCrossplatformConnectionPageInfo = CrossplatformConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'GameToCrossplatformConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the GameToCrossplatformConnection connection */
+export type GameToCrossplatformConnectionWhereArgs = {
   /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
   cacheDomain?: InputMaybe<Scalars['String']['input']>;
   /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
@@ -3114,6 +3612,168 @@ export type GameToParentConnectionEdge = Edge & GameConnectionEdge & OneToOneCon
   node: Game;
 };
 
+/** Connection between the Game type and the platform type */
+export type GameToPlatformConnection = Connection & PlatformConnection & {
+  __typename?: 'GameToPlatformConnection';
+  /** Edges for the GameToPlatformConnection connection */
+  edges: Array<GameToPlatformConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Platform>;
+  /** Information about pagination in a connection. */
+  pageInfo: GameToPlatformConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type GameToPlatformConnectionEdge = Edge & PlatformConnectionEdge & {
+  __typename?: 'GameToPlatformConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary platform */
+  isPrimary?: Maybe<Scalars['Boolean']['output']>;
+  /** The item at the end of the edge */
+  node: Platform;
+};
+
+/** Pagination metadata specific to &quot;GameToPlatformConnection&quot; collections. Provides cursors and flags for navigating through sets of GameToPlatformConnection Nodes. */
+export type GameToPlatformConnectionPageInfo = PageInfo & PlatformConnectionPageInfo & WpPageInfo & {
+  __typename?: 'GameToPlatformConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the GameToPlatformConnection connection */
+export type GameToPlatformConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Connection between the Game type and the players type */
+export type GameToPlayersConnection = Connection & PlayersConnection & {
+  __typename?: 'GameToPlayersConnection';
+  /** Edges for the GameToPlayersConnection connection */
+  edges: Array<GameToPlayersConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Players>;
+  /** Information about pagination in a connection. */
+  pageInfo: GameToPlayersConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type GameToPlayersConnectionEdge = Edge & PlayersConnectionEdge & {
+  __typename?: 'GameToPlayersConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary players */
+  isPrimary?: Maybe<Scalars['Boolean']['output']>;
+  /** The item at the end of the edge */
+  node: Players;
+};
+
+/** Pagination metadata specific to &quot;GameToPlayersConnection&quot; collections. Provides cursors and flags for navigating through sets of GameToPlayersConnection Nodes. */
+export type GameToPlayersConnectionPageInfo = PageInfo & PlayersConnectionPageInfo & WpPageInfo & {
+  __typename?: 'GameToPlayersConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the GameToPlayersConnection connection */
+export type GameToPlayersConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 /** Connection between the game type and the game type */
 export type GameToPreviewConnectionEdge = Edge & GameConnectionEdge & OneToOneConnection & {
   __typename?: 'GameToPreviewConnectionEdge';
@@ -3283,131 +3943,6 @@ export type GameToTermNodeConnectionWhereArgs = {
   termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** The &quot;GamesBlock&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type GamesBlock = AcfFieldGroup & AcfFieldGroupFields & GamesBlock_Fields & {
-  __typename?: 'GamesBlock';
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;GamesBlock&quot; Field Group */
-  games?: Maybe<Array<Maybe<GamesBlockGames>>>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;GamesBlock&quot; Field Group */
-  topLevelText?: Maybe<Scalars['String']['output']>;
-};
-
-/** The &quot;GamesBlockGames&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type GamesBlockGames = AcfFieldGroup & AcfFieldGroupFields & GamesBlockGames_Fields & {
-  __typename?: 'GamesBlockGames';
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;GamesBlockGames&quot; Field Group */
-  gameMetrics?: Maybe<Array<Maybe<GamesBlockGamesGameMetrics>>>;
-  /** Field of the &quot;relationship&quot; Field Type added to the schema as part of the &quot;GamesBlockGames&quot; Field Group */
-  gameTest?: Maybe<AcfContentNodeConnection>;
-  /** Field of the &quot;image&quot; Field Type added to the schema as part of the &quot;GamesBlockGames&quot; Field Group */
-  gameThumbnail?: Maybe<AcfMediaItemConnectionEdge>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;GamesBlockGames&quot; Field Group */
-  gameTitle?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** The &quot;GamesBlockGames&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type GamesBlockGamesGameTestArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** The &quot;GamesBlockGamesGameMetrics&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type GamesBlockGamesGameMetrics = AcfFieldGroup & AcfFieldGroupFields & GamesBlockGamesGameMetrics_Fields & {
-  __typename?: 'GamesBlockGamesGameMetrics';
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;number&quot; Field Type added to the schema as part of the &quot;GamesBlockGamesGameMetrics&quot; Field Group */
-  metricScore?: Maybe<Scalars['Float']['output']>;
-  /** Field of the &quot;taxonomy&quot; Field Type added to the schema as part of the &quot;GamesBlockGamesGameMetrics&quot; Field Group */
-  metricTitle?: Maybe<AcfTermNodeConnection>;
-};
-
-
-/** The &quot;GamesBlockGamesGameMetrics&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type GamesBlockGamesGameMetricsMetricTitleArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Interface representing fields of the ACF &quot;GamesBlockGamesGameMetrics&quot; Field Group */
-export type GamesBlockGamesGameMetrics_Fields = {
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;number&quot; Field Type added to the schema as part of the &quot;GamesBlockGamesGameMetrics&quot; Field Group */
-  metricScore?: Maybe<Scalars['Float']['output']>;
-  /** Field of the &quot;taxonomy&quot; Field Type added to the schema as part of the &quot;GamesBlockGamesGameMetrics&quot; Field Group */
-  metricTitle?: Maybe<AcfTermNodeConnection>;
-};
-
-
-/** Interface representing fields of the ACF &quot;GamesBlockGamesGameMetrics&quot; Field Group */
-export type GamesBlockGamesGameMetrics_FieldsMetricTitleArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Interface representing fields of the ACF &quot;GamesBlockGames&quot; Field Group */
-export type GamesBlockGames_Fields = {
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;GamesBlockGames&quot; Field Group */
-  gameMetrics?: Maybe<Array<Maybe<GamesBlockGamesGameMetrics>>>;
-  /** Field of the &quot;relationship&quot; Field Type added to the schema as part of the &quot;GamesBlockGames&quot; Field Group */
-  gameTest?: Maybe<AcfContentNodeConnection>;
-  /** Field of the &quot;image&quot; Field Type added to the schema as part of the &quot;GamesBlockGames&quot; Field Group */
-  gameThumbnail?: Maybe<AcfMediaItemConnectionEdge>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;GamesBlockGames&quot; Field Group */
-  gameTitle?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Interface representing fields of the ACF &quot;GamesBlockGames&quot; Field Group */
-export type GamesBlockGames_FieldsGameTestArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Interface representing fields of the ACF &quot;GamesBlock&quot; Field Group */
-export type GamesBlock_Fields = {
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;GamesBlock&quot; Field Group */
-  games?: Maybe<Array<Maybe<GamesBlockGames>>>;
-  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;GamesBlock&quot; Field Group */
-  topLevelText?: Maybe<Scalars['String']['output']>;
 };
 
 /** The general setting type */
@@ -4451,7 +4986,7 @@ export enum MenuItemNodeIdTypeEnum {
 }
 
 /** Deprecated in favor of MenuItemLinkable Interface */
-export type MenuItemObjectUnion = Category | Game | Metric | Page | Post | Tag;
+export type MenuItemObjectUnion = Category | Crossplatform | Game | Metric | Page | Platform | Players | Post | Tag;
 
 /** Connection between the MenuItem type and the Menu type */
 export type MenuItemToMenuConnectionEdge = Edge & MenuConnectionEdge & OneToOneConnection & {
@@ -5804,6 +6339,640 @@ export type PageToRevisionConnectionWhereArgs = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** The platform type */
+export type Platform = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
+  __typename?: 'Platform';
+  /** Connection between the Platform type and the ContentNode type */
+  contentNodes?: Maybe<PlatformToContentNodeConnection>;
+  /** The number of objects connected to the object */
+  count?: Maybe<Scalars['Int']['output']>;
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int']['output'];
+  /** The description of the object */
+  description?: Maybe<Scalars['String']['output']>;
+  /** Connection between the TermNode type and the EnqueuedScript type */
+  enqueuedScripts?: Maybe<TermNodeToEnqueuedScriptConnection>;
+  /** Connection between the TermNode type and the EnqueuedStylesheet type */
+  enqueuedStylesheets?: Maybe<TermNodeToEnqueuedStylesheetConnection>;
+  /** Connection between the Platform type and the game type */
+  games?: Maybe<PlatformToGameConnection>;
+  /** The globally unique ID for the object */
+  id: Scalars['ID']['output'];
+  /** Whether the node is a Comment */
+  isComment: Scalars['Boolean']['output'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean']['output'];
+  /** Whether the node represents the front page. */
+  isFrontPage: Scalars['Boolean']['output'];
+  /** Whether  the node represents the blog page. */
+  isPostsPage: Scalars['Boolean']['output'];
+  /** Whether the object is restricted from the current viewer */
+  isRestricted?: Maybe<Scalars['Boolean']['output']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean']['output'];
+  /** The link to the term */
+  link?: Maybe<Scalars['String']['output']>;
+  /** The human friendly name of the object. */
+  name?: Maybe<Scalars['String']['output']>;
+  /**
+   * The id field matches the WP_Post-&gt;ID field.
+   * @deprecated Deprecated in favor of databaseId
+   */
+  platformId?: Maybe<Scalars['Int']['output']>;
+  /** The Yoast SEO data of the Platform taxonomy. */
+  seo?: Maybe<TaxonomySeo>;
+  /** An alphanumeric identifier for the object unique to its type. */
+  slug?: Maybe<Scalars['String']['output']>;
+  /** Connection between the Platform type and the Taxonomy type */
+  taxonomy?: Maybe<PlatformToTaxonomyConnectionEdge>;
+  /** The name of the taxonomy that the object is associated with */
+  taxonomyName?: Maybe<Scalars['String']['output']>;
+  /** The ID of the term group that this term object belongs to */
+  termGroupId?: Maybe<Scalars['Int']['output']>;
+  /** The taxonomy ID that the object is associated with */
+  termTaxonomyId?: Maybe<Scalars['Int']['output']>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** The platform type */
+export type PlatformContentNodesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PlatformToContentNodeConnectionWhereArgs>;
+};
+
+
+/** The platform type */
+export type PlatformEnqueuedScriptsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The platform type */
+export type PlatformEnqueuedStylesheetsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The platform type */
+export type PlatformGamesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PlatformToGameConnectionWhereArgs>;
+};
+
+/** A paginated collection of platform Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of platform Nodes */
+export type PlatformConnection = {
+  /** A list of edges (relational context) between RootQuery and connected platform Nodes */
+  edges: Array<PlatformConnectionEdge>;
+  /** A list of connected platform Nodes */
+  nodes: Array<Platform>;
+  /** Information about pagination in a connection. */
+  pageInfo: PlatformConnectionPageInfo;
+};
+
+/** Represents a connection to a platform. Contains both the platform Node and metadata about the relationship. */
+export type PlatformConnectionEdge = {
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The connected platform Node */
+  node: Platform;
+};
+
+/** Pagination metadata specific to &quot;PlatformConnectionEdge&quot; collections. Provides cursors and flags for navigating through sets of &quot;PlatformConnectionEdge&quot; Nodes. */
+export type PlatformConnectionPageInfo = {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Identifier types for retrieving a specific Platform. Determines which unique property (global ID, database ID, slug, etc.) is used to locate the Platform. */
+export enum PlatformIdType {
+  /** The Database ID for the node */
+  DatabaseId = 'DATABASE_ID',
+  /** The hashed Global ID */
+  Id = 'ID',
+  /** The name of the node */
+  Name = 'NAME',
+  /** Url friendly name of the node */
+  Slug = 'SLUG',
+  /** The URI for the node */
+  Uri = 'URI'
+}
+
+/** Connection between the Platform type and the ContentNode type */
+export type PlatformToContentNodeConnection = Connection & ContentNodeConnection & {
+  __typename?: 'PlatformToContentNodeConnection';
+  /** Edges for the PlatformToContentNodeConnection connection */
+  edges: Array<PlatformToContentNodeConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<ContentNode>;
+  /** Information about pagination in a connection. */
+  pageInfo: PlatformToContentNodeConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type PlatformToContentNodeConnectionEdge = ContentNodeConnectionEdge & Edge & {
+  __typename?: 'PlatformToContentNodeConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: ContentNode;
+};
+
+/** Pagination metadata specific to &quot;PlatformToContentNodeConnection&quot; collections. Provides cursors and flags for navigating through sets of PlatformToContentNodeConnection Nodes. */
+export type PlatformToContentNodeConnectionPageInfo = ContentNodeConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'PlatformToContentNodeConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the PlatformToContentNodeConnection connection */
+export type PlatformToContentNodeConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: InputMaybe<Array<InputMaybe<ContentTypesOfPlatformEnum>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Connection between the Platform type and the game type */
+export type PlatformToGameConnection = Connection & GameConnection & {
+  __typename?: 'PlatformToGameConnection';
+  /** Edges for the PlatformToGameConnection connection */
+  edges: Array<PlatformToGameConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Game>;
+  /** Information about pagination in a connection. */
+  pageInfo: PlatformToGameConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type PlatformToGameConnectionEdge = Edge & GameConnectionEdge & {
+  __typename?: 'PlatformToGameConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: Game;
+};
+
+/** Pagination metadata specific to &quot;PlatformToGameConnection&quot; collections. Provides cursors and flags for navigating through sets of PlatformToGameConnection Nodes. */
+export type PlatformToGameConnectionPageInfo = GameConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'PlatformToGameConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the PlatformToGameConnection connection */
+export type PlatformToGameConnectionWhereArgs = {
+  /** Category ID */
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of category IDs, used to display objects from one category OR another */
+  categoryIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Use Category Slug */
+  categoryName?: InputMaybe<Scalars['String']['input']>;
+  /** Array of category IDs, used to display objects from one category OR another */
+  categoryNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Tag Slug */
+  tag?: InputMaybe<Scalars['String']['input']>;
+  /** Use Tag ID */
+  tagId?: InputMaybe<Scalars['String']['input']>;
+  /** Array of tag IDs, used to display objects from one tag OR another */
+  tagIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of tag IDs, used to display objects from one tag OR another */
+  tagNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of tag slugs, used to display objects from one tag AND another */
+  tagSlugAnd?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of tag slugs, used to include objects in ANY specified tags */
+  tagSlugIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Connection between the Platform type and the Taxonomy type */
+export type PlatformToTaxonomyConnectionEdge = Edge & OneToOneConnection & TaxonomyConnectionEdge & {
+  __typename?: 'PlatformToTaxonomyConnectionEdge';
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The node of the connection, without the edges */
+  node: Taxonomy;
+};
+
+/** The players type */
+export type Players = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
+  __typename?: 'Players';
+  /** Connection between the Players type and the ContentNode type */
+  contentNodes?: Maybe<PlayersToContentNodeConnection>;
+  /** The number of objects connected to the object */
+  count?: Maybe<Scalars['Int']['output']>;
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int']['output'];
+  /** The description of the object */
+  description?: Maybe<Scalars['String']['output']>;
+  /** Connection between the TermNode type and the EnqueuedScript type */
+  enqueuedScripts?: Maybe<TermNodeToEnqueuedScriptConnection>;
+  /** Connection between the TermNode type and the EnqueuedStylesheet type */
+  enqueuedStylesheets?: Maybe<TermNodeToEnqueuedStylesheetConnection>;
+  /** Connection between the Players type and the game type */
+  games?: Maybe<PlayersToGameConnection>;
+  /** The globally unique ID for the object */
+  id: Scalars['ID']['output'];
+  /** Whether the node is a Comment */
+  isComment: Scalars['Boolean']['output'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean']['output'];
+  /** Whether the node represents the front page. */
+  isFrontPage: Scalars['Boolean']['output'];
+  /** Whether  the node represents the blog page. */
+  isPostsPage: Scalars['Boolean']['output'];
+  /** Whether the object is restricted from the current viewer */
+  isRestricted?: Maybe<Scalars['Boolean']['output']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean']['output'];
+  /** The link to the term */
+  link?: Maybe<Scalars['String']['output']>;
+  /** The human friendly name of the object. */
+  name?: Maybe<Scalars['String']['output']>;
+  /**
+   * The id field matches the WP_Post-&gt;ID field.
+   * @deprecated Deprecated in favor of databaseId
+   */
+  playersId?: Maybe<Scalars['Int']['output']>;
+  /** The Yoast SEO data of the Players taxonomy. */
+  seo?: Maybe<TaxonomySeo>;
+  /** An alphanumeric identifier for the object unique to its type. */
+  slug?: Maybe<Scalars['String']['output']>;
+  /** Connection between the Players type and the Taxonomy type */
+  taxonomy?: Maybe<PlayersToTaxonomyConnectionEdge>;
+  /** The name of the taxonomy that the object is associated with */
+  taxonomyName?: Maybe<Scalars['String']['output']>;
+  /** The ID of the term group that this term object belongs to */
+  termGroupId?: Maybe<Scalars['Int']['output']>;
+  /** The taxonomy ID that the object is associated with */
+  termTaxonomyId?: Maybe<Scalars['Int']['output']>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** The players type */
+export type PlayersContentNodesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PlayersToContentNodeConnectionWhereArgs>;
+};
+
+
+/** The players type */
+export type PlayersEnqueuedScriptsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The players type */
+export type PlayersEnqueuedStylesheetsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The players type */
+export type PlayersGamesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PlayersToGameConnectionWhereArgs>;
+};
+
+/** A paginated collection of players Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of players Nodes */
+export type PlayersConnection = {
+  /** A list of edges (relational context) between RootQuery and connected players Nodes */
+  edges: Array<PlayersConnectionEdge>;
+  /** A list of connected players Nodes */
+  nodes: Array<Players>;
+  /** Information about pagination in a connection. */
+  pageInfo: PlayersConnectionPageInfo;
+};
+
+/** Represents a connection to a players. Contains both the players Node and metadata about the relationship. */
+export type PlayersConnectionEdge = {
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The connected players Node */
+  node: Players;
+};
+
+/** Pagination metadata specific to &quot;PlayersConnectionEdge&quot; collections. Provides cursors and flags for navigating through sets of &quot;PlayersConnectionEdge&quot; Nodes. */
+export type PlayersConnectionPageInfo = {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Identifier types for retrieving a specific Players. Determines which unique property (global ID, database ID, slug, etc.) is used to locate the Players. */
+export enum PlayersIdType {
+  /** The Database ID for the node */
+  DatabaseId = 'DATABASE_ID',
+  /** The hashed Global ID */
+  Id = 'ID',
+  /** The name of the node */
+  Name = 'NAME',
+  /** Url friendly name of the node */
+  Slug = 'SLUG',
+  /** The URI for the node */
+  Uri = 'URI'
+}
+
+/** Connection between the Players type and the ContentNode type */
+export type PlayersToContentNodeConnection = Connection & ContentNodeConnection & {
+  __typename?: 'PlayersToContentNodeConnection';
+  /** Edges for the PlayersToContentNodeConnection connection */
+  edges: Array<PlayersToContentNodeConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<ContentNode>;
+  /** Information about pagination in a connection. */
+  pageInfo: PlayersToContentNodeConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type PlayersToContentNodeConnectionEdge = ContentNodeConnectionEdge & Edge & {
+  __typename?: 'PlayersToContentNodeConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: ContentNode;
+};
+
+/** Pagination metadata specific to &quot;PlayersToContentNodeConnection&quot; collections. Provides cursors and flags for navigating through sets of PlayersToContentNodeConnection Nodes. */
+export type PlayersToContentNodeConnectionPageInfo = ContentNodeConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'PlayersToContentNodeConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the PlayersToContentNodeConnection connection */
+export type PlayersToContentNodeConnectionWhereArgs = {
+  /** The Types of content to filter */
+  contentTypes?: InputMaybe<Array<InputMaybe<ContentTypesOfPlayersEnum>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Connection between the Players type and the game type */
+export type PlayersToGameConnection = Connection & GameConnection & {
+  __typename?: 'PlayersToGameConnection';
+  /** Edges for the PlayersToGameConnection connection */
+  edges: Array<PlayersToGameConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Game>;
+  /** Information about pagination in a connection. */
+  pageInfo: PlayersToGameConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type PlayersToGameConnectionEdge = Edge & GameConnectionEdge & {
+  __typename?: 'PlayersToGameConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: Game;
+};
+
+/** Pagination metadata specific to &quot;PlayersToGameConnection&quot; collections. Provides cursors and flags for navigating through sets of PlayersToGameConnection Nodes. */
+export type PlayersToGameConnectionPageInfo = GameConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'PlayersToGameConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the PlayersToGameConnection connection */
+export type PlayersToGameConnectionWhereArgs = {
+  /** Category ID */
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of category IDs, used to display objects from one category OR another */
+  categoryIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Use Category Slug */
+  categoryName?: InputMaybe<Scalars['String']['input']>;
+  /** Array of category IDs, used to display objects from one category OR another */
+  categoryNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Tag Slug */
+  tag?: InputMaybe<Scalars['String']['input']>;
+  /** Use Tag ID */
+  tagId?: InputMaybe<Scalars['String']['input']>;
+  /** Array of tag IDs, used to display objects from one tag OR another */
+  tagIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of tag IDs, used to display objects from one tag OR another */
+  tagNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of tag slugs, used to display objects from one tag AND another */
+  tagSlugAnd?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of tag slugs, used to include objects in ANY specified tags */
+  tagSlugIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Connection between the Players type and the Taxonomy type */
+export type PlayersToTaxonomyConnectionEdge = Edge & OneToOneConnection & TaxonomyConnectionEdge & {
+  __typename?: 'PlayersToTaxonomyConnectionEdge';
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The node of the connection, without the edges */
+  node: Taxonomy;
+};
+
 /** An plugin object */
 export type Plugin = Node & {
   __typename?: 'Plugin';
@@ -5878,7 +7047,7 @@ export enum PluginStatusEnum {
 }
 
 /** A chronological content entry typically used for blog posts, news articles, or similar date-based content. */
-export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & NodeWithTrackbacks & Previewable & UniformResourceIdentifiable & WithAcfDescription & {
+export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & NodeWithTrackbacks & Previewable & UniformResourceIdentifiable & {
   __typename?: 'Post';
   /**
    * The ancestors of the content node.
@@ -5899,8 +7068,6 @@ export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   commentStatus?: Maybe<Scalars['String']['output']>;
   /** Connection between the Post type and the Comment type */
   comments?: Maybe<PostToCommentConnection>;
-  /** The content of the post. */
-  content?: Maybe<Scalars['String']['output']>;
   contentBlocks?: Maybe<Array<Maybe<ContentBlocks>>>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
@@ -5912,8 +7079,6 @@ export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   date?: Maybe<Scalars['String']['output']>;
   /** The publishing date set in GMT. */
   dateGmt?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Description ACF Field Group */
-  description?: Maybe<Description>;
   /** The desired slug of the post */
   desiredSlug?: Maybe<Scalars['String']['output']>;
   /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
@@ -6041,12 +7206,6 @@ export type PostCommentsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<PostToCommentConnectionWhereArgs>;
-};
-
-
-/** A chronological content entry typically used for blog posts, news articles, or similar date-based content. */
-export type PostContentArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
 };
 
 
@@ -7405,6 +8564,74 @@ export type PostTypeSeo = {
   twitterTitle?: Maybe<Scalars['String']['output']>;
 };
 
+/** The &quot;PostpropertiesGamepost&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PostpropertiesGamepost = AcfFieldGroup & AcfFieldGroupFields & PostpropertiesGamepost_Fields & {
+  __typename?: 'PostpropertiesGamepost';
+  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group */
+  selectGames?: Maybe<Array<Maybe<PostpropertiesGamepostSelectGames>>>;
+};
+
+/** The &quot;PostpropertiesGamepostSelectGames&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PostpropertiesGamepostSelectGames = AcfFieldGroup & AcfFieldGroupFields & PostpropertiesGamepostSelectGames_Fields & {
+  __typename?: 'PostpropertiesGamepostSelectGames';
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepostSelectGames&quot; Field Group */
+  selectedGame?: Maybe<AcfContentNodeConnection>;
+};
+
+
+/** The &quot;PostpropertiesGamepostSelectGames&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PostpropertiesGamepostSelectGamesSelectedGameArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Interface representing fields of the ACF &quot;PostpropertiesGamepostSelectGames&quot; Field Group */
+export type PostpropertiesGamepostSelectGames_Fields = {
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepostSelectGames&quot; Field Group */
+  selectedGame?: Maybe<AcfContentNodeConnection>;
+};
+
+
+/** Interface representing fields of the ACF &quot;PostpropertiesGamepostSelectGames&quot; Field Group */
+export type PostpropertiesGamepostSelectGames_FieldsSelectedGameArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Interface representing fields of the ACF &quot;PostpropertiesGamepost&quot; Field Group */
+export type PostpropertiesGamepost_Fields = {
+  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group */
+  selectGames?: Maybe<Array<Maybe<PostpropertiesGamepostSelectGames>>>;
+};
+
 /** Content that supports a draft preview mode. Allows viewing unpublished changes before they are made publicly available. Previewing unpublished changes requires appropriate permissions. */
 export type Previewable = {
   /** Whether the object is a node in the preview state */
@@ -7413,6 +8640,148 @@ export type Previewable = {
   previewRevisionDatabaseId?: Maybe<Scalars['Int']['output']>;
   /** Whether the object is a node in the preview state */
   previewRevisionId?: Maybe<Scalars['ID']['output']>;
+};
+
+/** The &quot;PropertiesGame&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PropertiesGame = AcfFieldGroup & AcfFieldGroupFields & PropertiesGame_Fields & {
+  __typename?: 'PropertiesGame';
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  gameDescription?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  gameTitle?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  metrics?: Maybe<Array<Maybe<PropertiesGameMetrics>>>;
+  /** Field of the &quot;number&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  playtime?: Maybe<Scalars['Float']['output']>;
+  /** Field of the &quot;date_picker&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group (ACF Fields of the date_picker type return a date string according to the RFC3339 spec: https://datatracker.ietf.org/doc/html/rfc3339.) */
+  releaseDate?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  theBad?: Maybe<Array<Maybe<PropertiesGameTheBad>>>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  theGood?: Maybe<Array<Maybe<PropertiesGameTheGood>>>;
+};
+
+/** The &quot;PropertiesGameMetrics&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PropertiesGameMetrics = AcfFieldGroup & AcfFieldGroupFields & PropertiesGameMetrics_Fields & {
+  __typename?: 'PropertiesGameMetrics';
+  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PropertiesGameMetrics&quot; Field Group */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;taxonomy&quot; Field Type added to the schema as part of the &quot;PropertiesGameMetrics&quot; Field Group */
+  metric?: Maybe<AcfTermNodeConnection>;
+  /** Field of the &quot;number&quot; Field Type added to the schema as part of the &quot;PropertiesGameMetrics&quot; Field Group */
+  score?: Maybe<Scalars['Float']['output']>;
+};
+
+
+/** The &quot;PropertiesGameMetrics&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PropertiesGameMetricsMetricArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Interface representing fields of the ACF &quot;PropertiesGameMetrics&quot; Field Group */
+export type PropertiesGameMetrics_Fields = {
+  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PropertiesGameMetrics&quot; Field Group */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;taxonomy&quot; Field Type added to the schema as part of the &quot;PropertiesGameMetrics&quot; Field Group */
+  metric?: Maybe<AcfTermNodeConnection>;
+  /** Field of the &quot;number&quot; Field Type added to the schema as part of the &quot;PropertiesGameMetrics&quot; Field Group */
+  score?: Maybe<Scalars['Float']['output']>;
+};
+
+
+/** Interface representing fields of the ACF &quot;PropertiesGameMetrics&quot; Field Group */
+export type PropertiesGameMetrics_FieldsMetricArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** The &quot;PropertiesGameTheBad&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PropertiesGameTheBad = AcfFieldGroup & AcfFieldGroupFields & PropertiesGameTheBad_Fields & {
+  __typename?: 'PropertiesGameTheBad';
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;PropertiesGameTheBad&quot; Field Group */
+  badPoint?: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+};
+
+/** Interface representing fields of the ACF &quot;PropertiesGameTheBad&quot; Field Group */
+export type PropertiesGameTheBad_Fields = {
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;PropertiesGameTheBad&quot; Field Group */
+  badPoint?: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+};
+
+/** The &quot;PropertiesGameTheGood&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PropertiesGameTheGood = AcfFieldGroup & AcfFieldGroupFields & PropertiesGameTheGood_Fields & {
+  __typename?: 'PropertiesGameTheGood';
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;PropertiesGameTheGood&quot; Field Group */
+  goodPoint?: Maybe<Scalars['String']['output']>;
+};
+
+/** Interface representing fields of the ACF &quot;PropertiesGameTheGood&quot; Field Group */
+export type PropertiesGameTheGood_Fields = {
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;PropertiesGameTheGood&quot; Field Group */
+  goodPoint?: Maybe<Scalars['String']['output']>;
+};
+
+/** Interface representing fields of the ACF &quot;PropertiesGame&quot; Field Group */
+export type PropertiesGame_Fields = {
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  gameDescription?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  gameTitle?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  metrics?: Maybe<Array<Maybe<PropertiesGameMetrics>>>;
+  /** Field of the &quot;number&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  playtime?: Maybe<Scalars['Float']['output']>;
+  /** Field of the &quot;date_picker&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group (ACF Fields of the date_picker type return a date string according to the RFC3339 spec: https://datatracker.ietf.org/doc/html/rfc3339.) */
+  releaseDate?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  theBad?: Maybe<Array<Maybe<PropertiesGameTheBad>>>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PropertiesGame&quot; Field Group */
+  theGood?: Maybe<Array<Maybe<PropertiesGameTheGood>>>;
 };
 
 /** The reading setting type */
@@ -7530,6 +8899,8 @@ export type RootMutation = {
   createCategory?: Maybe<CreateCategoryPayload>;
   /** The createComment mutation */
   createComment?: Maybe<CreateCommentPayload>;
+  /** The createCrossplatform mutation */
+  createCrossplatform?: Maybe<CreateCrossplatformPayload>;
   /** The createGame mutation */
   createGame?: Maybe<CreateGamePayload>;
   /** The createMediaItem mutation */
@@ -7538,6 +8909,10 @@ export type RootMutation = {
   createMetric?: Maybe<CreateMetricPayload>;
   /** The createPage mutation */
   createPage?: Maybe<CreatePagePayload>;
+  /** The createPlatform mutation */
+  createPlatform?: Maybe<CreatePlatformPayload>;
+  /** The createPlayers mutation */
+  createPlayers?: Maybe<CreatePlayersPayload>;
   /** The createPost mutation */
   createPost?: Maybe<CreatePostPayload>;
   /** The createPostFormat mutation */
@@ -7550,6 +8925,8 @@ export type RootMutation = {
   deleteCategory?: Maybe<DeleteCategoryPayload>;
   /** The deleteComment mutation */
   deleteComment?: Maybe<DeleteCommentPayload>;
+  /** The deleteCrossplatform mutation */
+  deleteCrossplatform?: Maybe<DeleteCrossplatformPayload>;
   /** The deleteGame mutation */
   deleteGame?: Maybe<DeleteGamePayload>;
   /** The deleteMediaItem mutation */
@@ -7558,6 +8935,10 @@ export type RootMutation = {
   deleteMetric?: Maybe<DeleteMetricPayload>;
   /** The deletePage mutation */
   deletePage?: Maybe<DeletePagePayload>;
+  /** The deletePlatform mutation */
+  deletePlatform?: Maybe<DeletePlatformPayload>;
+  /** The deletePlayers mutation */
+  deletePlayers?: Maybe<DeletePlayersPayload>;
   /** The deletePost mutation */
   deletePost?: Maybe<DeletePostPayload>;
   /** The deletePostFormat mutation */
@@ -7580,6 +8961,8 @@ export type RootMutation = {
   updateCategory?: Maybe<UpdateCategoryPayload>;
   /** The updateComment mutation */
   updateComment?: Maybe<UpdateCommentPayload>;
+  /** The updateCrossplatform mutation */
+  updateCrossplatform?: Maybe<UpdateCrossplatformPayload>;
   /** The updateGame mutation */
   updateGame?: Maybe<UpdateGamePayload>;
   /** The updateMediaItem mutation */
@@ -7588,6 +8971,10 @@ export type RootMutation = {
   updateMetric?: Maybe<UpdateMetricPayload>;
   /** The updatePage mutation */
   updatePage?: Maybe<UpdatePagePayload>;
+  /** The updatePlatform mutation */
+  updatePlatform?: Maybe<UpdatePlatformPayload>;
+  /** The updatePlayers mutation */
+  updatePlayers?: Maybe<UpdatePlayersPayload>;
   /** The updatePost mutation */
   updatePost?: Maybe<UpdatePostPayload>;
   /** The updatePostFormat mutation */
@@ -7614,6 +9001,12 @@ export type RootMutationCreateCommentArgs = {
 
 
 /** The root mutation */
+export type RootMutationCreateCrossplatformArgs = {
+  input: CreateCrossplatformInput;
+};
+
+
+/** The root mutation */
 export type RootMutationCreateGameArgs = {
   input: CreateGameInput;
 };
@@ -7634,6 +9027,18 @@ export type RootMutationCreateMetricArgs = {
 /** The root mutation */
 export type RootMutationCreatePageArgs = {
   input: CreatePageInput;
+};
+
+
+/** The root mutation */
+export type RootMutationCreatePlatformArgs = {
+  input: CreatePlatformInput;
+};
+
+
+/** The root mutation */
+export type RootMutationCreatePlayersArgs = {
+  input: CreatePlayersInput;
 };
 
 
@@ -7674,6 +9079,12 @@ export type RootMutationDeleteCommentArgs = {
 
 
 /** The root mutation */
+export type RootMutationDeleteCrossplatformArgs = {
+  input: DeleteCrossplatformInput;
+};
+
+
+/** The root mutation */
 export type RootMutationDeleteGameArgs = {
   input: DeleteGameInput;
 };
@@ -7694,6 +9105,18 @@ export type RootMutationDeleteMetricArgs = {
 /** The root mutation */
 export type RootMutationDeletePageArgs = {
   input: DeletePageInput;
+};
+
+
+/** The root mutation */
+export type RootMutationDeletePlatformArgs = {
+  input: DeletePlatformInput;
+};
+
+
+/** The root mutation */
+export type RootMutationDeletePlayersArgs = {
+  input: DeletePlayersInput;
 };
 
 
@@ -7764,6 +9187,12 @@ export type RootMutationUpdateCommentArgs = {
 
 
 /** The root mutation */
+export type RootMutationUpdateCrossplatformArgs = {
+  input: UpdateCrossplatformInput;
+};
+
+
+/** The root mutation */
 export type RootMutationUpdateGameArgs = {
   input: UpdateGameInput;
 };
@@ -7784,6 +9213,18 @@ export type RootMutationUpdateMetricArgs = {
 /** The root mutation */
 export type RootMutationUpdatePageArgs = {
   input: UpdatePageInput;
+};
+
+
+/** The root mutation */
+export type RootMutationUpdatePlatformArgs = {
+  input: UpdatePlatformInput;
+};
+
+
+/** The root mutation */
+export type RootMutationUpdatePlayersArgs = {
+  input: UpdatePlayersInput;
 };
 
 
@@ -7819,6 +9260,12 @@ export type RootMutationUpdateUserArgs = {
 /** The root entry point into the Graph */
 export type RootQuery = {
   __typename?: 'RootQuery';
+  /** Connection between the RootQuery type and the crossplatform type */
+  allCrossplatform?: Maybe<RootQueryToCrossplatformConnection>;
+  /** Connection between the RootQuery type and the platform type */
+  allPlatform?: Maybe<RootQueryToPlatformConnection>;
+  /** Connection between the RootQuery type and the players type */
+  allPlayers?: Maybe<RootQueryToPlayersConnection>;
   /** Entry point to get all settings for the site */
   allSettings?: Maybe<Settings>;
   /** Connection between the RootQuery type and the category type */
@@ -7837,6 +9284,8 @@ export type RootQuery = {
   contentType?: Maybe<ContentType>;
   /** Connection between the RootQuery type and the ContentType type */
   contentTypes?: Maybe<RootQueryToContentTypeConnection>;
+  /** A 0bject */
+  crossplatform?: Maybe<Crossplatform>;
   /** Fields of the &#039;DiscussionSettings&#039; settings group */
   discussionSettings?: Maybe<DiscussionSettings>;
   /** An object of the game Type.  */
@@ -7884,6 +9333,10 @@ export type RootQuery = {
   pageBy?: Maybe<Page>;
   /** Connection between the RootQuery type and the page type */
   pages?: Maybe<RootQueryToPageConnection>;
+  /** A 0bject */
+  platform?: Maybe<Platform>;
+  /** A 0bject */
+  players?: Maybe<Players>;
   /** A WordPress plugin */
   plugin?: Maybe<Plugin>;
   /** Connection between the RootQuery type and the Plugin type */
@@ -7939,6 +9392,36 @@ export type RootQuery = {
   viewer?: Maybe<User>;
   /** Fields of the &#039;WritingSettings&#039; settings group */
   writingSettings?: Maybe<WritingSettings>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryAllCrossplatformArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<RootQueryToCrossplatformConnectionWhereArgs>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryAllPlatformArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<RootQueryToPlatformConnectionWhereArgs>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryAllPlayersArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<RootQueryToPlayersConnectionWhereArgs>;
 };
 
 
@@ -8008,6 +9491,13 @@ export type RootQueryContentTypesArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryCrossplatformArgs = {
+  id: Scalars['ID']['input'];
+  idType?: InputMaybe<CrossplatformIdType>;
 };
 
 
@@ -8151,6 +9641,20 @@ export type RootQueryPagesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<RootQueryToPageConnectionWhereArgs>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryPlatformArgs = {
+  id: Scalars['ID']['input'];
+  idType?: InputMaybe<PlatformIdType>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryPlayersArgs = {
+  id: Scalars['ID']['input'];
+  idType?: InputMaybe<PlayersIdType>;
 };
 
 
@@ -8623,6 +10127,85 @@ export type RootQueryToContentTypeConnectionPageInfo = ContentTypeConnectionPage
   seo?: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Connection between the RootQuery type and the crossplatform type */
+export type RootQueryToCrossplatformConnection = Connection & CrossplatformConnection & {
+  __typename?: 'RootQueryToCrossplatformConnection';
+  /** Edges for the RootQueryToCrossplatformConnection connection */
+  edges: Array<RootQueryToCrossplatformConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Crossplatform>;
+  /** Information about pagination in a connection. */
+  pageInfo: RootQueryToCrossplatformConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type RootQueryToCrossplatformConnectionEdge = CrossplatformConnectionEdge & Edge & {
+  __typename?: 'RootQueryToCrossplatformConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: Crossplatform;
+};
+
+/** Pagination metadata specific to &quot;RootQueryToCrossplatformConnection&quot; collections. Provides cursors and flags for navigating through sets of RootQueryToCrossplatformConnection Nodes. */
+export type RootQueryToCrossplatformConnectionPageInfo = CrossplatformConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'RootQueryToCrossplatformConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the RootQueryToCrossplatformConnection connection */
+export type RootQueryToCrossplatformConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Connection between the RootQuery type and the EnqueuedScript type */
@@ -9119,6 +10702,164 @@ export type RootQueryToPageConnectionWhereArgs = {
   status?: InputMaybe<PostStatusEnum>;
   /** Title of the object */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Connection between the RootQuery type and the platform type */
+export type RootQueryToPlatformConnection = Connection & PlatformConnection & {
+  __typename?: 'RootQueryToPlatformConnection';
+  /** Edges for the RootQueryToPlatformConnection connection */
+  edges: Array<RootQueryToPlatformConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Platform>;
+  /** Information about pagination in a connection. */
+  pageInfo: RootQueryToPlatformConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type RootQueryToPlatformConnectionEdge = Edge & PlatformConnectionEdge & {
+  __typename?: 'RootQueryToPlatformConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: Platform;
+};
+
+/** Pagination metadata specific to &quot;RootQueryToPlatformConnection&quot; collections. Provides cursors and flags for navigating through sets of RootQueryToPlatformConnection Nodes. */
+export type RootQueryToPlatformConnectionPageInfo = PageInfo & PlatformConnectionPageInfo & WpPageInfo & {
+  __typename?: 'RootQueryToPlatformConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the RootQueryToPlatformConnection connection */
+export type RootQueryToPlatformConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Connection between the RootQuery type and the players type */
+export type RootQueryToPlayersConnection = Connection & PlayersConnection & {
+  __typename?: 'RootQueryToPlayersConnection';
+  /** Edges for the RootQueryToPlayersConnection connection */
+  edges: Array<RootQueryToPlayersConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Players>;
+  /** Information about pagination in a connection. */
+  pageInfo: RootQueryToPlayersConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type RootQueryToPlayersConnectionEdge = Edge & PlayersConnectionEdge & {
+  __typename?: 'RootQueryToPlayersConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: Players;
+};
+
+/** Pagination metadata specific to &quot;RootQueryToPlayersConnection&quot; collections. Provides cursors and flags for navigating through sets of RootQueryToPlayersConnection Nodes. */
+export type RootQueryToPlayersConnectionPageInfo = PageInfo & PlayersConnectionPageInfo & WpPageInfo & {
+  __typename?: 'RootQueryToPlayersConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the RootQueryToPlayersConnection connection */
+export type RootQueryToPlayersConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Connection between the RootQuery type and the Plugin type */
@@ -10015,7 +11756,10 @@ export type SeoTaxonomyTypeArchive = {
 export type SeoTaxonomyTypes = {
   __typename?: 'SEOTaxonomyTypes';
   category?: Maybe<SeoTaxonomyType>;
+  crossplatform?: Maybe<SeoTaxonomyType>;
   metric?: Maybe<SeoTaxonomyType>;
+  platform?: Maybe<SeoTaxonomyType>;
+  players?: Maybe<SeoTaxonomyType>;
   postFormat?: Maybe<SeoTaxonomyType>;
   tag?: Maybe<SeoTaxonomyType>;
 };
@@ -10681,8 +12425,14 @@ export type TaxonomyConnectionPageInfo = {
 export enum TaxonomyEnum {
   /** Taxonomy enum category */
   Category = 'CATEGORY',
+  /** Taxonomy enum crossplatform */
+  Crossplatform = 'CROSSPLATFORM',
   /** Taxonomy enum metric */
   Metric = 'METRIC',
+  /** Taxonomy enum platform */
+  Platform = 'PLATFORM',
+  /** Taxonomy enum players */
+  Players = 'PLAYERS',
   /** Taxonomy enum post_format */
   Postformat = 'POSTFORMAT',
   /** Taxonomy enum post_tag */
@@ -11132,14 +12882,39 @@ export type UpdateCommentPayload = {
   success?: Maybe<Scalars['Boolean']['output']>;
 };
 
+/** Input for the updateCrossplatform mutation. */
+export type UpdateCrossplatformInput = {
+  /** The slug that the crossplatform will be an alias of */
+  aliasOf?: InputMaybe<Scalars['String']['input']>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The description of the crossplatform object */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the crossplatform object to update */
+  id: Scalars['ID']['input'];
+  /** The name of the crossplatform object to mutate */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** If this argument exists then the slug will be checked to see if it is not an existing valid term. If that check succeeds (it is not a valid term), then it is added and the term id is given. If it fails, then a check is made to whether the taxonomy is hierarchical and the parent argument is not empty. If the second check succeeds, the term will be inserted and the term id will be given. If the slug argument is empty, then it will be calculated from the term name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the updateCrossplatform mutation. */
+export type UpdateCrossplatformPayload = {
+  __typename?: 'UpdateCrossplatformPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The created crossplatform */
+  crossplatform?: Maybe<Crossplatform>;
+};
+
 /** Input for the updateGame mutation. */
 export type UpdateGameInput = {
   /** Set connections between the game and categories */
   categories?: InputMaybe<GameCategoriesInput>;
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** The content of the object */
-  content?: InputMaybe<Scalars['String']['input']>;
+  /** Set connections between the game and crossplatform */
+  crossplatform?: InputMaybe<GameCrossplatformInput>;
   /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
   date?: InputMaybe<Scalars['String']['input']>;
   /** The ID of the game object */
@@ -11152,6 +12927,10 @@ export type UpdateGameInput = {
   metrics?: InputMaybe<GameMetricsInput>;
   /** The password used to protect the content of the object */
   password?: InputMaybe<Scalars['String']['input']>;
+  /** Set connections between the game and platform */
+  platform?: InputMaybe<GamePlatformInput>;
+  /** Set connections between the game and players */
+  players?: InputMaybe<GamePlayersInput>;
   /** The slug of the object */
   slug?: InputMaybe<Scalars['String']['input']>;
   /** The status of the object */
@@ -11280,6 +13059,56 @@ export type UpdatePagePayload = {
   page?: Maybe<Page>;
 };
 
+/** Input for the updatePlatform mutation. */
+export type UpdatePlatformInput = {
+  /** The slug that the platform will be an alias of */
+  aliasOf?: InputMaybe<Scalars['String']['input']>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The description of the platform object */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the platform object to update */
+  id: Scalars['ID']['input'];
+  /** The name of the platform object to mutate */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** If this argument exists then the slug will be checked to see if it is not an existing valid term. If that check succeeds (it is not a valid term), then it is added and the term id is given. If it fails, then a check is made to whether the taxonomy is hierarchical and the parent argument is not empty. If the second check succeeds, the term will be inserted and the term id will be given. If the slug argument is empty, then it will be calculated from the term name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the updatePlatform mutation. */
+export type UpdatePlatformPayload = {
+  __typename?: 'UpdatePlatformPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The created platform */
+  platform?: Maybe<Platform>;
+};
+
+/** Input for the updatePlayers mutation. */
+export type UpdatePlayersInput = {
+  /** The slug that the players will be an alias of */
+  aliasOf?: InputMaybe<Scalars['String']['input']>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The description of the players object */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the players object to update */
+  id: Scalars['ID']['input'];
+  /** The name of the players object to mutate */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** If this argument exists then the slug will be checked to see if it is not an existing valid term. If that check succeeds (it is not a valid term), then it is added and the term id is given. If it fails, then a check is made to whether the taxonomy is hierarchical and the parent argument is not empty. If the second check succeeds, the term will be inserted and the term id will be given. If the slug argument is empty, then it will be calculated from the term name. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the updatePlayers mutation. */
+export type UpdatePlayersPayload = {
+  __typename?: 'UpdatePlayersPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The created players */
+  players?: Maybe<Players>;
+};
+
 /** Input for the updatePostFormat mutation. */
 export type UpdatePostFormatInput = {
   /** The slug that the post_format will be an alias of */
@@ -11315,8 +13144,6 @@ export type UpdatePostInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   /** The comment status for the object */
   commentStatus?: InputMaybe<Scalars['String']['input']>;
-  /** The content of the object */
-  content?: InputMaybe<Scalars['String']['input']>;
   /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
   date?: InputMaybe<Scalars['String']['input']>;
   /** The excerpt of the object */
@@ -11760,11 +13587,15 @@ export enum UserRoleEnum {
   /** User role with specific capabilities */
   Contributor = 'CONTRIBUTOR',
   /** User role with specific capabilities */
+  Customer = 'CUSTOMER',
+  /** User role with specific capabilities */
   Editor = 'EDITOR',
   /** User role with specific capabilities */
   SeoEditor = 'SEO_EDITOR',
   /** User role with specific capabilities */
   SeoManager = 'SEO_MANAGER',
+  /** User role with specific capabilities */
+  ShopManager = 'SHOP_MANAGER',
   /** User role with specific capabilities */
   Subscriber = 'SUBSCRIBER'
 }
@@ -12365,22 +14196,10 @@ export type WpPageInfo = {
   startCursor?: Maybe<Scalars['String']['output']>;
 };
 
-/** Provides access to fields of the &quot;Description&quot; ACF Field Group via the &quot;description&quot; field */
-export type WithAcfDescription = {
-  /** Fields of the Description ACF Field Group */
-  description?: Maybe<Description>;
-};
-
-/** Provides access to fields of the &quot;GameSettings&quot; ACF Field Group via the &quot;gameSettings&quot; field */
-export type WithAcfGameSettings = {
-  /** Fields of the GameSettings ACF Field Group */
-  gameSettings?: Maybe<GameSettings>;
-};
-
-/** Provides access to fields of the &quot;GamesBlock&quot; ACF Field Group via the &quot;gamesBlock&quot; field */
-export type WithAcfGamesBlock = {
-  /** Fields of the GamesBlock ACF Field Group */
-  gamesBlock?: Maybe<GamesBlock>;
+/** Provides access to fields of the &quot;PropertiesGame&quot; ACF Field Group via the &quot;propertiesGame&quot; field */
+export type WithAcfPropertiesGame = {
+  /** Fields of the PropertiesGame ACF Field Group */
+  propertiesGame?: Maybe<PropertiesGame>;
 };
 
 /** The writing setting type */

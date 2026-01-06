@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { HeroSection, GameData } from "../Hero/Hero";
 import { FeaturedGames } from "../FeaturedGames/FeaturedGames";

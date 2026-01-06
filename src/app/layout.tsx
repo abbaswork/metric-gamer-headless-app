@@ -4,12 +4,12 @@ import { Inter, Space_Grotesk, Rajdhani } from "next/font/google";
 import "@/styles/globals.css";
 // import "@/app/globals.scss";
 
-import Navigation from "@/components/Globals/Navigation/Navigation";
+import { Navbar } from "@/stories/header/Navbar/Navbar";
 import { PreviewNotice } from "@/components/Globals/PreviewNotice/PreviewNotice";
-import { PageContent } from "@/stories/layouts/page-content/PageContent";
-import { SidePanel } from "@/stories/layouts/side-panel/SidePanel";
-import { ListContainer } from "@/stories/core/list-container/ListContainer";
-import ScrollUpButton from "@/stories/core/scroll-up-button/ScrollUpButton";
+// import { PageContent } from "@/stories/layouts/page-content/PageContent";
+// import { SidePanel } from "@/stories/layouts/side-panel/SidePanel";
+// import { ListContainer } from "@/stories/core/list-container/ListContainer";
+// import ScrollUpButton from "@/stories/core/scroll-up-button/ScrollUpButton";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-heading" });
@@ -29,17 +29,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${spaceGrotesk.variable} ${rajdhani.variable} antialiased bg-background text-foreground`}>
-       <Navigation />
+       <Navbar />
         {isEnabled && <PreviewNotice />}
-        <PageContent>{children}</PageContent>
-        <SidePanel>
-          <ListContainer title="Sidebar">
-            <>
-              <li>New Blogs Coming Soon</li>
-            </>
-          </ListContainer>
-        </SidePanel>
-        <ScrollUpButton />
+        {children}
       </body>
     </html>
   );

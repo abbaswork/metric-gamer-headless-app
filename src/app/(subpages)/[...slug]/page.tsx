@@ -11,15 +11,15 @@ import PageTemplate from "@/components/Templates/Page/PageTemplate";
 import { nextSlugToWpSlug } from "@/utils/nextSlugToWpSlug";
 import PostTemplate from "@/components/Templates/Post/PostTemplate";
 import { SeoQuery } from "@/queries/general/SeoQuery";
-import { PageProps } from "../../../.next/types/app/[[...slug]]/page";
 
-type Props = {
-  params: { slug: string };
-};
+interface PageProps {
+  params: Promise<{ slug: string[] }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
-  const slug = nextSlugToWpSlug(resolvedParams.slug || "");
+  const slug = nextSlugToWpSlug(resolvedParams.slug || "" as any);
   const isPreview = slug.includes("preview");
 
   const { contentNode } = await fetchGraphQL<{ contentNode: ContentNode }>(
@@ -50,7 +50,7 @@ export function generateStaticParams() {
 
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;
-  const slug = nextSlugToWpSlug(resolvedParams.slug);
+  const slug = nextSlugToWpSlug(resolvedParams.slug as any);
   const isPreview = slug.includes("preview");
   const { contentNode } = await fetchGraphQL<{ contentNode: ContentNode }>(
     print(ContentInfoQuery),
