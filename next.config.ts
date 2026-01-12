@@ -15,6 +15,11 @@ const nextConfig = {
         hostname: "metricgamer.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "images.igdb.com",
+        port: "",
+      },
     ],
   },
 };

@@ -3,7 +3,25 @@
 import * as types from './graphql';
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
-const documents = [];
+/**
+ * Map of all GraphQL operations in the project.
+ *
+ * This map has several performance disadvantages:
+ * 1. It is not tree-shakeable, so it will include all operations in the project.
+ * 2. It is not minifiable, so the string of a GraphQL query will be multiple times inside the bundle.
+ * 3. It does not support dead code elimination, so it will add unused operations.
+ *
+ * Therefore it is highly recommended to use the babel or swc plugin for production.
+ */
+const documents = {
+    "\n    query MenuQuery {\n      menuItems(where: { location: HEADER }) {\n        nodes {\n          uri\n          target\n          label\n        }\n      }\n    }\n  ": types.MenuQueryDocument,
+    "\n  query PageQuery($id: ID!, $preview: Boolean = false) {\n    page(id: $id, idType: DATABASE_ID, asPreview: $preview) {\n      isFrontPage\n      title\n      content\n    }\n    posts(first: 5, where: { orderby: { field: DATE, order: DESC } }) {\n      nodes {\n        id\n        uri\n        excerpt\n        title\n        featuredImage {\n          node {\n            sourceUrl\n          }\n        }\n      }\n    }\n  }\n": types.PageQueryDocument,
+    "\n  query PostQuery($id: ID!, $preview: Boolean = false) {\n    post(id: $id, idType: DATABASE_ID, asPreview: $preview) {\n      # content\n      date\n      title\n      author {\n        node {\n          name\n        }\n      }\n      contentBlocks {\n        __typename\n        blockName\n        data\n      }\n    }\n  }\n": types.PostQueryDocument,
+    "\n  query GameBySlug($slug: ID!) {\n    game(id: $slug, idType: SLUG) {\n      title\n      slug\n      propertiesGame {\n        gameTitle\n        gameDescription\n        playtime\n        releaseDate\n        theBad {\n          badPoint\n        }\n        theGood {\n          goodPoint\n        }\n        metrics {\n          description\n          score\n          metric {\n            nodes {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n": types.GameBySlugDocument,
+    "\n  query ContentInfo($slug: ID!, $idType: ContentNodeIdTypeEnum!) {\n    contentNode(id: $slug, idType: $idType) {\n      contentTypeName\n      databaseId\n      status\n      uri\n    }\n  }\n": types.ContentInfoDocument,
+    "\n  query SeoQuery(\n    $slug: ID!\n    $idType: ContentNodeIdTypeEnum\n    $preview: Boolean = false\n  ) {\n    contentNode(id: $slug, idType: $idType, asPreview: $preview) {\n      seo {\n        canonical\n        cornerstone\n        focuskw\n        metaDesc\n        metaKeywords\n        metaRobotsNofollow\n        metaRobotsNoindex\n        opengraphAuthor\n        opengraphDescription\n        opengraphModifiedTime\n        opengraphPublishedTime\n        opengraphPublisher\n        opengraphSiteName\n        opengraphTitle\n        opengraphType\n        opengraphUrl\n        readingTime\n        title\n        twitterDescription\n        twitterTitle\n        opengraphImage {\n          altText\n          mediaDetails {\n            height\n            width\n          }\n          sourceUrl\n        }\n        twitterImage {\n          altText\n          mediaDetails {\n            width\n            height\n          }\n          sourceUrl\n        }\n      }\n    }\n  }\n": types.SeoQueryDocument,
+};
+
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  *
@@ -17,6 +35,31 @@ const documents = [];
  * Please regenerate the types.
  */
 export function graphql(source: string): unknown;
+
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query MenuQuery {\n      menuItems(where: { location: HEADER }) {\n        nodes {\n          uri\n          target\n          label\n        }\n      }\n    }\n  "): (typeof documents)["\n    query MenuQuery {\n      menuItems(where: { location: HEADER }) {\n        nodes {\n          uri\n          target\n          label\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query PageQuery($id: ID!, $preview: Boolean = false) {\n    page(id: $id, idType: DATABASE_ID, asPreview: $preview) {\n      isFrontPage\n      title\n      content\n    }\n    posts(first: 5, where: { orderby: { field: DATE, order: DESC } }) {\n      nodes {\n        id\n        uri\n        excerpt\n        title\n        featuredImage {\n          node {\n            sourceUrl\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query PageQuery($id: ID!, $preview: Boolean = false) {\n    page(id: $id, idType: DATABASE_ID, asPreview: $preview) {\n      isFrontPage\n      title\n      content\n    }\n    posts(first: 5, where: { orderby: { field: DATE, order: DESC } }) {\n      nodes {\n        id\n        uri\n        excerpt\n        title\n        featuredImage {\n          node {\n            sourceUrl\n          }\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query PostQuery($id: ID!, $preview: Boolean = false) {\n    post(id: $id, idType: DATABASE_ID, asPreview: $preview) {\n      # content\n      date\n      title\n      author {\n        node {\n          name\n        }\n      }\n      contentBlocks {\n        __typename\n        blockName\n        data\n      }\n    }\n  }\n"): (typeof documents)["\n  query PostQuery($id: ID!, $preview: Boolean = false) {\n    post(id: $id, idType: DATABASE_ID, asPreview: $preview) {\n      # content\n      date\n      title\n      author {\n        node {\n          name\n        }\n      }\n      contentBlocks {\n        __typename\n        blockName\n        data\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GameBySlug($slug: ID!) {\n    game(id: $slug, idType: SLUG) {\n      title\n      slug\n      propertiesGame {\n        gameTitle\n        gameDescription\n        playtime\n        releaseDate\n        theBad {\n          badPoint\n        }\n        theGood {\n          goodPoint\n        }\n        metrics {\n          description\n          score\n          metric {\n            nodes {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GameBySlug($slug: ID!) {\n    game(id: $slug, idType: SLUG) {\n      title\n      slug\n      propertiesGame {\n        gameTitle\n        gameDescription\n        playtime\n        releaseDate\n        theBad {\n          badPoint\n        }\n        theGood {\n          goodPoint\n        }\n        metrics {\n          description\n          score\n          metric {\n            nodes {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query ContentInfo($slug: ID!, $idType: ContentNodeIdTypeEnum!) {\n    contentNode(id: $slug, idType: $idType) {\n      contentTypeName\n      databaseId\n      status\n      uri\n    }\n  }\n"): (typeof documents)["\n  query ContentInfo($slug: ID!, $idType: ContentNodeIdTypeEnum!) {\n    contentNode(id: $slug, idType: $idType) {\n      contentTypeName\n      databaseId\n      status\n      uri\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query SeoQuery(\n    $slug: ID!\n    $idType: ContentNodeIdTypeEnum\n    $preview: Boolean = false\n  ) {\n    contentNode(id: $slug, idType: $idType, asPreview: $preview) {\n      seo {\n        canonical\n        cornerstone\n        focuskw\n        metaDesc\n        metaKeywords\n        metaRobotsNofollow\n        metaRobotsNoindex\n        opengraphAuthor\n        opengraphDescription\n        opengraphModifiedTime\n        opengraphPublishedTime\n        opengraphPublisher\n        opengraphSiteName\n        opengraphTitle\n        opengraphType\n        opengraphUrl\n        readingTime\n        title\n        twitterDescription\n        twitterTitle\n        opengraphImage {\n          altText\n          mediaDetails {\n            height\n            width\n          }\n          sourceUrl\n        }\n        twitterImage {\n          altText\n          mediaDetails {\n            width\n            height\n          }\n          sourceUrl\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query SeoQuery(\n    $slug: ID!\n    $idType: ContentNodeIdTypeEnum\n    $preview: Boolean = false\n  ) {\n    contentNode(id: $slug, idType: $idType, asPreview: $preview) {\n      seo {\n        canonical\n        cornerstone\n        focuskw\n        metaDesc\n        metaKeywords\n        metaRobotsNofollow\n        metaRobotsNoindex\n        opengraphAuthor\n        opengraphDescription\n        opengraphModifiedTime\n        opengraphPublishedTime\n        opengraphPublisher\n        opengraphSiteName\n        opengraphTitle\n        opengraphType\n        opengraphUrl\n        readingTime\n        title\n        twitterDescription\n        twitterTitle\n        opengraphImage {\n          altText\n          mediaDetails {\n            height\n            width\n          }\n          sourceUrl\n        }\n        twitterImage {\n          altText\n          mediaDetails {\n            width\n            height\n          }\n          sourceUrl\n        }\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
