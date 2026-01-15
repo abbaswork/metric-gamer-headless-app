@@ -5,6 +5,7 @@ import "@/styles/globals.css";
 // import "@/app/globals.scss";
 
 import { Navbar } from "@/stories/header/Navbar/Navbar";
+import { HelpBubble } from "@/components/HelpBubble/HelpBubble";
 import { PreviewNotice } from "@/components/Globals/PreviewNotice/PreviewNotice";
 // import { PageContent } from "@/stories/layouts/page-content/PageContent";
 // import { SidePanel } from "@/stories/layouts/side-panel/SidePanel";
@@ -28,10 +29,11 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${spaceGrotesk.variable} ${rajdhani.variable} antialiased bg-background text-foreground`}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${rajdhani.variable} antialiased font-sans bg-background text-foreground`}>
        <Navbar />
         {isEnabled && <PreviewNotice />}
         {children}
+        <HelpBubble />
       </body>
     </html>
   );
