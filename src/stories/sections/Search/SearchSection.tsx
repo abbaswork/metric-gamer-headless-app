@@ -15,7 +15,7 @@ export interface SearchSectionProps {
 
 export function SearchSection({ initialGames, initialBlogs }: SearchSectionProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [resultType, setResultType] = useState("all");
+  const [resultType, setResultType] = useState("game");
   const [selectedMetrics, setSelectedMetrics] = useState<string[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [selectedBlogTypes, setSelectedBlogTypes] = useState<string[]>([]);
@@ -41,7 +41,7 @@ export function SearchSection({ initialGames, initialBlogs }: SearchSectionProps
     setSelectedBlogTypes([]);
     setSelectedPlatforms([]);
     setSearchQuery("");
-    setResultType("all");
+    setResultType("game");
   };
 
   // Logic from MetricsPage
@@ -135,13 +135,14 @@ export function SearchSection({ initialGames, initialBlogs }: SearchSectionProps
       </div>
 
       {/* Combined Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
         <AnimatePresence mode="popLayout">
           {filteredResults.length > 0 ? (
             filteredResults.map((item) => (
               <ContentCard 
                 key={item.id}
                 {...item}
+                rank={item.rank}
                 // Adapt logic for GameCard props as needed if mismatch
                 rating={item.type === 'game' ? 4.8 : undefined} // Mocking rating if missing in unified data or map it properly
               />

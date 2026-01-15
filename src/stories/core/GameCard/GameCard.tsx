@@ -36,18 +36,15 @@ export function GameCard({ rank, title, genre, image, delay = 0, onClick, isSele
           src={imageSrc} 
           alt={title}
           fill
-          className="object-cover object-center transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100 block"
+          className="object-cover object-top transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100 block"
         />
       </div>
 
       <div className="absolute top-4 left-4 z-20 flex gap-2">
-        {/* Rank Badge */}
-        <div className="flex flex-col items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-md border border-[#F6CA56] shadow-[0_0_10px_rgba(246,202,86,0.2)]">
-           <span className="text-sm font-bold text-[#F6CA56]">#{rank}</span>
-        </div>
+        {/* Rank Badge removed as per request */}
         
         {/* Genre Badge - Now Yellow as requested */}
-        <Badge className="bg-[#F6CA56] text-black hover:bg-[#F6CA56]/90 font-bold text-xs px-3 py-1 flex items-center justify-center rounded-lg shadow-md uppercase tracking-wider h-10">
+        <Badge className="bg-[#F6CA56] text-black hover:bg-[#F6CA56]/90 font-bold font-sans text-xs px-3 py-1 flex items-center justify-center rounded-lg shadow-md uppercase tracking-wider h-10">
           {genre}
         </Badge>
       </div>

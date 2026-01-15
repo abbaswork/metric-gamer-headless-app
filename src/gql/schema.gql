@@ -4,7 +4,7 @@ schema {
 }
 
 """
-Connection between the PostpropertiesGamepostSelectGames_Fields type and the ContentNode type
+Connection between the PropertiesGamePostSelectGames_Fields type and the ContentNode type
 """
 type AcfContentNodeConnection implements Connection & ContentNodeConnection {
   """Edges for the AcfContentNodeConnection connection"""
@@ -280,6 +280,28 @@ type Category implements DatabaseIdentifier & HierarchicalNode & HierarchicalTer
     """The number of items to return before the referenced "before" cursor"""
     last: Int
   ): TermNodeToEnqueuedStylesheetConnection
+
+  """Connection between the Category type and the gamePost type"""
+  gamePosts(
+    """
+    Cursor used along with the "first" argument to reference where in the dataset to get data
+    """
+    after: String
+
+    """
+    Cursor used along with the "last" argument to reference where in the dataset to get data
+    """
+    before: String
+
+    """The number of items to return after the referenced "after" cursor"""
+    first: Int
+
+    """The number of items to return before the referenced "before" cursor"""
+    last: Int
+
+    """Arguments for filtering the connection"""
+    where: CategoryToGamePostConnectionWhereArgs
+  ): CategoryToGamePostConnection
 
   """Connection between the Category type and the game type"""
   games(
@@ -849,6 +871,121 @@ input CategoryToGameConnectionWhereArgs {
 
   """Array of tag slugs, used to include objects in ANY specified tags"""
   tagSlugIn: [String]
+
+  """Title of the object"""
+  title: String
+}
+
+"""Connection between the Category type and the gamePost type"""
+type CategoryToGamePostConnection implements Connection & GamePostConnection {
+  """Edges for the CategoryToGamePostConnection connection"""
+  edges: [CategoryToGamePostConnectionEdge!]!
+
+  """The nodes of the connection, without the edges"""
+  nodes: [GamePost!]!
+
+  """Information about pagination in a connection."""
+  pageInfo: CategoryToGamePostConnectionPageInfo!
+}
+
+"""An edge in a connection"""
+type CategoryToGamePostConnectionEdge implements Edge & GamePostConnectionEdge {
+  """A cursor for use in pagination"""
+  cursor: String
+
+  """The item at the end of the edge"""
+  node: GamePost!
+}
+
+"""
+Pagination metadata specific to &quot;CategoryToGamePostConnection&quot; collections. Provides cursors and flags for navigating through sets of CategoryToGamePostConnection Nodes.
+"""
+type CategoryToGamePostConnectionPageInfo implements GamePostConnectionPageInfo & PageInfo & WPPageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+"""Arguments for filtering the CategoryToGamePostConnection connection"""
+input CategoryToGamePostConnectionWhereArgs {
+  """Category ID"""
+  categoryId: Int
+
+  """
+  Array of category IDs, used to display objects from one category OR another
+  """
+  categoryIn: [ID]
+
+  """Use Category Slug"""
+  categoryName: String
+
+  """
+  Array of category IDs, used to display objects from one category OR another
+  """
+  categoryNotIn: [ID]
+
+  """Filter the connection based on dates"""
+  dateQuery: DateQueryInput
+
+  """
+  True for objects with passwords; False for objects without passwords; null for all objects with or without passwords
+  """
+  hasPassword: Boolean
+
+  """Specific database ID of the object"""
+  id: Int
+
+  """Array of IDs for the objects to retrieve"""
+  in: [ID]
+
+  """Get objects with a specific mimeType property"""
+  mimeType: MimeTypeEnum
+
+  """Slug / post_name of the object"""
+  name: String
+
+  """Specify objects to retrieve. Use slugs"""
+  nameIn: [String]
+
+  """
+  Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored
+  """
+  notIn: [ID]
+
+  """What parameter to use to order the objects by."""
+  orderby: [PostObjectsConnectionOrderbyInput]
+
+  """Use ID to return only children. Use 0 to return only top-level items"""
+  parent: ID
+
+  """Specify objects whose parent is in an array"""
+  parentIn: [ID]
+
+  """Specify posts whose parent is not in an array"""
+  parentNotIn: [ID]
+
+  """Show posts with a specific password."""
+  password: String
+
+  """Show Posts based on a keyword search"""
+  search: String
+
+  """Retrieve posts where post status is in an array."""
+  stati: [PostStatusEnum]
+
+  """Show posts with a specific status."""
+  status: PostStatusEnum
 
   """Title of the object"""
   title: String
@@ -2226,6 +2363,9 @@ enum ContentTypeEnum {
   GAME
 
   """The Type of Content object"""
+  GAME_POST
+
+  """The Type of Content object"""
   PAGE
 
   """The Type of Content object"""
@@ -2392,6 +2532,9 @@ type ContentTypeToTaxonomyConnectionPageInfo implements PageInfo & TaxonomyConne
 enum ContentTypesOfCategoryEnum {
   """The Type of Content object"""
   GAME
+
+  """The Type of Content object"""
+  GAME_POST
 
   """The Type of Content object"""
   POST
@@ -2625,6 +2768,50 @@ type CreateGamePayload {
 
   """The Post object mutation type."""
   game: Game
+}
+
+"""Input for the createGamePost mutation."""
+input CreateGamePostInput {
+  """Set connections between the gamePost and categories"""
+  categories: GamePostCategoriesInput
+
+  """
+  This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """
+  The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17 
+  """
+  date: String
+
+  """
+  A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types.
+  """
+  menuOrder: Int
+
+  """The password used to protect the content of the object"""
+  password: String
+
+  """The slug of the object"""
+  slug: String
+
+  """The status of the object"""
+  status: PostStatusEnum
+
+  """The title of the object"""
+  title: String
+}
+
+"""The payload for the createGamePost mutation."""
+type CreateGamePostPayload {
+  """
+  If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """The Post object mutation type."""
+  gamePost: GamePost
 }
 
 """Input for the createMediaItem mutation."""
@@ -3694,6 +3881,39 @@ type DeleteGamePayload {
 
   """The object before it was deleted"""
   game: Game
+}
+
+"""Input for the deleteGamePost mutation."""
+input DeleteGamePostInput {
+  """
+  This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """
+  Whether the object should be force deleted instead of being moved to the trash
+  """
+  forceDelete: Boolean
+
+  """The ID of the gamePost to delete"""
+  id: ID!
+
+  """Override the edit lock when another user is editing the post"""
+  ignoreEditLock: Boolean
+}
+
+"""The payload for the deleteGamePost mutation."""
+type DeleteGamePostPayload {
+  """
+  If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """The ID of the deleted object"""
+  deletedId: ID
+
+  """The object before it was deleted"""
+  gamePost: GamePost
 }
 
 """Input for the deleteMediaItem mutation."""
@@ -4809,6 +5029,670 @@ input GamePlayersNodeInput {
   The slug of the players. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation.
   """
   slug: String
+}
+
+"""The gamePost type"""
+type GamePost implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfPropertiesGamePost {
+  """The ancestors of the content node."""
+  ancestors(
+    """
+    Cursor used along with the "first" argument to reference where in the dataset to get data
+    """
+    after: String
+
+    """
+    Cursor used along with the "last" argument to reference where in the dataset to get data
+    """
+    before: String
+
+    """The number of items to return after the referenced "after" cursor"""
+    first: Int
+
+    """The number of items to return before the referenced "before" cursor"""
+    last: Int
+  ): GamePostToGamePostConnection @deprecated(reason: "This content type is not hierarchical and typically will not have ancestors")
+
+  """Connection between the GamePost type and the category type"""
+  categories(
+    """
+    Cursor used along with the "first" argument to reference where in the dataset to get data
+    """
+    after: String
+
+    """
+    Cursor used along with the "last" argument to reference where in the dataset to get data
+    """
+    before: String
+
+    """The number of items to return after the referenced "after" cursor"""
+    first: Int
+
+    """The number of items to return before the referenced "before" cursor"""
+    last: Int
+
+    """Arguments for filtering the connection"""
+    where: GamePostToCategoryConnectionWhereArgs
+  ): GamePostToCategoryConnection
+
+  """Connection between the ContentNode type and the ContentType type"""
+  contentType: ContentNodeToContentTypeConnectionEdge
+
+  """The name of the Content Type the node belongs to"""
+  contentTypeName: String!
+
+  """The unique identifier stored in the database"""
+  databaseId: Int!
+
+  """Post publishing date."""
+  date: String
+
+  """The publishing date set in GMT."""
+  dateGmt: String
+
+  """The desired slug of the post"""
+  desiredSlug: String
+
+  """
+  If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds
+  """
+  editingLockedBy: ContentNodeToEditLockConnectionEdge
+
+  """The RSS enclosure for the object"""
+  enclosure: String
+
+  """Connection between the ContentNode type and the EnqueuedScript type"""
+  enqueuedScripts(
+    """
+    Cursor used along with the "first" argument to reference where in the dataset to get data
+    """
+    after: String
+
+    """
+    Cursor used along with the "last" argument to reference where in the dataset to get data
+    """
+    before: String
+
+    """The number of items to return after the referenced "after" cursor"""
+    first: Int
+
+    """The number of items to return before the referenced "before" cursor"""
+    last: Int
+  ): ContentNodeToEnqueuedScriptConnection
+
+  """
+  Connection between the ContentNode type and the EnqueuedStylesheet type
+  """
+  enqueuedStylesheets(
+    """
+    Cursor used along with the "first" argument to reference where in the dataset to get data
+    """
+    after: String
+
+    """
+    Cursor used along with the "last" argument to reference where in the dataset to get data
+    """
+    before: String
+
+    """The number of items to return after the referenced "after" cursor"""
+    first: Int
+
+    """The number of items to return before the referenced "before" cursor"""
+    last: Int
+  ): ContentNodeToEnqueuedStylesheetConnection
+
+  """
+  Connection between the NodeWithFeaturedImage type and the MediaItem type
+  """
+  featuredImage: NodeWithFeaturedImageToMediaItemConnectionEdge
+
+  """
+  The database identifier for the featured image node assigned to the content node
+  """
+  featuredImageDatabaseId: Int
+
+  """Globally unique ID of the featured image assigned to the node"""
+  featuredImageId: ID
+
+  """The id field matches the WP_Post-&gt;ID field."""
+  gamePostId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
+
+  """
+  The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table.
+  """
+  guid: String
+
+  """Whether the game-post object is password protected."""
+  hasPassword: Boolean
+
+  """The globally unique identifier of the game-post object."""
+  id: ID!
+
+  """Whether the node is a Comment"""
+  isComment: Boolean!
+
+  """Whether the node is a Content Node"""
+  isContentNode: Boolean!
+
+  """Whether the node represents the front page."""
+  isFrontPage: Boolean!
+
+  """Whether  the node represents the blog page."""
+  isPostsPage: Boolean!
+
+  """Whether the object is a node in the preview state"""
+  isPreview: Boolean
+
+  """Whether the object is restricted from the current viewer"""
+  isRestricted: Boolean
+
+  """Whether the node is a Term"""
+  isTermNode: Boolean!
+
+  """The user that most recently edited the node"""
+  lastEditedBy: ContentNodeToEditLastConnectionEdge
+
+  """The permalink of the post"""
+  link: String
+
+  """
+  The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time.
+  """
+  modified: String
+
+  """
+  The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT.
+  """
+  modifiedGmt: String
+
+  """The parent of the content node."""
+  parent: GamePostToParentConnectionEdge @deprecated(reason: "This content type is not hierarchical and typically will not have a parent")
+
+  """The password for the game-post object."""
+  password: String
+
+  """Connection between the gamePost type and the gamePost type"""
+  preview: GamePostToPreviewConnectionEdge
+
+  """The database id of the preview node"""
+  previewRevisionDatabaseId: Int
+
+  """Whether the object is a node in the preview state"""
+  previewRevisionId: ID
+
+  """Fields of the PropertiesGamePost ACF Field Group"""
+  propertiesGamePost: PropertiesGamePost
+
+  """The Yoast SEO data of the ContentNode"""
+  seo: PostTypeSEO
+
+  """
+  The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
+  """
+  slug: String
+
+  """The current status of the object"""
+  status: String
+
+  """The template assigned to the node"""
+  template: ContentTemplate
+
+  """Connection between the GamePost type and the TermNode type"""
+  terms(
+    """
+    Cursor used along with the "first" argument to reference where in the dataset to get data
+    """
+    after: String
+
+    """
+    Cursor used along with the "last" argument to reference where in the dataset to get data
+    """
+    before: String
+
+    """The number of items to return after the referenced "after" cursor"""
+    first: Int
+
+    """The number of items to return before the referenced "before" cursor"""
+    last: Int
+
+    """Arguments for filtering the connection"""
+    where: GamePostToTermNodeConnectionWhereArgs
+  ): GamePostToTermNodeConnection
+
+  """
+  The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made.
+  """
+  title(
+    """Format of the field output"""
+    format: PostObjectFieldFormatEnum
+  ): String
+
+  """The unique resource identifier path"""
+  uri: String
+}
+
+"""Set relationships between the gamePost to categories"""
+input GamePostCategoriesInput {
+  """
+  If true, this will append the category to existing related categories. If false, this will replace existing relationships. Default true.
+  """
+  append: Boolean
+
+  """The input list of items to set."""
+  nodes: [GamePostCategoriesNodeInput]
+}
+
+"""
+List of categories to connect the gamePost to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists.
+"""
+input GamePostCategoriesNodeInput {
+  """
+  The description of the category. This field is used to set a description of the category if a new one is created during the mutation.
+  """
+  description: String
+
+  """
+  The ID of the category. If present, this will be used to connect to the gamePost. If no existing category exists with this ID, no connection will be made.
+  """
+  id: ID
+
+  """
+  The name of the category. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field.
+  """
+  name: String
+
+  """
+  The slug of the category. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation.
+  """
+  slug: String
+}
+
+"""
+A paginated collection of gamePost Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of gamePost Nodes
+"""
+interface GamePostConnection implements Connection {
+  """
+  A list of edges (relational context) between RootQuery and connected gamePost Nodes
+  """
+  edges: [GamePostConnectionEdge!]!
+
+  """A list of connected gamePost Nodes"""
+  nodes: [GamePost!]!
+
+  """Information about pagination in a connection."""
+  pageInfo: GamePostConnectionPageInfo!
+}
+
+"""
+Represents a connection to a gamePost. Contains both the gamePost Node and metadata about the relationship.
+"""
+interface GamePostConnectionEdge implements Edge {
+  """
+  Opaque reference to the nodes position in the connection. Value can be used with pagination args.
+  """
+  cursor: String
+
+  """The connected gamePost Node"""
+  node: GamePost!
+}
+
+"""
+Pagination metadata specific to &quot;GamePostConnectionEdge&quot; collections. Provides cursors and flags for navigating through sets of &quot;GamePostConnectionEdge&quot; Nodes.
+"""
+interface GamePostConnectionPageInfo implements PageInfo & WPPageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+"""
+Identifier types for retrieving a specific GamePost. Specifies which unique attribute is used to find an exact GamePost.
+"""
+enum GamePostIdType {
+  """Identify a resource by the Database ID."""
+  DATABASE_ID
+
+  """Identify a resource by the (hashed) Global ID."""
+  ID
+
+  """
+  Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier.
+  """
+  SLUG
+
+  """Identify a resource by the URI."""
+  URI
+}
+
+"""Connection between the GamePost type and the category type"""
+type GamePostToCategoryConnection implements CategoryConnection & Connection {
+  """Edges for the GamePostToCategoryConnection connection"""
+  edges: [GamePostToCategoryConnectionEdge!]!
+
+  """The nodes of the connection, without the edges"""
+  nodes: [Category!]!
+
+  """Information about pagination in a connection."""
+  pageInfo: GamePostToCategoryConnectionPageInfo!
+}
+
+"""An edge in a connection"""
+type GamePostToCategoryConnectionEdge implements CategoryConnectionEdge & Edge {
+  """A cursor for use in pagination"""
+  cursor: String
+
+  """The Yoast SEO Primary category"""
+  isPrimary: Boolean
+
+  """The item at the end of the edge"""
+  node: Category!
+}
+
+"""
+Pagination metadata specific to &quot;GamePostToCategoryConnection&quot; collections. Provides cursors and flags for navigating through sets of GamePostToCategoryConnection Nodes.
+"""
+type GamePostToCategoryConnectionPageInfo implements CategoryConnectionPageInfo & PageInfo & WPPageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+"""Arguments for filtering the GamePostToCategoryConnection connection"""
+input GamePostToCategoryConnectionWhereArgs {
+  """
+  Unique cache key to be produced when this query is stored in an object cache. Default is 'core'.
+  """
+  cacheDomain: String
+
+  """
+  Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0.
+  """
+  childOf: Int
+
+  """
+  True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false.
+  """
+  childless: Boolean
+
+  """
+  Retrieve terms where the description is LIKE the input value. Default empty.
+  """
+  descriptionLike: String
+
+  """
+  Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array.
+  """
+  exclude: [ID]
+
+  """
+  Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array.
+  """
+  excludeTree: [ID]
+
+  """
+  Whether to hide terms not assigned to any posts. Accepts true or false. Default false
+  """
+  hideEmpty: Boolean
+
+  """
+  Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true.
+  """
+  hierarchical: Boolean
+
+  """Array of term ids to include. Default empty array."""
+  include: [ID]
+
+  """Array of names to return term(s) for. Default empty."""
+  name: [String]
+
+  """Retrieve terms where the name is LIKE the input value. Default empty."""
+  nameLike: String
+
+  """
+  Array of object IDs. Results will be limited to terms associated with these objects.
+  """
+  objectIds: [ID]
+
+  """Direction the connection should be ordered in"""
+  order: OrderEnum
+
+  """Field(s) to order terms by. Defaults to 'name'."""
+  orderby: TermObjectsConnectionOrderbyEnum
+
+  """
+  Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false.
+  """
+  padCounts: Boolean
+
+  """Parent term ID to retrieve direct-child terms of. Default empty."""
+  parent: Int
+
+  """
+  Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty.
+  """
+  search: String
+
+  """Array of slugs to return term(s) for. Default empty."""
+  slug: [String]
+
+  """Array of term taxonomy IDs, to match when querying terms."""
+  termTaxonomyId: [ID]
+
+  """Whether to prime meta caches for matched terms. Default true."""
+  updateTermMetaCache: Boolean
+}
+
+"""Connection between the gamePost type and the gamePost type"""
+type GamePostToGamePostConnection implements Connection & GamePostConnection {
+  """Edges for the GamePostToGamePostConnection connection"""
+  edges: [GamePostToGamePostConnectionEdge!]!
+
+  """The nodes of the connection, without the edges"""
+  nodes: [GamePost!]!
+
+  """Information about pagination in a connection."""
+  pageInfo: GamePostToGamePostConnectionPageInfo!
+}
+
+"""An edge in a connection"""
+type GamePostToGamePostConnectionEdge implements Edge & GamePostConnectionEdge {
+  """A cursor for use in pagination"""
+  cursor: String @deprecated(reason: "This content type is not hierarchical and typically will not have ancestors")
+
+  """The item at the end of the edge"""
+  node: GamePost! @deprecated(reason: "This content type is not hierarchical and typically will not have ancestors")
+}
+
+"""
+Pagination metadata specific to &quot;GamePostToGamePostConnection&quot; collections. Provides cursors and flags for navigating through sets of GamePostToGamePostConnection Nodes.
+"""
+type GamePostToGamePostConnectionPageInfo implements GamePostConnectionPageInfo & PageInfo & WPPageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+"""Connection between the gamePost type and the gamePost type"""
+type GamePostToParentConnectionEdge implements Edge & GamePostConnectionEdge & OneToOneConnection {
+  """
+  Opaque reference to the nodes position in the connection. Value can be used with pagination args.
+  """
+  cursor: String
+
+  """The node of the connection, without the edges"""
+  node: GamePost! @deprecated(reason: "This content type is not hierarchical and typically will not have a parent")
+}
+
+"""Connection between the gamePost type and the gamePost type"""
+type GamePostToPreviewConnectionEdge implements Edge & GamePostConnectionEdge & OneToOneConnection {
+  """
+  Opaque reference to the nodes position in the connection. Value can be used with pagination args.
+  """
+  cursor: String
+
+  """The node of the connection, without the edges"""
+  node: GamePost!
+}
+
+"""Connection between the GamePost type and the TermNode type"""
+type GamePostToTermNodeConnection implements Connection & TermNodeConnection {
+  """Edges for the GamePostToTermNodeConnection connection"""
+  edges: [GamePostToTermNodeConnectionEdge!]!
+
+  """The nodes of the connection, without the edges"""
+  nodes: [TermNode!]!
+
+  """Information about pagination in a connection."""
+  pageInfo: GamePostToTermNodeConnectionPageInfo!
+}
+
+"""An edge in a connection"""
+type GamePostToTermNodeConnectionEdge implements Edge & TermNodeConnectionEdge {
+  """A cursor for use in pagination"""
+  cursor: String
+
+  """The item at the end of the edge"""
+  node: TermNode!
+}
+
+"""
+Pagination metadata specific to &quot;GamePostToTermNodeConnection&quot; collections. Provides cursors and flags for navigating through sets of GamePostToTermNodeConnection Nodes.
+"""
+type GamePostToTermNodeConnectionPageInfo implements PageInfo & TermNodeConnectionPageInfo & WPPageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+"""Arguments for filtering the GamePostToTermNodeConnection connection"""
+input GamePostToTermNodeConnectionWhereArgs {
+  """
+  Unique cache key to be produced when this query is stored in an object cache. Default is 'core'.
+  """
+  cacheDomain: String
+
+  """
+  Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0.
+  """
+  childOf: Int
+
+  """
+  True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false.
+  """
+  childless: Boolean
+
+  """
+  Retrieve terms where the description is LIKE the input value. Default empty.
+  """
+  descriptionLike: String
+
+  """
+  Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array.
+  """
+  exclude: [ID]
+
+  """
+  Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array.
+  """
+  excludeTree: [ID]
+
+  """
+  Whether to hide terms not assigned to any posts. Accepts true or false. Default false
+  """
+  hideEmpty: Boolean
+
+  """
+  Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true.
+  """
+  hierarchical: Boolean
+
+  """Array of term ids to include. Default empty array."""
+  include: [ID]
+
+  """Array of names to return term(s) for. Default empty."""
+  name: [String]
+
+  """Retrieve terms where the name is LIKE the input value. Default empty."""
+  nameLike: String
+
+  """
+  Array of object IDs. Results will be limited to terms associated with these objects.
+  """
+  objectIds: [ID]
+
+  """Direction the connection should be ordered in"""
+  order: OrderEnum
+
+  """Field(s) to order terms by. Defaults to 'name'."""
+  orderby: TermObjectsConnectionOrderbyEnum
+
+  """
+  Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false.
+  """
+  padCounts: Boolean
+
+  """Parent term ID to retrieve direct-child terms of. Default empty."""
+  parent: Int
+
+  """
+  Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty.
+  """
+  search: String
+
+  """Array of slugs to return term(s) for. Default empty."""
+  slug: [String]
+
+  """The Taxonomy to filter terms by"""
+  taxonomies: [TaxonomyEnum]
+
+  """Array of term taxonomy IDs, to match when querying terms."""
+  termTaxonomyId: [ID]
+
+  """Whether to prime meta caches for matched terms. Default true."""
+  updateTermMetaCache: Boolean
 }
 
 """Set relationships between the game to tags"""
@@ -7346,7 +8230,7 @@ enum MenuItemNodeIdTypeEnum {
 }
 
 """Deprecated in favor of MenuItemLinkable Interface"""
-union MenuItemObjectUnion = Category | Crossplatform | Game | Metric | Page | Platform | Players | Post | Tag
+union MenuItemObjectUnion = Category | Crossplatform | Game | GamePost | Metric | Page | Platform | Players | Post | Tag
 
 """Connection between the MenuItem type and the Menu type"""
 type MenuItemToMenuConnectionEdge implements Edge & MenuConnectionEdge & OneToOneConnection {
@@ -12721,100 +13605,6 @@ type PostTypeSEO {
 }
 
 """
-The &quot;PostpropertiesGamepost&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;.
-"""
-type PostpropertiesGamepost implements AcfFieldGroup & AcfFieldGroupFields & PostpropertiesGamepost_Fields {
-  """
-  Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group
-  """
-  description: String
-
-  """The name of the field group"""
-  fieldGroupName: String @deprecated(reason: "Use __typename instead")
-
-  """
-  Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group
-  """
-  selectGames: [PostpropertiesGamepostSelectGames]
-}
-
-"""
-The &quot;PostpropertiesGamepostSelectGames&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;.
-"""
-type PostpropertiesGamepostSelectGames implements AcfFieldGroup & AcfFieldGroupFields & PostpropertiesGamepostSelectGames_Fields {
-  """The name of the field group"""
-  fieldGroupName: String @deprecated(reason: "Use __typename instead")
-
-  """
-  Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepostSelectGames&quot; Field Group
-  """
-  selectedGame(
-    """
-    Cursor used along with the "first" argument to reference where in the dataset to get data
-    """
-    after: String
-
-    """
-    Cursor used along with the "last" argument to reference where in the dataset to get data
-    """
-    before: String
-
-    """The number of items to return after the referenced "after" cursor"""
-    first: Int
-
-    """The number of items to return before the referenced "before" cursor"""
-    last: Int
-  ): AcfContentNodeConnection
-}
-
-"""
-Interface representing fields of the ACF &quot;PostpropertiesGamepostSelectGames&quot; Field Group
-"""
-interface PostpropertiesGamepostSelectGames_Fields implements AcfFieldGroup & AcfFieldGroupFields {
-  """The name of the field group"""
-  fieldGroupName: String @deprecated(reason: "Use __typename instead")
-
-  """
-  Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepostSelectGames&quot; Field Group
-  """
-  selectedGame(
-    """
-    Cursor used along with the "first" argument to reference where in the dataset to get data
-    """
-    after: String
-
-    """
-    Cursor used along with the "last" argument to reference where in the dataset to get data
-    """
-    before: String
-
-    """The number of items to return after the referenced "after" cursor"""
-    first: Int
-
-    """The number of items to return before the referenced "before" cursor"""
-    last: Int
-  ): AcfContentNodeConnection
-}
-
-"""
-Interface representing fields of the ACF &quot;PostpropertiesGamepost&quot; Field Group
-"""
-interface PostpropertiesGamepost_Fields implements AcfFieldGroup & AcfFieldGroupFields {
-  """
-  Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group
-  """
-  description: String
-
-  """The name of the field group"""
-  fieldGroupName: String @deprecated(reason: "Use __typename instead")
-
-  """
-  Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group
-  """
-  selectGames: [PostpropertiesGamepostSelectGames]
-}
-
-"""
 Content that supports a draft preview mode. Allows viewing unpublished changes before they are made publicly available. Previewing unpublished changes requires appropriate permissions.
 """
 interface Previewable {
@@ -12947,6 +13737,100 @@ interface PropertiesGameMetrics_Fields implements AcfFieldGroup & AcfFieldGroupF
   Field of the &quot;number&quot; Field Type added to the schema as part of the &quot;PropertiesGameMetrics&quot; Field Group
   """
   score: Float
+}
+
+"""
+The &quot;PropertiesGamePost&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;.
+"""
+type PropertiesGamePost implements AcfFieldGroup & AcfFieldGroupFields & PropertiesGamePost_Fields {
+  """
+  Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PropertiesGamePost&quot; Field Group
+  """
+  description: String
+
+  """The name of the field group"""
+  fieldGroupName: String @deprecated(reason: "Use __typename instead")
+
+  """
+  Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PropertiesGamePost&quot; Field Group
+  """
+  selectGames: [PropertiesGamePostSelectGames]
+}
+
+"""
+The &quot;PropertiesGamePostSelectGames&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;.
+"""
+type PropertiesGamePostSelectGames implements AcfFieldGroup & AcfFieldGroupFields & PropertiesGamePostSelectGames_Fields {
+  """The name of the field group"""
+  fieldGroupName: String @deprecated(reason: "Use __typename instead")
+
+  """
+  Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;PropertiesGamePostSelectGames&quot; Field Group
+  """
+  selectedGame(
+    """
+    Cursor used along with the "first" argument to reference where in the dataset to get data
+    """
+    after: String
+
+    """
+    Cursor used along with the "last" argument to reference where in the dataset to get data
+    """
+    before: String
+
+    """The number of items to return after the referenced "after" cursor"""
+    first: Int
+
+    """The number of items to return before the referenced "before" cursor"""
+    last: Int
+  ): AcfContentNodeConnection
+}
+
+"""
+Interface representing fields of the ACF &quot;PropertiesGamePostSelectGames&quot; Field Group
+"""
+interface PropertiesGamePostSelectGames_Fields implements AcfFieldGroup & AcfFieldGroupFields {
+  """The name of the field group"""
+  fieldGroupName: String @deprecated(reason: "Use __typename instead")
+
+  """
+  Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;PropertiesGamePostSelectGames&quot; Field Group
+  """
+  selectedGame(
+    """
+    Cursor used along with the "first" argument to reference where in the dataset to get data
+    """
+    after: String
+
+    """
+    Cursor used along with the "last" argument to reference where in the dataset to get data
+    """
+    before: String
+
+    """The number of items to return after the referenced "after" cursor"""
+    first: Int
+
+    """The number of items to return before the referenced "before" cursor"""
+    last: Int
+  ): AcfContentNodeConnection
+}
+
+"""
+Interface representing fields of the ACF &quot;PropertiesGamePost&quot; Field Group
+"""
+interface PropertiesGamePost_Fields implements AcfFieldGroup & AcfFieldGroupFields {
+  """
+  Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PropertiesGamePost&quot; Field Group
+  """
+  description: String
+
+  """The name of the field group"""
+  fieldGroupName: String @deprecated(reason: "Use __typename instead")
+
+  """
+  Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PropertiesGamePost&quot; Field Group
+  """
+  selectGames: [PropertiesGamePostSelectGames]
 }
 
 """
@@ -13222,6 +14106,12 @@ type RootMutation {
     input: CreateGameInput!
   ): CreateGamePayload
 
+  """The createGamePost mutation"""
+  createGamePost(
+    """Input for the createGamePost mutation"""
+    input: CreateGamePostInput!
+  ): CreateGamePostPayload
+
   """The createMediaItem mutation"""
   createMediaItem(
     """Input for the createMediaItem mutation"""
@@ -13299,6 +14189,12 @@ type RootMutation {
     """Input for the deleteGame mutation"""
     input: DeleteGameInput!
   ): DeleteGamePayload
+
+  """The deleteGamePost mutation"""
+  deleteGamePost(
+    """Input for the deleteGamePost mutation"""
+    input: DeleteGamePostInput!
+  ): DeleteGamePostPayload
 
   """The deleteMediaItem mutation"""
   deleteMediaItem(
@@ -13407,6 +14303,12 @@ type RootMutation {
     """Input for the updateGame mutation"""
     input: UpdateGameInput!
   ): UpdateGamePayload
+
+  """The updateGamePost mutation"""
+  updateGamePost(
+    """Input for the updateGamePost mutation"""
+    input: UpdateGamePostInput!
+  ): UpdateGamePostPayload
 
   """The updateMediaItem mutation"""
   updateMediaItem(
@@ -13715,6 +14617,59 @@ type RootQuery {
     """Get the game by its uri"""
     uri: String
   ): Game @deprecated(reason: "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
+
+  """An object of the gamePost Type. """
+  gamePost(
+    """
+    Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned. If the ID provided is a URI and has a preview query arg, it will be used as a fallback if the "asPreview" argument is not explicitly provided as an argument.
+    """
+    asPreview: Boolean
+
+    """The globally unique identifier of the object."""
+    id: ID!
+
+    """Type of unique identifier to fetch by. Default is Global ID"""
+    idType: GamePostIdType
+  ): GamePost
+
+  """A gamePost object"""
+  gamePostBy(
+    """Get the gamePost by its database ID"""
+    gamePostId: Int
+
+    """Get the gamePost object by its global ID"""
+    id: ID
+
+    """
+    Get the gamePost by its slug (only available for non-hierarchical types)
+    """
+    slug: String
+
+    """Get the gamePost by its uri"""
+    uri: String
+  ): GamePost @deprecated(reason: "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
+
+  """Connection between the RootQuery type and the gamePost type"""
+  gamePosts(
+    """
+    Cursor used along with the "first" argument to reference where in the dataset to get data
+    """
+    after: String
+
+    """
+    Cursor used along with the "last" argument to reference where in the dataset to get data
+    """
+    before: String
+
+    """The number of items to return after the referenced "after" cursor"""
+    first: Int
+
+    """The number of items to return before the referenced "before" cursor"""
+    last: Int
+
+    """Arguments for filtering the connection"""
+    where: RootQueryToGamePostConnectionWhereArgs
+  ): RootQueryToGamePostConnection
 
   """Connection between the RootQuery type and the game type"""
   games(
@@ -15078,6 +16033,121 @@ input RootQueryToGameConnectionWhereArgs {
 
   """Array of tag slugs, used to include objects in ANY specified tags"""
   tagSlugIn: [String]
+
+  """Title of the object"""
+  title: String
+}
+
+"""Connection between the RootQuery type and the gamePost type"""
+type RootQueryToGamePostConnection implements Connection & GamePostConnection {
+  """Edges for the RootQueryToGamePostConnection connection"""
+  edges: [RootQueryToGamePostConnectionEdge!]!
+
+  """The nodes of the connection, without the edges"""
+  nodes: [GamePost!]!
+
+  """Information about pagination in a connection."""
+  pageInfo: RootQueryToGamePostConnectionPageInfo!
+}
+
+"""An edge in a connection"""
+type RootQueryToGamePostConnectionEdge implements Edge & GamePostConnectionEdge {
+  """A cursor for use in pagination"""
+  cursor: String
+
+  """The item at the end of the edge"""
+  node: GamePost!
+}
+
+"""
+Pagination metadata specific to &quot;RootQueryToGamePostConnection&quot; collections. Provides cursors and flags for navigating through sets of RootQueryToGamePostConnection Nodes.
+"""
+type RootQueryToGamePostConnectionPageInfo implements GamePostConnectionPageInfo & PageInfo & WPPageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+"""Arguments for filtering the RootQueryToGamePostConnection connection"""
+input RootQueryToGamePostConnectionWhereArgs {
+  """Category ID"""
+  categoryId: Int
+
+  """
+  Array of category IDs, used to display objects from one category OR another
+  """
+  categoryIn: [ID]
+
+  """Use Category Slug"""
+  categoryName: String
+
+  """
+  Array of category IDs, used to display objects from one category OR another
+  """
+  categoryNotIn: [ID]
+
+  """Filter the connection based on dates"""
+  dateQuery: DateQueryInput
+
+  """
+  True for objects with passwords; False for objects without passwords; null for all objects with or without passwords
+  """
+  hasPassword: Boolean
+
+  """Specific database ID of the object"""
+  id: Int
+
+  """Array of IDs for the objects to retrieve"""
+  in: [ID]
+
+  """Get objects with a specific mimeType property"""
+  mimeType: MimeTypeEnum
+
+  """Slug / post_name of the object"""
+  name: String
+
+  """Specify objects to retrieve. Use slugs"""
+  nameIn: [String]
+
+  """
+  Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored
+  """
+  notIn: [ID]
+
+  """What parameter to use to order the objects by."""
+  orderby: [PostObjectsConnectionOrderbyInput]
+
+  """Use ID to return only children. Use 0 to return only top-level items"""
+  parent: ID
+
+  """Specify objects whose parent is in an array"""
+  parentIn: [ID]
+
+  """Specify posts whose parent is not in an array"""
+  parentNotIn: [ID]
+
+  """Show posts with a specific password."""
+  password: String
+
+  """Show Posts based on a keyword search"""
+  search: String
+
+  """Retrieve posts where post status is in an array."""
+  stati: [PostStatusEnum]
+
+  """Show posts with a specific status."""
+  status: PostStatusEnum
 
   """Title of the object"""
   title: String
@@ -16844,6 +17914,9 @@ type SEOContentTypeArchive {
 type SEOContentTypes {
   """"""
   game: SEOContentType
+
+  """"""
+  gamePost: SEOContentType
 
   """"""
   mediaItem: SEOContentType
@@ -18959,6 +20032,56 @@ type UpdateGamePayload {
   game: Game
 }
 
+"""Input for the updateGamePost mutation."""
+input UpdateGamePostInput {
+  """Set connections between the gamePost and categories"""
+  categories: GamePostCategoriesInput
+
+  """
+  This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """
+  The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17 
+  """
+  date: String
+
+  """The ID of the gamePost object"""
+  id: ID!
+
+  """Override the edit lock when another user is editing the post"""
+  ignoreEditLock: Boolean
+
+  """
+  A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types.
+  """
+  menuOrder: Int
+
+  """The password used to protect the content of the object"""
+  password: String
+
+  """The slug of the object"""
+  slug: String
+
+  """The status of the object"""
+  status: PostStatusEnum
+
+  """The title of the object"""
+  title: String
+}
+
+"""The payload for the updateGamePost mutation."""
+type UpdateGamePostPayload {
+  """
+  If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+  """
+  clientMutationId: String
+
+  """The Post object mutation type."""
+  gamePost: GamePost
+}
+
 """Input for the updateMediaItem mutation."""
 input UpdateMediaItemInput {
   """Alternative text to display when mediaItem is not displayed"""
@@ -20795,6 +21918,14 @@ Provides access to fields of the &quot;PropertiesGame&quot; ACF Field Group via 
 interface WithAcfPropertiesGame {
   """Fields of the PropertiesGame ACF Field Group"""
   propertiesGame: PropertiesGame
+}
+
+"""
+Provides access to fields of the &quot;PropertiesGamePost&quot; ACF Field Group via the &quot;propertiesGamePost&quot; field
+"""
+interface WithAcfPropertiesGamePost {
+  """Fields of the PropertiesGamePost ACF Field Group"""
+  propertiesGamePost: PropertiesGamePost
 }
 
 """The writing setting type"""

@@ -31,7 +31,6 @@ export const Default: Story = {
     score: 4.9,
     stats: {
       playtime: "120h+",
-      difficulty: "Hard",
       players: "1-4 (Co-op/PvP)"
     }
   }

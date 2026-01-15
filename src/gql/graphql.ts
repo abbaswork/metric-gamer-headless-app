@@ -18,7 +18,7 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
-/** Connection between the PostpropertiesGamepostSelectGames_Fields type and the ContentNode type */
+/** Connection between the PropertiesGamePostSelectGames_Fields type and the ContentNode type */
 export type AcfContentNodeConnection = Connection & ContentNodeConnection & {
   __typename?: 'AcfContentNodeConnection';
   /** Edges for the AcfContentNodeConnection connection */
@@ -169,6 +169,8 @@ export type Category = DatabaseIdentifier & HierarchicalNode & HierarchicalTermN
   enqueuedScripts?: Maybe<TermNodeToEnqueuedScriptConnection>;
   /** Connection between the TermNode type and the EnqueuedStylesheet type */
   enqueuedStylesheets?: Maybe<TermNodeToEnqueuedStylesheetConnection>;
+  /** Connection between the Category type and the gamePost type */
+  gamePosts?: Maybe<CategoryToGamePostConnection>;
   /** Connection between the Category type and the game type */
   games?: Maybe<CategoryToGameConnection>;
   /** The globally unique ID for the object */
@@ -258,6 +260,16 @@ export type CategoryEnqueuedStylesheetsArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** A taxonomy term that classifies content. Categories support hierarchy and can be used to create a nested structure. */
+export type CategoryGamePostsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CategoryToGamePostConnectionWhereArgs>;
 };
 
 
@@ -604,6 +616,87 @@ export type CategoryToGameConnectionWhereArgs = {
   tagSlugAnd?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Array of tag slugs, used to include objects in ANY specified tags */
   tagSlugIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Connection between the Category type and the gamePost type */
+export type CategoryToGamePostConnection = Connection & GamePostConnection & {
+  __typename?: 'CategoryToGamePostConnection';
+  /** Edges for the CategoryToGamePostConnection connection */
+  edges: Array<CategoryToGamePostConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<GamePost>;
+  /** Information about pagination in a connection. */
+  pageInfo: CategoryToGamePostConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type CategoryToGamePostConnectionEdge = Edge & GamePostConnectionEdge & {
+  __typename?: 'CategoryToGamePostConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: GamePost;
+};
+
+/** Pagination metadata specific to &quot;CategoryToGamePostConnection&quot; collections. Provides cursors and flags for navigating through sets of CategoryToGamePostConnection Nodes. */
+export type CategoryToGamePostConnectionPageInfo = GamePostConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'CategoryToGamePostConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the CategoryToGamePostConnection connection */
+export type CategoryToGamePostConnectionWhereArgs = {
+  /** Category ID */
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of category IDs, used to display objects from one category OR another */
+  categoryIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Use Category Slug */
+  categoryName?: InputMaybe<Scalars['String']['input']>;
+  /** Array of category IDs, used to display objects from one category OR another */
+  categoryNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
   /** Title of the object */
   title?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1524,6 +1617,8 @@ export enum ContentTypeEnum {
   /** The Type of Content object */
   Game = 'GAME',
   /** The Type of Content object */
+  GamePost = 'GAME_POST',
+  /** The Type of Content object */
   Page = 'PAGE',
   /** The Type of Content object */
   Post = 'POST'
@@ -1651,6 +1746,8 @@ export type ContentTypeToTaxonomyConnectionPageInfo = PageInfo & TaxonomyConnect
 export enum ContentTypesOfCategoryEnum {
   /** The Type of Content object */
   Game = 'GAME',
+  /** The Type of Content object */
+  GamePost = 'GAME_POST',
   /** The Type of Content object */
   Post = 'POST'
 }
@@ -1817,6 +1914,35 @@ export type CreateGamePayload = {
   clientMutationId?: Maybe<Scalars['String']['output']>;
   /** The Post object mutation type. */
   game?: Maybe<Game>;
+};
+
+/** Input for the createGamePost mutation. */
+export type CreateGamePostInput = {
+  /** Set connections between the gamePost and categories */
+  categories?: InputMaybe<GamePostCategoriesInput>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']['input']>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']['input']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the createGamePost mutation. */
+export type CreateGamePostPayload = {
+  __typename?: 'CreateGamePostPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The Post object mutation type. */
+  gamePost?: Maybe<GamePost>;
 };
 
 /** Input for the createMediaItem mutation. */
@@ -2560,6 +2686,29 @@ export type DeleteGamePayload = {
   game?: Maybe<Game>;
 };
 
+/** Input for the deleteGamePost mutation. */
+export type DeleteGamePostInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** Whether the object should be force deleted instead of being moved to the trash */
+  forceDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The ID of the gamePost to delete */
+  id: Scalars['ID']['input'];
+  /** Override the edit lock when another user is editing the post */
+  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** The payload for the deleteGamePost mutation. */
+export type DeleteGamePostPayload = {
+  __typename?: 'DeleteGamePostPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The ID of the deleted object */
+  deletedId?: Maybe<Scalars['ID']['output']>;
+  /** The object before it was deleted */
+  gamePost?: Maybe<GamePost>;
+};
+
 /** Input for the deleteMediaItem mutation. */
 export type DeleteMediaItemInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
@@ -3295,6 +3444,447 @@ export type GamePlayersNodeInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   /** The slug of the players. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation. */
   slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The gamePost type */
+export type GamePost = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfPropertiesGamePost & {
+  __typename?: 'GamePost';
+  /**
+   * The ancestors of the content node.
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  ancestors?: Maybe<GamePostToGamePostConnection>;
+  /** Connection between the GamePost type and the category type */
+  categories?: Maybe<GamePostToCategoryConnection>;
+  /** Connection between the ContentNode type and the ContentType type */
+  contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String']['output'];
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int']['output'];
+  /** Post publishing date. */
+  date?: Maybe<Scalars['String']['output']>;
+  /** The publishing date set in GMT. */
+  dateGmt?: Maybe<Scalars['String']['output']>;
+  /** The desired slug of the post */
+  desiredSlug?: Maybe<Scalars['String']['output']>;
+  /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
+  editingLockedBy?: Maybe<ContentNodeToEditLockConnectionEdge>;
+  /** The RSS enclosure for the object */
+  enclosure?: Maybe<Scalars['String']['output']>;
+  /** Connection between the ContentNode type and the EnqueuedScript type */
+  enqueuedScripts?: Maybe<ContentNodeToEnqueuedScriptConnection>;
+  /** Connection between the ContentNode type and the EnqueuedStylesheet type */
+  enqueuedStylesheets?: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
+  /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
+  featuredImage?: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;
+  /** The database identifier for the featured image node assigned to the content node */
+  featuredImageDatabaseId?: Maybe<Scalars['Int']['output']>;
+  /** Globally unique ID of the featured image assigned to the node */
+  featuredImageId?: Maybe<Scalars['ID']['output']>;
+  /**
+   * The id field matches the WP_Post-&gt;ID field.
+   * @deprecated Deprecated in favor of the databaseId field
+   */
+  gamePostId: Scalars['Int']['output'];
+  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
+  guid?: Maybe<Scalars['String']['output']>;
+  /** Whether the game-post object is password protected. */
+  hasPassword?: Maybe<Scalars['Boolean']['output']>;
+  /** The globally unique identifier of the game-post object. */
+  id: Scalars['ID']['output'];
+  /** Whether the node is a Comment */
+  isComment: Scalars['Boolean']['output'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean']['output'];
+  /** Whether the node represents the front page. */
+  isFrontPage: Scalars['Boolean']['output'];
+  /** Whether  the node represents the blog page. */
+  isPostsPage: Scalars['Boolean']['output'];
+  /** Whether the object is a node in the preview state */
+  isPreview?: Maybe<Scalars['Boolean']['output']>;
+  /** Whether the object is restricted from the current viewer */
+  isRestricted?: Maybe<Scalars['Boolean']['output']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean']['output'];
+  /** The user that most recently edited the node */
+  lastEditedBy?: Maybe<ContentNodeToEditLastConnectionEdge>;
+  /** The permalink of the post */
+  link?: Maybe<Scalars['String']['output']>;
+  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
+  modified?: Maybe<Scalars['String']['output']>;
+  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
+  modifiedGmt?: Maybe<Scalars['String']['output']>;
+  /**
+   * The parent of the content node.
+   * @deprecated This content type is not hierarchical and typically will not have a parent
+   */
+  parent?: Maybe<GamePostToParentConnectionEdge>;
+  /** The password for the game-post object. */
+  password?: Maybe<Scalars['String']['output']>;
+  /** Connection between the gamePost type and the gamePost type */
+  preview?: Maybe<GamePostToPreviewConnectionEdge>;
+  /** The database id of the preview node */
+  previewRevisionDatabaseId?: Maybe<Scalars['Int']['output']>;
+  /** Whether the object is a node in the preview state */
+  previewRevisionId?: Maybe<Scalars['ID']['output']>;
+  /** Fields of the PropertiesGamePost ACF Field Group */
+  propertiesGamePost?: Maybe<PropertiesGamePost>;
+  /** The Yoast SEO data of the ContentNode */
+  seo?: Maybe<PostTypeSeo>;
+  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
+  slug?: Maybe<Scalars['String']['output']>;
+  /** The current status of the object */
+  status?: Maybe<Scalars['String']['output']>;
+  /** The template assigned to the node */
+  template?: Maybe<ContentTemplate>;
+  /** Connection between the GamePost type and the TermNode type */
+  terms?: Maybe<GamePostToTermNodeConnection>;
+  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
+  title?: Maybe<Scalars['String']['output']>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** The gamePost type */
+export type GamePostAncestorsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The gamePost type */
+export type GamePostCategoriesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<GamePostToCategoryConnectionWhereArgs>;
+};
+
+
+/** The gamePost type */
+export type GamePostEnqueuedScriptsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The gamePost type */
+export type GamePostEnqueuedStylesheetsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The gamePost type */
+export type GamePostTermsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<GamePostToTermNodeConnectionWhereArgs>;
+};
+
+
+/** The gamePost type */
+export type GamePostTitleArgs = {
+  format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
+
+/** Set relationships between the gamePost to categories */
+export type GamePostCategoriesInput = {
+  /** If true, this will append the category to existing related categories. If false, this will replace existing relationships. Default true. */
+  append?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The input list of items to set. */
+  nodes?: InputMaybe<Array<InputMaybe<GamePostCategoriesNodeInput>>>;
+};
+
+/** List of categories to connect the gamePost to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists. */
+export type GamePostCategoriesNodeInput = {
+  /** The description of the category. This field is used to set a description of the category if a new one is created during the mutation. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the category. If present, this will be used to connect to the gamePost. If no existing category exists with this ID, no connection will be made. */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** The name of the category. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the category. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A paginated collection of gamePost Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of gamePost Nodes */
+export type GamePostConnection = {
+  /** A list of edges (relational context) between RootQuery and connected gamePost Nodes */
+  edges: Array<GamePostConnectionEdge>;
+  /** A list of connected gamePost Nodes */
+  nodes: Array<GamePost>;
+  /** Information about pagination in a connection. */
+  pageInfo: GamePostConnectionPageInfo;
+};
+
+/** Represents a connection to a gamePost. Contains both the gamePost Node and metadata about the relationship. */
+export type GamePostConnectionEdge = {
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The connected gamePost Node */
+  node: GamePost;
+};
+
+/** Pagination metadata specific to &quot;GamePostConnectionEdge&quot; collections. Provides cursors and flags for navigating through sets of &quot;GamePostConnectionEdge&quot; Nodes. */
+export type GamePostConnectionPageInfo = {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Identifier types for retrieving a specific GamePost. Specifies which unique attribute is used to find an exact GamePost. */
+export enum GamePostIdType {
+  /** Identify a resource by the Database ID. */
+  DatabaseId = 'DATABASE_ID',
+  /** Identify a resource by the (hashed) Global ID. */
+  Id = 'ID',
+  /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
+  Slug = 'SLUG',
+  /** Identify a resource by the URI. */
+  Uri = 'URI'
+}
+
+/** Connection between the GamePost type and the category type */
+export type GamePostToCategoryConnection = CategoryConnection & Connection & {
+  __typename?: 'GamePostToCategoryConnection';
+  /** Edges for the GamePostToCategoryConnection connection */
+  edges: Array<GamePostToCategoryConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Category>;
+  /** Information about pagination in a connection. */
+  pageInfo: GamePostToCategoryConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type GamePostToCategoryConnectionEdge = CategoryConnectionEdge & Edge & {
+  __typename?: 'GamePostToCategoryConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The Yoast SEO Primary category */
+  isPrimary?: Maybe<Scalars['Boolean']['output']>;
+  /** The item at the end of the edge */
+  node: Category;
+};
+
+/** Pagination metadata specific to &quot;GamePostToCategoryConnection&quot; collections. Provides cursors and flags for navigating through sets of GamePostToCategoryConnection Nodes. */
+export type GamePostToCategoryConnectionPageInfo = CategoryConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'GamePostToCategoryConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the GamePostToCategoryConnection connection */
+export type GamePostToCategoryConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Connection between the gamePost type and the gamePost type */
+export type GamePostToGamePostConnection = Connection & GamePostConnection & {
+  __typename?: 'GamePostToGamePostConnection';
+  /** Edges for the GamePostToGamePostConnection connection */
+  edges: Array<GamePostToGamePostConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<GamePost>;
+  /** Information about pagination in a connection. */
+  pageInfo: GamePostToGamePostConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type GamePostToGamePostConnectionEdge = Edge & GamePostConnectionEdge & {
+  __typename?: 'GamePostToGamePostConnectionEdge';
+  /**
+   * A cursor for use in pagination
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /**
+   * The item at the end of the edge
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  node: GamePost;
+};
+
+/** Pagination metadata specific to &quot;GamePostToGamePostConnection&quot; collections. Provides cursors and flags for navigating through sets of GamePostToGamePostConnection Nodes. */
+export type GamePostToGamePostConnectionPageInfo = GamePostConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'GamePostToGamePostConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Connection between the gamePost type and the gamePost type */
+export type GamePostToParentConnectionEdge = Edge & GamePostConnectionEdge & OneToOneConnection & {
+  __typename?: 'GamePostToParentConnectionEdge';
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /**
+   * The node of the connection, without the edges
+   * @deprecated This content type is not hierarchical and typically will not have a parent
+   */
+  node: GamePost;
+};
+
+/** Connection between the gamePost type and the gamePost type */
+export type GamePostToPreviewConnectionEdge = Edge & GamePostConnectionEdge & OneToOneConnection & {
+  __typename?: 'GamePostToPreviewConnectionEdge';
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The node of the connection, without the edges */
+  node: GamePost;
+};
+
+/** Connection between the GamePost type and the TermNode type */
+export type GamePostToTermNodeConnection = Connection & TermNodeConnection & {
+  __typename?: 'GamePostToTermNodeConnection';
+  /** Edges for the GamePostToTermNodeConnection connection */
+  edges: Array<GamePostToTermNodeConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<TermNode>;
+  /** Information about pagination in a connection. */
+  pageInfo: GamePostToTermNodeConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type GamePostToTermNodeConnectionEdge = Edge & TermNodeConnectionEdge & {
+  __typename?: 'GamePostToTermNodeConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: TermNode;
+};
+
+/** Pagination metadata specific to &quot;GamePostToTermNodeConnection&quot; collections. Provides cursors and flags for navigating through sets of GamePostToTermNodeConnection Nodes. */
+export type GamePostToTermNodeConnectionPageInfo = PageInfo & TermNodeConnectionPageInfo & WpPageInfo & {
+  __typename?: 'GamePostToTermNodeConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the GamePostToTermNodeConnection connection */
+export type GamePostToTermNodeConnectionWhereArgs = {
+  /** Unique cache key to be produced when this query is stored in an object cache. Default is 'core'. */
+  cacheDomain?: InputMaybe<Scalars['String']['input']>;
+  /** Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0. */
+  childOf?: InputMaybe<Scalars['Int']['input']>;
+  /** True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false. */
+  childless?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Retrieve terms where the description is LIKE the input value. Default empty. */
+  descriptionLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array. */
+  exclude?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array. */
+  excludeTree?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to hide terms not assigned to any posts. Accepts true or false. Default false */
+  hideEmpty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true. */
+  hierarchical?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Array of term ids to include. Default empty array. */
+  include?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Array of names to return term(s) for. Default empty. */
+  name?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Retrieve terms where the name is LIKE the input value. Default empty. */
+  nameLike?: InputMaybe<Scalars['String']['input']>;
+  /** Array of object IDs. Results will be limited to terms associated with these objects. */
+  objectIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Direction the connection should be ordered in */
+  order?: InputMaybe<OrderEnum>;
+  /** Field(s) to order terms by. Defaults to 'name'. */
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+  /** Whether to pad the quantity of a term's children in the quantity of each term's "count" object variable. Default false. */
+  padCounts?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Parent term ID to retrieve direct-child terms of. Default empty. */
+  parent?: InputMaybe<Scalars['Int']['input']>;
+  /** Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty. */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Array of slugs to return term(s) for. Default empty. */
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** The Taxonomy to filter terms by */
+  taxonomies?: InputMaybe<Array<InputMaybe<TaxonomyEnum>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Whether to prime meta caches for matched terms. Default true. */
+  updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Set relationships between the game to tags */
@@ -4987,7 +5577,7 @@ export enum MenuItemNodeIdTypeEnum {
 }
 
 /** Deprecated in favor of MenuItemLinkable Interface */
-export type MenuItemObjectUnion = Category | Crossplatform | Game | Metric | Page | Platform | Players | Post | Tag;
+export type MenuItemObjectUnion = Category | Crossplatform | Game | GamePost | Metric | Page | Platform | Players | Post | Tag;
 
 /** Connection between the MenuItem type and the Menu type */
 export type MenuItemToMenuConnectionEdge = Edge & MenuConnectionEdge & OneToOneConnection & {
@@ -8565,74 +9155,6 @@ export type PostTypeSeo = {
   twitterTitle?: Maybe<Scalars['String']['output']>;
 };
 
-/** The &quot;PostpropertiesGamepost&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type PostpropertiesGamepost = AcfFieldGroup & AcfFieldGroupFields & PostpropertiesGamepost_Fields & {
-  __typename?: 'PostpropertiesGamepost';
-  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group */
-  description?: Maybe<Scalars['String']['output']>;
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group */
-  selectGames?: Maybe<Array<Maybe<PostpropertiesGamepostSelectGames>>>;
-};
-
-/** The &quot;PostpropertiesGamepostSelectGames&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type PostpropertiesGamepostSelectGames = AcfFieldGroup & AcfFieldGroupFields & PostpropertiesGamepostSelectGames_Fields & {
-  __typename?: 'PostpropertiesGamepostSelectGames';
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepostSelectGames&quot; Field Group */
-  selectedGame?: Maybe<AcfContentNodeConnection>;
-};
-
-
-/** The &quot;PostpropertiesGamepostSelectGames&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
-export type PostpropertiesGamepostSelectGamesSelectedGameArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Interface representing fields of the ACF &quot;PostpropertiesGamepostSelectGames&quot; Field Group */
-export type PostpropertiesGamepostSelectGames_Fields = {
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepostSelectGames&quot; Field Group */
-  selectedGame?: Maybe<AcfContentNodeConnection>;
-};
-
-
-/** Interface representing fields of the ACF &quot;PostpropertiesGamepostSelectGames&quot; Field Group */
-export type PostpropertiesGamepostSelectGames_FieldsSelectedGameArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Interface representing fields of the ACF &quot;PostpropertiesGamepost&quot; Field Group */
-export type PostpropertiesGamepost_Fields = {
-  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group */
-  description?: Maybe<Scalars['String']['output']>;
-  /**
-   * The name of the field group
-   * @deprecated Use __typename instead
-   */
-  fieldGroupName?: Maybe<Scalars['String']['output']>;
-  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PostpropertiesGamepost&quot; Field Group */
-  selectGames?: Maybe<Array<Maybe<PostpropertiesGamepostSelectGames>>>;
-};
-
 /** Content that supports a draft preview mode. Allows viewing unpublished changes before they are made publicly available. Previewing unpublished changes requires appropriate permissions. */
 export type Previewable = {
   /** Whether the object is a node in the preview state */
@@ -8714,6 +9236,74 @@ export type PropertiesGameMetrics_FieldsMetricArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** The &quot;PropertiesGamePost&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PropertiesGamePost = AcfFieldGroup & AcfFieldGroupFields & PropertiesGamePost_Fields & {
+  __typename?: 'PropertiesGamePost';
+  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PropertiesGamePost&quot; Field Group */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PropertiesGamePost&quot; Field Group */
+  selectGames?: Maybe<Array<Maybe<PropertiesGamePostSelectGames>>>;
+};
+
+/** The &quot;PropertiesGamePostSelectGames&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PropertiesGamePostSelectGames = AcfFieldGroup & AcfFieldGroupFields & PropertiesGamePostSelectGames_Fields & {
+  __typename?: 'PropertiesGamePostSelectGames';
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;PropertiesGamePostSelectGames&quot; Field Group */
+  selectedGame?: Maybe<AcfContentNodeConnection>;
+};
+
+
+/** The &quot;PropertiesGamePostSelectGames&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PropertiesGamePostSelectGamesSelectedGameArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Interface representing fields of the ACF &quot;PropertiesGamePostSelectGames&quot; Field Group */
+export type PropertiesGamePostSelectGames_Fields = {
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;post_object&quot; Field Type added to the schema as part of the &quot;PropertiesGamePostSelectGames&quot; Field Group */
+  selectedGame?: Maybe<AcfContentNodeConnection>;
+};
+
+
+/** Interface representing fields of the ACF &quot;PropertiesGamePostSelectGames&quot; Field Group */
+export type PropertiesGamePostSelectGames_FieldsSelectedGameArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Interface representing fields of the ACF &quot;PropertiesGamePost&quot; Field Group */
+export type PropertiesGamePost_Fields = {
+  /** Field of the &quot;textarea&quot; Field Type added to the schema as part of the &quot;PropertiesGamePost&quot; Field Group */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+  /** Field of the &quot;repeater&quot; Field Type added to the schema as part of the &quot;PropertiesGamePost&quot; Field Group */
+  selectGames?: Maybe<Array<Maybe<PropertiesGamePostSelectGames>>>;
 };
 
 /** The &quot;PropertiesGameTheBad&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
@@ -8904,6 +9494,8 @@ export type RootMutation = {
   createCrossplatform?: Maybe<CreateCrossplatformPayload>;
   /** The createGame mutation */
   createGame?: Maybe<CreateGamePayload>;
+  /** The createGamePost mutation */
+  createGamePost?: Maybe<CreateGamePostPayload>;
   /** The createMediaItem mutation */
   createMediaItem?: Maybe<CreateMediaItemPayload>;
   /** The createMetric mutation */
@@ -8930,6 +9522,8 @@ export type RootMutation = {
   deleteCrossplatform?: Maybe<DeleteCrossplatformPayload>;
   /** The deleteGame mutation */
   deleteGame?: Maybe<DeleteGamePayload>;
+  /** The deleteGamePost mutation */
+  deleteGamePost?: Maybe<DeleteGamePostPayload>;
   /** The deleteMediaItem mutation */
   deleteMediaItem?: Maybe<DeleteMediaItemPayload>;
   /** The deleteMetric mutation */
@@ -8966,6 +9560,8 @@ export type RootMutation = {
   updateCrossplatform?: Maybe<UpdateCrossplatformPayload>;
   /** The updateGame mutation */
   updateGame?: Maybe<UpdateGamePayload>;
+  /** The updateGamePost mutation */
+  updateGamePost?: Maybe<UpdateGamePostPayload>;
   /** The updateMediaItem mutation */
   updateMediaItem?: Maybe<UpdateMediaItemPayload>;
   /** The updateMetric mutation */
@@ -9010,6 +9606,12 @@ export type RootMutationCreateCrossplatformArgs = {
 /** The root mutation */
 export type RootMutationCreateGameArgs = {
   input: CreateGameInput;
+};
+
+
+/** The root mutation */
+export type RootMutationCreateGamePostArgs = {
+  input: CreateGamePostInput;
 };
 
 
@@ -9088,6 +9690,12 @@ export type RootMutationDeleteCrossplatformArgs = {
 /** The root mutation */
 export type RootMutationDeleteGameArgs = {
   input: DeleteGameInput;
+};
+
+
+/** The root mutation */
+export type RootMutationDeleteGamePostArgs = {
+  input: DeleteGamePostInput;
 };
 
 
@@ -9200,6 +9808,12 @@ export type RootMutationUpdateGameArgs = {
 
 
 /** The root mutation */
+export type RootMutationUpdateGamePostArgs = {
+  input: UpdateGamePostInput;
+};
+
+
+/** The root mutation */
 export type RootMutationUpdateMediaItemArgs = {
   input: UpdateMediaItemInput;
 };
@@ -9296,6 +9910,15 @@ export type RootQuery = {
    * @deprecated Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)
    */
   gameBy?: Maybe<Game>;
+  /** An object of the gamePost Type.  */
+  gamePost?: Maybe<GamePost>;
+  /**
+   * A gamePost object
+   * @deprecated Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)
+   */
+  gamePostBy?: Maybe<GamePost>;
+  /** Connection between the RootQuery type and the gamePost type */
+  gamePosts?: Maybe<RootQueryToGamePostConnection>;
   /** Connection between the RootQuery type and the game type */
   games?: Maybe<RootQueryToGameConnection>;
   /** Fields of the &#039;GeneralSettings&#039; settings group */
@@ -9516,6 +10139,33 @@ export type RootQueryGameByArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   uri?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryGamePostArgs = {
+  asPreview?: InputMaybe<Scalars['Boolean']['input']>;
+  id: Scalars['ID']['input'];
+  idType?: InputMaybe<GamePostIdType>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryGamePostByArgs = {
+  gamePostId?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  uri?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryGamePostsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<RootQueryToGamePostConnectionWhereArgs>;
 };
 
 
@@ -10368,6 +11018,87 @@ export type RootQueryToGameConnectionWhereArgs = {
   tagSlugAnd?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Array of tag slugs, used to include objects in ANY specified tags */
   tagSlugIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Connection between the RootQuery type and the gamePost type */
+export type RootQueryToGamePostConnection = Connection & GamePostConnection & {
+  __typename?: 'RootQueryToGamePostConnection';
+  /** Edges for the RootQueryToGamePostConnection connection */
+  edges: Array<RootQueryToGamePostConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<GamePost>;
+  /** Information about pagination in a connection. */
+  pageInfo: RootQueryToGamePostConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type RootQueryToGamePostConnectionEdge = Edge & GamePostConnectionEdge & {
+  __typename?: 'RootQueryToGamePostConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: GamePost;
+};
+
+/** Pagination metadata specific to &quot;RootQueryToGamePostConnection&quot; collections. Provides cursors and flags for navigating through sets of RootQueryToGamePostConnection Nodes. */
+export type RootQueryToGamePostConnectionPageInfo = GamePostConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'RootQueryToGamePostConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the RootQueryToGamePostConnection connection */
+export type RootQueryToGamePostConnectionWhereArgs = {
+  /** Category ID */
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of category IDs, used to display objects from one category OR another */
+  categoryIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Use Category Slug */
+  categoryName?: InputMaybe<Scalars['String']['input']>;
+  /** Array of category IDs, used to display objects from one category OR another */
+  categoryNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
   /** Title of the object */
   title?: InputMaybe<Scalars['String']['input']>;
 };
@@ -11561,6 +12292,7 @@ export type SeoContentTypeArchive = {
 export type SeoContentTypes = {
   __typename?: 'SEOContentTypes';
   game?: Maybe<SeoContentType>;
+  gamePost?: Maybe<SeoContentType>;
   mediaItem?: Maybe<SeoContentType>;
   page?: Maybe<SeoContentType>;
   post?: Maybe<SeoContentType>;
@@ -12951,6 +13683,39 @@ export type UpdateGamePayload = {
   game?: Maybe<Game>;
 };
 
+/** Input for the updateGamePost mutation. */
+export type UpdateGamePostInput = {
+  /** Set connections between the gamePost and categories */
+  categories?: InputMaybe<GamePostCategoriesInput>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the gamePost object */
+  id: Scalars['ID']['input'];
+  /** Override the edit lock when another user is editing the post */
+  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']['input']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the updateGamePost mutation. */
+export type UpdateGamePostPayload = {
+  __typename?: 'UpdateGamePostPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The Post object mutation type. */
+  gamePost?: Maybe<GamePost>;
+};
+
 /** Input for the updateMediaItem mutation. */
 export type UpdateMediaItemInput = {
   /** Alternative text to display when mediaItem is not displayed */
@@ -14203,6 +14968,12 @@ export type WithAcfPropertiesGame = {
   propertiesGame?: Maybe<PropertiesGame>;
 };
 
+/** Provides access to fields of the &quot;PropertiesGamePost&quot; ACF Field Group via the &quot;propertiesGamePost&quot; field */
+export type WithAcfPropertiesGamePost = {
+  /** Fields of the PropertiesGamePost ACF Field Group */
+  propertiesGamePost?: Maybe<PropertiesGamePost>;
+};
+
 /** The writing setting type */
 export type WritingSettings = {
   __typename?: 'WritingSettings';
@@ -14248,7 +15019,7 @@ export type ContentInfoQueryVariables = Exact<{
 }>;
 
 
-export type ContentInfoQuery = { __typename?: 'RootQuery', contentNode?: { __typename?: 'Game', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'MediaItem', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'Page', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'Post', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | null };
+export type ContentInfoQuery = { __typename?: 'RootQuery', contentNode?: { __typename?: 'Game', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'GamePost', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'MediaItem', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'Page', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'Post', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | null };
 
 export type SeoQueryQueryVariables = Exact<{
   slug: Scalars['ID']['input'];
@@ -14257,7 +15028,7 @@ export type SeoQueryQueryVariables = Exact<{
 }>;
 
 
-export type SeoQueryQuery = { __typename?: 'RootQuery', contentNode?: { __typename?: 'Game', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'MediaItem', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'Page', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'Post', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | null };
+export type SeoQueryQuery = { __typename?: 'RootQuery', contentNode?: { __typename?: 'Game', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'GamePost', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'MediaItem', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'Page', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'Post', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | null };
 
 
 export const MenuQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MenuQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"menuItems"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"location"},"value":{"kind":"EnumValue","value":"HEADER"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"uri"}},{"kind":"Field","name":{"kind":"Name","value":"target"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]}}]} as unknown as DocumentNode<MenuQueryQuery, MenuQueryQueryVariables>;

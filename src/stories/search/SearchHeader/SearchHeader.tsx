@@ -33,12 +33,6 @@ export function SearchHeader({
        {/* Type Toggle */}
        <div className="bg-black/40 p-1 rounded-2xl flex items-center self-start md:self-stretch h-[52px]">
           <button 
-            onClick={() => onResultTypeChange("all")}
-            className={`h-full px-6 rounded-xl text-sm font-bold transition-all ${resultType === "all" ? "bg-[#F6CA56] text-black shadow-lg" : "text-gray-400 hover:text-white"}`}
-          >
-            All
-          </button>
-          <button 
             onClick={() => onResultTypeChange("game")}
             className={`h-full px-6 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${resultType === "game" ? "bg-[#F6CA56] text-black shadow-lg" : "text-gray-400 hover:text-white"}`}
           >
@@ -48,7 +42,7 @@ export function SearchHeader({
             onClick={() => onResultTypeChange("blog")}
             className={`h-full px-6 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${resultType === "blog" ? "bg-[#F6CA56] text-black shadow-lg" : "text-gray-400 hover:text-white"}`}
           >
-            <FileText className="w-4 h-4" /> Blogs
+            <FileText className="w-4 h-4" /> Rankings
           </button>
         </div>
     </div>

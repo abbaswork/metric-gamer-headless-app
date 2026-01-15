@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Menu, Home, Gamepad2, X } from "lucide-react";
+import { Database, Menu, Home, Gamepad2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -65,7 +65,7 @@ export const Navbar = memo(function Navbar() {
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className={`rounded-full px-3 h-8 gap-1.5 text-xs transition-all ${pathname === '/' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+                className={`rounded-full px-3 h-8 gap-1.5 text-xs font-sans transition-all ${pathname === '/' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
               >
                 <Home className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Home</span>
@@ -76,10 +76,10 @@ export const Navbar = memo(function Navbar() {
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className={`rounded-full px-3 h-8 gap-1.5 text-xs transition-all ${pathname === '/metrics' ? 'bg-[#F6CA56] text-black hover:bg-[#e0b545]' : 'text-gray-400 hover:text-[#F6CA56] hover:bg-white/5'}`}
+                className={`rounded-full px-3 h-8 gap-1.5 text-xs font-sans transition-all ${pathname === '/metrics' ? 'bg-[#F6CA56] text-black hover:bg-[#e0b545]' : 'text-gray-400 hover:text-[#F6CA56] hover:bg-white/5'}`}
               >
-                <Search className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Search Games</span>
+                <Database className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Database</span>
               </Button>
             </Link>
           </nav>
@@ -122,7 +122,7 @@ export const Navbar = memo(function Navbar() {
               </Link>
               <Link href="/metrics">
                 <Button variant="ghost" className="w-full justify-start text-gray-300 hover:text-[#F6CA56] hover:bg-white/5" onClick={() => setIsMenuOpen(false)}>
-                  <Search className="w-4 h-4 mr-2" /> Search Games
+                  <Database className="w-4 h-4 mr-2" /> Database
                 </Button>
               </Link>
               <div className="h-px bg-white/10 my-2" />

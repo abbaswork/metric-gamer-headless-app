@@ -95,7 +95,7 @@ export function AboutSection() {
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         {/* The Metric Method Section */}
-        <div className="text-center mb-16 space-y-4">
+        <div id="metric-method" className="text-center mb-16 space-y-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -193,6 +193,7 @@ export function AboutSection() {
 
         {/* How to Get Started Section - Tabbed Interface */}
         <motion.div 
+          id="how-to"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

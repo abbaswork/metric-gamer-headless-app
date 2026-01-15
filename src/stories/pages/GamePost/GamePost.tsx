@@ -35,6 +35,11 @@ export function GamePost({ header, info, metrics, similarGames, sidebar }: GameP
           {/* Main Content Area */}
           <div className="space-y-16">
             
+            {/* Mobile-only Sidebar Card at top */}
+            <div className="lg:hidden">
+              <GameSidebar {...sidebar} isInline={true} />
+            </div>
+
             <GameInfo {...info} />
             
             <Separator className="bg-white/10" />
@@ -49,8 +54,10 @@ export function GamePost({ header, info, metrics, similarGames, sidebar }: GameP
 
           </div>
 
-          {/* Sidebar */}
-          <GameSidebar {...sidebar} />
+          {/* Desktop Sidebar */}
+          <div className="hidden lg:block">
+            <GameSidebar {...sidebar} />
+          </div>
 
         </div>
       </div>
