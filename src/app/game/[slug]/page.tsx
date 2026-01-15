@@ -104,7 +104,6 @@ export default async function GamePage({ params }: Props) {
     score: 4.5, // Could calculate average from metrics if desired, but mocking for now
     stats: {
       playtime: propertiesGame.playtime || "Unknown",
-      difficulty: "Hard", // MOCK
       players: "1-4" // MOCK
     }
   };
