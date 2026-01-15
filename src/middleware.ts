@@ -23,7 +23,15 @@ export async function middleware(request: NextRequest) {
     },
   );
 
-  const data = await response.json();
+  let data: any = null;
+  try {
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      data = await response.json();
+    }
+  } catch (e) {
+    console.error("Middleware fetch failed to parse JSON:", e);
+  }
 
   if (data?.items?.length > 0) {
     const redirect = data.items.find(
