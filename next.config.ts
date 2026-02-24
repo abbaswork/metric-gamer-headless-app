@@ -20,6 +20,11 @@ const nextConfig = {
         hostname: "images.igdb.com",
         port: "",
       },
+      {
+        protocol: "http",
+        hostname: "ec2-18-213-34-154.compute-1.amazonaws.com",
+        port: "",
+      },
     ],
   },
 };
