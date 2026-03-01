@@ -1,9 +1,7 @@
 "use client";
-
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
-import { useEffect, Suspense } from "react";
+import { Suspense } from "react";
 import { SearchHeader } from "@/stories/search/SearchHeader/SearchHeader";
 import { FilterBar } from "@/stories/search/FilterBar/FilterBar";
 import { ContentCard } from "@/stories/core/ContentCard/ContentCard";
@@ -31,7 +29,6 @@ export function SearchSection({ initialGames, initialBlogs, availableMetrics = [
 function SearchSectionContent({ initialGames, initialBlogs, availableMetrics }: SearchSectionProps) {
   const searchParams = useSearchParams();
   const typeParam = searchParams.get('type');
-  console.log("typeParam", typeParam);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [resultType, setResultType] = useState(() => {

@@ -30,7 +30,8 @@ const MOCK_GAME = {
     { label: "Bosses", value: "5/5" },
     { label: "Design", value: "5/5" }
   ],
-  tags: ["Open World", "Dark Fantasy", "Difficult", "RPG", "Masterpiece"]
+  tags: ["Open World", "Dark Fantasy", "Difficult", "RPG", "Masterpiece"],
+  slug: "elden-ring"
 };
 
 export const Default: Story = {

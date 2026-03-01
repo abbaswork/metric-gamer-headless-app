@@ -16,16 +16,15 @@ export interface ScoreCardSectionProps {
 
 const calculateAverageScore = (gameMetrics: GameMetricControlled[]) => {
   const visibleMetrics = gameMetrics?.filter((m) => !m.hidden) ?? [];
-  console.log("visibleMetrics: ", visibleMetrics);
   const averageScore =
     visibleMetrics.length > 0
       ? Number(
-          (
-            visibleMetrics
-              .map((m) => Number(m.metricScore))
-              .reduce((sum, score) => sum + score, 0) / visibleMetrics.length
-          ).toFixed(1)
-        )
+        (
+          visibleMetrics
+            .map((m) => Number(m.metricScore))
+            .reduce((sum, score) => sum + score, 0) / visibleMetrics.length
+        ).toFixed(1)
+      )
       : 0;
 
   return averageScore;
@@ -36,30 +35,27 @@ const setCardsWithMetrics = (
   hideMetricID?: number
 ) => {
   const toggleHide = (metric: GameMetricControlled | GameMetric) => {
-    
+
     if (metric.metricTitle[0].id === hideMetricID) return (!(metric as GameMetricControlled).hidden);
 
     if ("hidden" in metric && metric.hidden) {
       return metric.hidden;
     }
-    
+
     else {
       return false;
     }
-    
+
   };
 
   const withMetrics = games.map((game) => {
     const gameMetrics = game.gameMetrics.map(
-      (metric) => (
-        console.log("metric: ", metric),
-        {
-          //add hidden to every metric
-          ...metric,
-          //check if we should use default value or hide
-          hidden: toggleHide(metric),
-        }
-      )
+      (metric) => ({
+        //add hidden to every metric
+        ...metric,
+        //check if we should use default value or hide
+        hidden: toggleHide(metric),
+      })
     );
     const averageScore = calculateAverageScore(gameMetrics);
     return {
@@ -74,8 +70,6 @@ const setCardsWithMetrics = (
 };
 
 export const ScoreCardSection = ({ blockGames }: ScoreCardSectionProps) => {
-
-  console.log("blockGames: ", blockGames);
 
   //set the card score
   const [scoreCards, setScoreCards] = React.useState<BlockGameControlled[]>(

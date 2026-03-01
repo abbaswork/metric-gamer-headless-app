@@ -4,6 +4,7 @@ import { Sword, Brain, ArrowRight, Tag, Star, Trophy, Calendar } from "lucide-re
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import Link from "next/link";
 
 export interface GameData {
   title: string;
@@ -16,6 +17,7 @@ export interface GameData {
     icon?: any;
   }[];
   tags: string[];
+  slug: string;
 }
 
 interface HeroSectionProps {
@@ -148,10 +150,13 @@ export function HeroSection({ selectedMonth, onMonthChange, featuredTitle, game 
                   className="pt-4"
                 >
                   <Button
+                    asChild
                     className="bg-[#F6CA56] hover:bg-[#e0b545] text-black font-sans font-bold text-lg h-14 px-8 rounded-xl shadow-[0_0_20px_rgba(246,202,86,0.3)] hover:shadow-[0_0_30px_rgba(246,202,86,0.5)] transition-all transform hover:-translate-y-1 w-full md:w-auto"
                   >
-                    Read Full Review
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                    <Link href={`/game/${game.slug}`}>
+                      Read Full Review
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </Link>
                   </Button>
                 </motion.div>
               </div>

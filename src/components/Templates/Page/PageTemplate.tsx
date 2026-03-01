@@ -16,9 +16,6 @@ export default async function PageTemplate({ node }: TemplateProps) {
     }
   );
 
-  console.log("Page data:", page);
-  console.log("Posts data:", posts);
-
   return (
     <>
       {page.isFrontPage ? (
