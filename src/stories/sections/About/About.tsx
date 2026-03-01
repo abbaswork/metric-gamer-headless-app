@@ -94,16 +94,9 @@ export function AboutSection() {
 
   return (
     <section className="py-20 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-[#351150]/10" />
+      {/* Background Elements removed for performance */}
+      {/* <div className="absolute inset-0 bg-[#351150]/10" /> */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#F6CA56]/30 to-transparent" />
-
-      {/* Animated Floating Numbers Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
-        {isMounted && [...Array(20)].map((_, i) => (
-          <FloatingNumber key={i} />
-        ))}
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         {/* The Metric Method Section */}
@@ -141,15 +134,11 @@ export function AboutSection() {
           </motion.p>
         </div>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
+        <div
           className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24"
         >
           {/* Step 1 */}
-          <motion.div variants={item} className="relative group">
+          <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-b from-[#F6CA56]/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="bg-[#160026] border border-[#351150] p-8 rounded-3xl relative z-10 hover:-translate-y-2 transition-transform duration-300">
               <div className="w-16 h-16 bg-[#351150] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -166,10 +155,10 @@ export function AboutSection() {
                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-          </motion.div>
+          </div>
 
           {/* Step 2 */}
-          <motion.div variants={item} className="relative group">
+          <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-b from-[#F6CA56]/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="bg-[#160026] border border-[#351150] p-8 rounded-3xl relative z-10 hover:-translate-y-2 transition-transform duration-300">
               <div className="w-16 h-16 bg-[#351150] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -186,10 +175,10 @@ export function AboutSection() {
                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-          </motion.div>
+          </div>
 
           {/* Step 3 */}
-          <motion.div variants={item} className="relative group">
+          <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-b from-[#F6CA56]/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="bg-[#160026] border border-[#351150] p-8 rounded-3xl relative z-10 hover:-translate-y-2 transition-transform duration-300">
               <div className="w-16 h-16 bg-[#351150] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -200,8 +189,8 @@ export function AboutSection() {
                 Our final score gives you a reliable breakdown of the metrics that matter! Whether it’s a high-tier competitive grind or a casual indie gem, we deliver a verdict you can actually trust before you hit the Buy button.
               </p>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* How to Get Started Section - Tabbed Interface */}
         <motion.div

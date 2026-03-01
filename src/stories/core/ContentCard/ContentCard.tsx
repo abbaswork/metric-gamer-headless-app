@@ -132,6 +132,7 @@ export function ContentCard({
                 src={imageSrc}
                 alt={title}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full h-full object-cover transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#160026] via-[#160026]/40 to-transparent pointer-events-none" />

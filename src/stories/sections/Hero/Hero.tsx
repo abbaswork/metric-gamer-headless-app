@@ -94,6 +94,7 @@ export function HeroSection({ selectedMonth, onMonthChange, featuredTitle, game 
               alt={game.title}
               fill
               priority
+              sizes="100vw"
               className="object-cover transition-transform duration-1000 group-hover:scale-105"
             />
             {/* Gradient Overlay */}
@@ -159,11 +160,8 @@ export function HeroSection({ selectedMonth, onMonthChange, featuredTitle, game 
               <div className="lg:col-span-5 w-full hidden md:block">
                 <div className="grid grid-cols-3 gap-4">
                   {game.metrics.map((metric, i) => (
-                    <motion.div
+                    <div
                       key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 + (i * 0.1) }}
                       className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-4 flex flex-col items-center justify-center text-center hover:bg-white/5 hover:border-[#F6CA56]/30 transition-all group/metric"
                     >
                       <div className="text-2xl md:text-3xl font-bold text-[#F6CA56] font-heading mb-1 group-hover/metric:scale-110 transition-transform">
@@ -172,7 +170,7 @@ export function HeroSection({ selectedMonth, onMonthChange, featuredTitle, game 
                       <div className="text-[10px] md:text-xs font-bold font-sans text-gray-400 uppercase tracking-wider">
                         {metric.label}
                       </div>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>

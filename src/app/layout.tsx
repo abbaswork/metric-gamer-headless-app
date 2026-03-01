@@ -26,6 +26,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="http://ec2-18-213-34-154.compute-1.amazonaws.com" />
+      </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} ${rajdhani.variable} antialiased font-sans bg-background text-foreground`}>
         <Navbar />
         {isEnabled && <PreviewNotice />}

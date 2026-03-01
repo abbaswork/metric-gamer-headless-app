@@ -159,34 +159,32 @@ function SearchSectionContent({ initialGames, initialBlogs, availableMetrics }: 
 
       {/* Combined Grid */}
       <div id="results" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 scroll-mt-32">
-        <AnimatePresence mode="popLayout">
-          {filteredResults.length > 0 ? (
-            filteredResults.map((item) => (
-              <ContentCard
-                key={item.id}
-                {...item}
-                rank={item.rank}
-                // Adapt logic for GameCard props as needed if mismatch
-                rating={item.type === 'game' ? 4.8 : undefined} // Mocking rating if missing in unified data or map it properly
-              />
-            ))
-          ) : (
-            <div className="col-span-full py-20 text-center">
-              <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Search className="w-8 h-8 text-gray-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2">No results found</h3>
-              <p className="text-gray-400">Try adjusting your filters or search query</p>
-              <Button
-                variant="link"
-                onClick={clearFilters}
-                className="text-[#F6CA56] mt-4"
-              >
-                Clear all filters
-              </Button>
+        {filteredResults.length > 0 ? (
+          filteredResults.map((item) => (
+            <ContentCard
+              key={item.id}
+              {...item}
+              rank={item.rank}
+              // Adapt logic for GameCard props as needed if mismatch
+              rating={item.type === 'game' ? 4.8 : undefined} // Mocking rating if missing in unified data or map it properly
+            />
+          ))
+        ) : (
+          <div className="col-span-full py-20 text-center">
+            <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Search className="w-8 h-8 text-gray-600" />
             </div>
-          )}
-        </AnimatePresence>
+            <h3 className="text-2xl font-bold text-white mb-2">No results found</h3>
+            <p className="text-gray-400">Try adjusting your filters or search query</p>
+            <Button
+              variant="link"
+              onClick={clearFilters}
+              className="text-[#F6CA56] mt-4"
+            >
+              Clear all filters
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
