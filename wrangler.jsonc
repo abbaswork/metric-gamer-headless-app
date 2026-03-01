@@ -5,12 +5,9 @@
   "compatibility_date": "2024-12-30",
   "account_id": "c66092bf72684bc5b91f2ca6ec6af9cd",
   "compatibility_flags": [
-    // Enable Node.js API
-    // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#nodejs-compatibility-flag
     "nodejs_compat",
-    // Allow to fetch URLs in your app
-    // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#global-fetch-strictly-public
     "global_fetch_strictly_public",
+    "nodejs_compat_populate_process_env"
   ],
   "assets": {
     "directory": ".open-next/assets",

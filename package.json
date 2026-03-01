@@ -10,7 +10,8 @@
     "build-storybook": "storybook build",
     "build": "next build",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy": "npm run clean && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy:production": "npm run clean && dotenv -e .env -- opennextjs-cloudflare build && dotenv -e .env -- opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
