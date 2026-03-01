@@ -21,159 +21,164 @@ export interface GameData {
 interface HeroSectionProps {
   selectedMonth: string;
   onMonthChange: (value: string) => void;
+  featuredTitle: string;
   game: GameData;
 }
 
-export function HeroSection({ selectedMonth, onMonthChange, game }: HeroSectionProps) {
+export function HeroSection({ selectedMonth, onMonthChange, featuredTitle, game }: HeroSectionProps) {
   // Handle Next.js static image object or string URL
   const imageSrc = typeof game.image === 'string' ? game.image : game.image.src;
 
   return (
-    <section className="w-full space-y-8">
+    <section className="w-full space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-end gap-4">
         <div>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-4xl md:text-6xl font-bold text-white mb-2 font-heading leading-tight"
+            className="text-4xl font-bold text-white mb-2 font-heading leading-tight"
           >
-            Featured Rankings
+            {featuredTitle}
           </motion.h1>
-          <motion.p 
+          {/* <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
             className="text-gray-400 text-lg md:text-xl font-sans font-light"
           >
             Check out our featured rankings or scroll to find your own.
-          </motion.p>
+          </motion.p> */}
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="w-full md:w-auto"
-        >
-          {/* Integrated Dropdown */}
-          <div className="relative">
-            <Select value={selectedMonth} onValueChange={onMonthChange}>
-              <SelectTrigger className="w-full md:w-[160px] bg-transparent border border-white/10 text-gray-400 hover:text-white hover:border-white/20 focus:ring-0 focus:ring-offset-0 h-12 md:h-9 text-base md:text-sm font-sans rounded-lg transition-colors">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 md:w-3 md:h-3" />
-                  <SelectValue placeholder="Select Month" />
-                </div>
-              </SelectTrigger>
-              <SelectContent className="bg-[#160026] border-[#351150] text-white">
-                <SelectItem value="dec-2024" className="text-sm md:text-xs py-3 md:py-2">December 2024</SelectItem>
-                <SelectItem value="nov-2024" className="text-sm md:text-xs py-3 md:py-2">November 2024</SelectItem>
-                <SelectItem value="oct-2024" className="text-sm md:text-xs py-3 md:py-2">October 2024</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </motion.div>
+        {selectedMonth !== 'featured' && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="w-full md:w-auto"
+          >
+            {/* Integrated Dropdown */}
+            <div className="relative">
+              <Select value={selectedMonth} onValueChange={onMonthChange}>
+                <SelectTrigger className="w-full md:w-[160px] bg-transparent border border-white/10 text-gray-400 hover:text-white hover:border-white/20 focus:ring-0 focus:ring-offset-0 h-12 md:h-9 text-base md:text-sm font-sans rounded-lg transition-colors">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 md:w-3 md:h-3" />
+                    <SelectValue placeholder="Select Month" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="bg-[#160026] border-[#351150] text-white">
+                  <SelectItem value="dec-2024" className="text-sm md:text-xs py-3 md:py-2">December 2024</SelectItem>
+                  <SelectItem value="nov-2024" className="text-sm md:text-xs py-3 md:py-2">November 2024</SelectItem>
+                  <SelectItem value="oct-2024" className="text-sm md:text-xs py-3 md:py-2">October 2024</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </motion.div>
+        )}
       </div>
 
       {/* Featured Game Card */}
       <AnimatePresence mode="wait">
-        <motion.div 
+        <motion.div
           key={game.title}
           initial={{ opacity: 0, y: 20, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -20, scale: 0.98 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative w-full min-h-[600px] overflow-hidden rounded-[2.5rem] shadow-2xl border border-white/10 group"
+          className="relative w-full min-h-[420px] overflow-hidden rounded-[2.5rem] shadow-2xl border border-white/10 group"
+        // style={{ maxHeight: "420px", overflow: "hidden" }}
         >
-           {/* Full Background Image */}
-           <div className="absolute inset-0">
-             <Image 
-               src={imageSrc}
-               alt={game.title} 
-               fill
-               priority
-               className="object-cover transition-transform duration-1000 group-hover:scale-105"
-             />
-             {/* Gradient Overlay */}
-             <div className="absolute inset-0 bg-gradient-to-t from-[#160026] via-[#160026]/80 to-transparent opacity-90" />
-             <div className="absolute inset-0 bg-gradient-to-r from-[#160026] via-[#160026]/60 to-transparent opacity-90" />
-           </div>
+          {/* Full Background Image */}
+          <div className="absolute inset-0">
+            <Image
+              src={imageSrc}
+              alt={game.title}
+              fill
+              priority
+              className="object-cover transition-transform duration-1000 group-hover:scale-105"
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#160026] via-[#160026]/80 to-transparent opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#160026] via-[#160026]/60 to-transparent opacity-90" />
+          </div>
 
-           {/* Content Container */}
-           <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between z-10">
-              
-              {/* Top Row: Badges */}
-              <div className="flex items-start justify-between">
-                 <div className="flex flex-wrap gap-3">
-                    <Badge className="bg-[#F6CA56] text-black hover:bg-[#F6CA56] font-bold font-sans text-sm px-4 py-1.5 rounded-full shadow-[0_0_15px_rgba(246,202,86,0.4)] uppercase tracking-wider flex items-center gap-2">
-                       <Trophy className="w-4 h-4" /> Featured Pick
-                    </Badge>
-                    <Badge variant="outline" className="bg-black/30 backdrop-blur-md border-white/20 text-white font-bold font-sans px-4 py-1.5 rounded-full flex items-center gap-2">
-                       <Sword className="w-4 h-4 text-[#F6CA56]" /> {game.genre}
-                    </Badge>
-                 </div>
+          {/* Content Container */}
+          <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between z-10">
+
+            {/* Top Row: Badges */}
+            <div className="flex items-start justify-between">
+              <div className="flex flex-wrap gap-3">
+                <Badge className="bg-[#F6CA56] text-black hover:bg-[#F6CA56] font-bold font-sans text-sm px-4 py-1.5 rounded-full shadow-[0_0_15px_rgba(246,202,86,0.4)] uppercase tracking-wider flex items-center gap-2">
+                  <Trophy className="w-4 h-4" /> Featured Pick
+                </Badge>
+                {/* <Badge variant="outline" className="bg-black/30 backdrop-blur-md border-white/20 text-white font-bold font-sans px-4 py-1.5 rounded-full flex items-center gap-2">
+                  <Sword className="w-4 h-4 text-[#F6CA56]" /> {game.genre}
+                </Badge> */}
+              </div>
+            </div>
+
+            {/* Bottom Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+
+              {/* Text Content */}
+              <div className="lg:col-span-7 space-y-6">
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-5xl md:text-7xl lg:text-[70px] font-bold text-white font-heading leading-tight tracking-tight drop-shadow-2xl"
+                >
+                  {game.title}
+                </motion.h2>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-gray-300 text-lg md:text-xl font-sans leading-relaxed max-w-2xl font-light border-l-4 border-[#F6CA56] pl-6"
+                  style={{ maxHeight: "89px", overflow: "hidden" }}
+                >
+                  {game.description}
+                </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="pt-4"
+                >
+                  <Button
+                    className="bg-[#F6CA56] hover:bg-[#e0b545] text-black font-sans font-bold text-lg h-14 px-8 rounded-xl shadow-[0_0_20px_rgba(246,202,86,0.3)] hover:shadow-[0_0_30px_rgba(246,202,86,0.5)] transition-all transform hover:-translate-y-1 w-full md:w-auto"
+                  >
+                    Read Full Review
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </motion.div>
               </div>
 
-              {/* Bottom Content */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-                 
-                 {/* Text Content */}
-                 <div className="lg:col-span-7 space-y-6">
-                    <motion.h2 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="text-5xl md:text-7xl lg:text-8xl font-bold text-white font-heading leading-none tracking-tight drop-shadow-2xl"
-                    >
-                      {game.title}
-                    </motion.h2>
-                    
-                    <motion.p 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="text-gray-300 text-lg md:text-xl font-sans leading-relaxed max-w-2xl font-light border-l-4 border-[#F6CA56] pl-6"
-                    >
-                      {game.description}
-                    </motion.p>
-
+              {/* Metrics Cards */}
+              <div className="lg:col-span-5 w-full hidden md:block">
+                <div className="grid grid-cols-3 gap-4">
+                  {game.metrics.map((metric, i) => (
                     <motion.div
+                      key={i}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="pt-4"
+                      transition={{ delay: 0.4 + (i * 0.1) }}
+                      className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-4 flex flex-col items-center justify-center text-center hover:bg-white/5 hover:border-[#F6CA56]/30 transition-all group/metric"
                     >
-                       <Button 
-                        className="bg-[#F6CA56] hover:bg-[#e0b545] text-black font-sans font-bold text-lg h-14 px-8 rounded-xl shadow-[0_0_20px_rgba(246,202,86,0.3)] hover:shadow-[0_0_30px_rgba(246,202,86,0.5)] transition-all transform hover:-translate-y-1 w-full md:w-auto"
-                      >
-                        Read Full Review
-                        <ArrowRight className="ml-2 w-5 h-5" />
-                      </Button>
+                      <div className="text-2xl md:text-3xl font-bold text-[#F6CA56] font-heading mb-1 group-hover/metric:scale-110 transition-transform">
+                        {metric.value} / 5
+                      </div>
+                      <div className="text-[10px] md:text-xs font-bold font-sans text-gray-400 uppercase tracking-wider">
+                        {metric.label}
+                      </div>
                     </motion.div>
-                 </div>
-
-                 {/* Metrics Cards */}
-                 <div className="lg:col-span-5 w-full hidden md:block">
-                    <div className="grid grid-cols-3 gap-4">
-                       {game.metrics.map((metric, i) => (
-                          <motion.div 
-                            key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 + (i * 0.1) }}
-                            className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-4 flex flex-col items-center justify-center text-center hover:bg-white/5 hover:border-[#F6CA56]/30 transition-all group/metric"
-                          >
-                             <div className="text-2xl md:text-3xl font-bold text-[#F6CA56] font-heading mb-1 group-hover/metric:scale-110 transition-transform">
-                                {metric.value}
-                             </div>
-                             <div className="text-[10px] md:text-xs font-bold font-sans text-gray-400 uppercase tracking-wider">
-                                {metric.label}
-                             </div>
-                          </motion.div>
-                       ))}
-                    </div>
-                 </div>
-
+                  ))}
+                </div>
               </div>
-           </div>
+
+            </div>
+          </div>
         </motion.div>
       </AnimatePresence>
     </section>

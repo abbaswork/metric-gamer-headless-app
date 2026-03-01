@@ -55,5 +55,5 @@ const GAMES_Map = {
 };
 
 export const Default: Story = {
-  render: () => <HomeHero gamesMap={GAMES_Map as any} />,
+  render: () => <HomeHero featuredTitle="Featured Rankings" gamesMap={GAMES_Map as any} />,
 };

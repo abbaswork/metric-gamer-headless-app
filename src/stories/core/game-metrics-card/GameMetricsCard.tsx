@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useId, useState } from "react";
 import "./game-metrics-card.scss";
+import { getMetricIcon } from "@/utils/metricIcons";
 
 type StarRow = { label: string; value: number }; // 0..5 (should be able to set the value to .5)
 
@@ -110,12 +111,18 @@ export const GameMetricsCard = ({
           </div>
 
           <div className="star-rows">
-            {starRows.slice(0, 3).map((r, i) => (
-              <div className="row" key={`${r.label}-${i}`}>
-                <span className="row-label">{r.label}:</span>
-                <Stars value={r.value} />
-              </div>
-            ))}
+            {starRows.slice(0, 3).map((r, i) => {
+              const Icon = getMetricIcon(r.label);
+              return (
+                <div className="row" key={`${r.label}-${i}`}>
+                  <div className="row-header flex items-center gap-2 mb-1">
+                    <Icon className="w-3.5 h-3.5 text-[#F6CA56]" />
+                    <span className="row-label">{r.label}:</span>
+                  </div>
+                  <Stars value={r.value} />
+                </div>
+              );
+            })}
           </div>
 
           {subtitle && <p className="subtitle">{subtitle}</p>}

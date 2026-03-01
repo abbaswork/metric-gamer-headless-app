@@ -23,30 +23,35 @@ type Story = StoryObj<typeof FeaturedGames>;
 
 const MOCK_GAMES = [
   {
+    id: "elden-ring",
     rank: 1,
     title: "Elden Ring",
     genre: "Open World RPG",
     image: darkFantasyImage,
   },
   {
+    id: "nier-automata",
     rank: 2,
     title: "NieR: Automata",
     genre: "Sci-Fi Action",
     image: robotImage,
   },
   {
+    id: "dark-souls-3",
     rank: 3,
     title: "Dark Souls 3",
     genre: "Action RPG",
     image: darkFantasyImage,
   },
   {
+    id: "bloodborne",
     rank: 4,
     title: "Bloodborne",
     genre: "Horror RPG",
     image: darkFantasyImage,
   },
   {
+    id: "sekiro",
     rank: 5,
     title: "Sekiro",
     genre: "Action",

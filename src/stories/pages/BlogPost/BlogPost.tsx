@@ -13,13 +13,16 @@ export interface BlogPostProps {
 }
 
 export function BlogPost({ header, games: initialGames, relatedPosts }: BlogPostProps) {
-  
+
   // State for active metrics (global across cards)
-  const [activeMetrics, setActiveMetrics] = useState<Record<string, boolean>>({
-    Story: true,
-    Combat: true,
-    World: true,
-    Difficulty: true
+  const [activeMetrics, setActiveMetrics] = useState<Record<string, boolean>>(() => {
+    const metrics: Record<string, boolean> = {};
+    initialGames.forEach(game => {
+      Object.keys(game.metrics).forEach(key => {
+        metrics[key] = true;
+      });
+    });
+    return metrics;
   });
 
   const toggleMetric = (metric: string) => {
@@ -41,7 +44,7 @@ export function BlogPost({ header, games: initialGames, relatedPosts }: BlogPost
       });
 
       const newScore = count > 0 ? (totalScore / count).toFixed(1) : "N/A";
-      
+
       return {
         ...game,
         dynamicScore: newScore
@@ -57,26 +60,30 @@ export function BlogPost({ header, games: initialGames, relatedPosts }: BlogPost
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12 pt-24 md:pt-20">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12">
-        
-        {/* Main Content Area */}
-        <div className="space-y-12">
-          
-          <BlogHeader {...header} />
-          
-          <GlanceCarousel 
-            games={processedGames} 
+
+        {/* Main Content Area - min-w-0 prevents grid item blowout */}
+        <div className="space-y-12 min-w-0">
+
+          <BlogHeader
+            {...header}
+            topGames={processedGames.slice(0, 3)}
+          />
+
+          <GlanceCarousel
+            games={processedGames}
             activeMetrics={activeMetrics}
             onToggleMetric={toggleMetric}
-            onGameClick={handleGameClick} 
+            onGameClick={handleGameClick}
           />
-          
-          <DetailedBreakdown 
-            games={processedGames} 
+
+          <DetailedBreakdown
+            games={processedGames}
             activeMetrics={activeMetrics}
+            onToggleMetric={toggleMetric}
           />
-          
+
         </div>
 
         {/* Sidebar */}

@@ -5,19 +5,16 @@ import "@/styles/globals.css";
 // import "@/app/globals.scss";
 
 import { Navbar } from "@/stories/header/Navbar/Navbar";
+import { Footer } from "@/stories/layouts/Footer/Footer";
 import { HelpBubble } from "@/components/HelpBubble/HelpBubble";
 import { PreviewNotice } from "@/components/Globals/PreviewNotice/PreviewNotice";
-// import { PageContent } from "@/stories/layouts/page-content/PageContent";
-// import { SidePanel } from "@/stories/layouts/side-panel/SidePanel";
-// import { ListContainer } from "@/stories/core/list-container/ListContainer";
-// import ScrollUpButton from "@/stories/core/scroll-up-button/ScrollUpButton";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-heading" });
-const rajdhani = Rajdhani({ 
-  subsets: ["latin"], 
-  weight: ["300", "400", "500", "600", "700"], 
-  variable: "--font-mono" 
+const rajdhani = Rajdhani({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-mono"
 });
 
 export default async function RootLayout({
@@ -30,10 +27,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${spaceGrotesk.variable} ${rajdhani.variable} antialiased font-sans bg-background text-foreground`}>
-       <Navbar />
+        <Navbar />
         {isEnabled && <PreviewNotice />}
         {children}
         <HelpBubble />
+        <Footer />
       </body>
     </html>
   );

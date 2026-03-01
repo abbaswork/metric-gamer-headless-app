@@ -38,5 +38,6 @@ export const Default: Story = {
     selectedMonth: "dec-2024",
     onMonthChange: (value) => console.log("Month changed:", value),
     game: MOCK_GAME,
+    featuredTitle: "Featured Rankings",
   },
 };

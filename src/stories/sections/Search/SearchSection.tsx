@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
+import { useEffect, Suspense } from "react";
 import { SearchHeader } from "@/stories/search/SearchHeader/SearchHeader";
 import { FilterBar } from "@/stories/search/FilterBar/FilterBar";
 import { ContentCard } from "@/stories/core/ContentCard/ContentCard";
@@ -11,11 +13,31 @@ import { Search } from "lucide-react";
 export interface SearchSectionProps {
   initialGames: any[];
   initialBlogs: any[];
+  availableMetrics?: any[];
 }
 
-export function SearchSection({ initialGames, initialBlogs }: SearchSectionProps) {
+export function SearchSection({ initialGames, initialBlogs, availableMetrics = [] }: SearchSectionProps) {
+  return (
+    <Suspense fallback={<div className="text-center py-20 text-gray-500">Loading search...</div>}>
+      <SearchSectionContent
+        initialGames={initialGames}
+        initialBlogs={initialBlogs}
+        availableMetrics={availableMetrics}
+      />
+    </Suspense>
+  );
+}
+
+function SearchSectionContent({ initialGames, initialBlogs, availableMetrics }: SearchSectionProps) {
+  const searchParams = useSearchParams();
+  const typeParam = searchParams.get('type');
+  console.log("typeParam", typeParam);
+
   const [searchQuery, setSearchQuery] = useState("");
-  const [resultType, setResultType] = useState("game");
+  const [resultType, setResultType] = useState(() => {
+    if (typeParam === 'blog' || typeParam === 'game') return typeParam;
+    return "game";
+  });
   const [selectedMetrics, setSelectedMetrics] = useState<string[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [selectedBlogTypes, setSelectedBlogTypes] = useState<string[]>([]);
@@ -24,12 +46,12 @@ export function SearchSection({ initialGames, initialBlogs }: SearchSectionProps
   const COMBINED_DATA = [...initialGames, ...initialBlogs];
 
   // Helper toggles
-  const toggle = (set: any) => (val: string) => 
+  const toggle = (set: any) => (val: string) =>
     set((p: string[]) => p.includes(val) ? p.filter(x => x !== val) : [...p, val]);
-  
+
   // Blog type toggle needs side effect to switch tab
   const toggleBlogType = (type: string) => {
-    setSelectedBlogTypes(prev => 
+    setSelectedBlogTypes(prev =>
       prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
     );
     if (resultType !== 'blog') setResultType('blog');
@@ -54,7 +76,7 @@ export function SearchSection({ initialGames, initialBlogs }: SearchSectionProps
     const titleMatch = item.title.toLowerCase().includes(searchLower);
     const genreMatch = item.genres?.some((g: string) => g.toLowerCase().includes(searchLower));
     const excerptMatch = item.type === "blog" && item.excerpt?.toLowerCase().includes(searchLower);
-    
+
     if (searchQuery && !titleMatch && !genreMatch && !excerptMatch) return false;
 
     // 3. Filter by Metrics
@@ -68,7 +90,7 @@ export function SearchSection({ initialGames, initialBlogs }: SearchSectionProps
           const gameVal = item.metrics?.[key];
           // Or check unique metric
           const uniqueLabel = item.uniqueMetric?.label;
-          return (gameVal && gameVal >= 4) || (uniqueLabel && uniqueLabel.includes(m)); 
+          return (gameVal && gameVal >= 4) || (uniqueLabel && uniqueLabel.includes(m));
         }
       });
       if (!hasMetric) return false;
@@ -82,7 +104,7 @@ export function SearchSection({ initialGames, initialBlogs }: SearchSectionProps
 
     // 5. Filter by Blog Type
     if (selectedBlogTypes.length > 0) {
-      if (item.type !== 'blog') return false; 
+      if (item.type !== 'blog') return false;
       const hasBlogType = selectedBlogTypes.includes(item.blogType);
       if (!hasBlogType) return false;
     }
@@ -103,28 +125,29 @@ export function SearchSection({ initialGames, initialBlogs }: SearchSectionProps
     <div className="space-y-8">
       {/* Filter Control Center */}
       <div className="bg-[#160026] border border-[#351150] rounded-3xl overflow-hidden shadow-2xl relative z-20">
-         <div className="p-6 md:p-8 space-y-8">
-           <SearchHeader 
-             searchQuery={searchQuery}
-             onSearchChange={setSearchQuery}
-             resultType={resultType}
-             onResultTypeChange={setResultType}
-           />
-           
-           <FilterBar 
-             selectedMetrics={selectedMetrics}
-             selectedPlatforms={selectedPlatforms}
-             selectedGenres={selectedGenres}
-             selectedBlogTypes={selectedBlogTypes}
-             onMetricToggle={toggle(setSelectedMetrics)}
-             onPlatformToggle={toggle(setSelectedPlatforms)}
-             onGenreToggle={toggle(setSelectedGenres)}
-             onBlogTypeToggle={toggleBlogType}
-             onClearAll={clearFilters}
-             showClearAll={showClearAll}
-             resultType={resultType}
-           />
-         </div>
+        <div className="p-6 md:p-8 space-y-8">
+          <SearchHeader
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            resultType={resultType}
+            onResultTypeChange={setResultType}
+          />
+
+          <FilterBar
+            availableMetrics={availableMetrics || []}
+            selectedMetrics={selectedMetrics}
+            selectedPlatforms={selectedPlatforms}
+            selectedGenres={selectedGenres}
+            selectedBlogTypes={selectedBlogTypes}
+            onMetricToggle={toggle(setSelectedMetrics)}
+            onPlatformToggle={toggle(setSelectedPlatforms)}
+            onGenreToggle={toggle(setSelectedGenres)}
+            onBlogTypeToggle={toggleBlogType}
+            onClearAll={clearFilters}
+            showClearAll={showClearAll}
+            resultType={resultType}
+          />
+        </div>
       </div>
 
       {/* Results Count */}
@@ -135,11 +158,11 @@ export function SearchSection({ initialGames, initialBlogs }: SearchSectionProps
       </div>
 
       {/* Combined Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+      <div id="results" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 scroll-mt-32">
         <AnimatePresence mode="popLayout">
           {filteredResults.length > 0 ? (
             filteredResults.map((item) => (
-              <ContentCard 
+              <ContentCard
                 key={item.id}
                 {...item}
                 rank={item.rank}
@@ -149,18 +172,18 @@ export function SearchSection({ initialGames, initialBlogs }: SearchSectionProps
             ))
           ) : (
             <div className="col-span-full py-20 text-center">
-               <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Search className="w-8 h-8 text-gray-600" />
-               </div>
-               <h3 className="text-2xl font-bold text-white mb-2">No results found</h3>
-               <p className="text-gray-400">Try adjusting your filters or search query</p>
-               <Button 
-                  variant="link" 
-                  onClick={clearFilters}
-                  className="text-[#F6CA56] mt-4"
-               >
-                  Clear all filters
-               </Button>
+              <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search className="w-8 h-8 text-gray-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">No results found</h3>
+              <p className="text-gray-400">Try adjusting your filters or search query</p>
+              <Button
+                variant="link"
+                onClick={clearFilters}
+                className="text-[#F6CA56] mt-4"
+              >
+                Clear all filters
+              </Button>
             </div>
           )}
         </AnimatePresence>

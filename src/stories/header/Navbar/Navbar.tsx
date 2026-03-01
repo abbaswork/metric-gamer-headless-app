@@ -2,16 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Database, Menu, Home, Gamepad2, X } from "lucide-react";
+import { Database, Menu, Home, Gamepad2, X, ListOrdered } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import logoTransparent from "@/assets/Logo_Transparent_1765216442252.png";
 import Image from "next/image";
+import { SubscribePopup } from "./SubscribePopup";
+import { useRef } from "react";
 
 export const Navbar = memo(function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+  const subscribeButtonRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -25,7 +29,7 @@ export const Navbar = memo(function Navbar() {
   return (
     <>
       {/* Floating Island Navbar */}
-      <motion.header 
+      <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -39,13 +43,13 @@ export const Navbar = memo(function Navbar() {
           transition-all duration-300
           ${isScrolled ? "scale-90" : "scale-100"}
         `}>
-          
+
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 mr-3 group">
             <div className="relative h-6 w-6">
-              <Image 
-                src={logoTransparent} 
-                alt="Metric Gamer" 
+              <Image
+                src={logoTransparent}
+                alt="Metric Gamer"
                 fill
                 className="object-contain transition-transform group-hover:scale-110"
               />
@@ -62,9 +66,9 @@ export const Navbar = memo(function Navbar() {
           {/* Navigation Items */}
           <nav className="flex items-center gap-1">
             <Link href="/">
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 className={`rounded-full px-3 h-8 gap-1.5 text-xs font-sans transition-all ${pathname === '/' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
               >
                 <Home className="w-3.5 h-3.5" />
@@ -73,13 +77,24 @@ export const Navbar = memo(function Navbar() {
             </Link>
 
             <Link href="/metrics">
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 className={`rounded-full px-3 h-8 gap-1.5 text-xs font-sans transition-all ${pathname === '/metrics' ? 'bg-[#F6CA56] text-black hover:bg-[#e0b545]' : 'text-gray-400 hover:text-[#F6CA56] hover:bg-white/5'}`}
               >
-                <Database className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Database</span>
+                <Gamepad2 className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Find Games</span>
+              </Button>
+            </Link>
+
+            <Link href="/metrics?type=blog">
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`rounded-full px-3 h-8 gap-1.5 text-xs font-sans transition-all ${pathname === '/metrics' ? 'bg-[#F6CA56] text-black hover:bg-[#e0b545]' : 'text-gray-400 hover:text-[#F6CA56] hover:bg-white/5'}`}
+              >
+                <ListOrdered className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Find Ranked Lists</span>
               </Button>
             </Link>
           </nav>
@@ -88,13 +103,17 @@ export const Navbar = memo(function Navbar() {
           <div className="w-px h-5 bg-white/10 mx-1" />
 
           {/* Subscribe / Menu */}
-          <div className="flex items-center gap-2">
-            <Button size="sm" className="bg-white/5 hover:bg-white/10 text-white rounded-full px-4 h-8 text-xs font-bold hidden md:flex">
+          <div className="flex items-center gap-2" ref={subscribeButtonRef}>
+            <Button
+              size="sm"
+              className="bg-white/5 hover:bg-white/10 text-white rounded-full px-4 h-8 text-xs font-bold hidden md:flex transition-all active:scale-95"
+              onClick={() => setIsSubscribeOpen(true)}
+            >
               Subscribe
             </Button>
-            <Button 
-              size="icon" 
-              variant="ghost" 
+            <Button
+              size="icon"
+              variant="ghost"
               className="rounded-full w-8 h-8 text-gray-400 hover:text-white md:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
@@ -126,13 +145,25 @@ export const Navbar = memo(function Navbar() {
                 </Button>
               </Link>
               <div className="h-px bg-white/10 my-2" />
-              <Button className="w-full bg-[#F6CA56] text-black hover:bg-[#e0b545]">
+              <Button
+                className="w-full bg-[#F6CA56] text-black hover:bg-[#e0b545] font-bold"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setIsSubscribeOpen(true);
+                }}
+              >
                 Subscribe
               </Button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <SubscribePopup
+        isOpen={isSubscribeOpen}
+        onClose={() => setIsSubscribeOpen(false)}
+        anchorRef={subscribeButtonRef}
+      />
     </>
   );
 });

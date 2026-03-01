@@ -23,18 +23,16 @@ type Story = StoryObj<typeof SimilarGames>;
 
 const GAMES = [
   {
+    id: "top-5-soulslikes",
     title: "Top 5 Soulslikes That Defined the Genre",
     image: darkFantasyImage,
-    date: "Oct 12, 2024",
-    author: "Metric Gamer Team",
-    slug: "#"
+    slug: "top-5-soulslikes"
   },
   {
+    id: "best-builds-shadow-erdtree",
     title: "Best Builds for Shadow of the Erdtree",
     image: gothicImage,
-    date: "Jun 20, 2024",
-    author: "Sarah Jones",
-    slug: "#"
+    slug: "best-builds-shadow-erdtree"
   }
 ];
 

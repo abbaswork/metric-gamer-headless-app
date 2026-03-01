@@ -1,6 +1,7 @@
 export const FEATURED_GAMES = {
   "dec-2024": [
     {
+      id: "elden-ring-sote",
       rank: 1,
       title: "Elden Ring: Shadow of the Erdtree",
       genre: "Action RPG",
@@ -14,6 +15,7 @@ export const FEATURED_GAMES = {
       tags: ["Open World", "Souls-like", "Dark Fantasy"]
     },
     {
+      id: "black-myth-wukong",
       rank: 2,
       title: "Black Myth: Wukong",
       genre: "Action RPG",
@@ -27,6 +29,7 @@ export const FEATURED_GAMES = {
       tags: ["Action", "Mythology", "Singleplayer"]
     },
     {
+      id: "hades-2",
       rank: 3,
       title: "Hades II",
       genre: "Roguelike",
@@ -40,6 +43,7 @@ export const FEATURED_GAMES = {
       tags: ["Roguelite", "Indie", "Action"]
     },
     {
+      id: "ff7-rebirth",
       rank: 4,
       title: "Final Fantasy VII Rebirth",
       genre: "JRPG",
@@ -53,6 +57,7 @@ export const FEATURED_GAMES = {
       tags: ["RPG", "Fantasy", "Open World"]
     },
     {
+      id: "helldivers-2",
       rank: 5,
       title: "Helldivers 2",
       genre: "Shooter",
@@ -68,6 +73,7 @@ export const FEATURED_GAMES = {
   ],
   "nov-2024": [
     {
+      id: "cod-bo6",
       rank: 1,
       title: "Call of Duty: Black Ops 6",
       genre: "Shooter",
@@ -83,6 +89,7 @@ export const FEATURED_GAMES = {
   ],
   "oct-2024": [
     {
+      id: "metaphor-refantazio",
       rank: 1,
       title: "Metaphor: ReFantazio",
       genre: "RPG",

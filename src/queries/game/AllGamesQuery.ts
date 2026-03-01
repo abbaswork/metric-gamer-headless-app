@@ -1,12 +1,17 @@
 import gql from "graphql-tag";
 
 export const AllGamesQuery = gql`
-  query AllGames($where: RootQueryToGameConnectionWhereArgs) {
-    games(where: $where) {
+  query AllGames($where: RootQueryToGameConnectionWhereArgs, $first: Int) {
+    games(first: $first, where: $where) {
       nodes {
         gameId
         title
         slug
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
         propertiesGame {
           gameTitle
           gameDescription

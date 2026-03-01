@@ -28,9 +28,10 @@ export function FeaturedGames({ title, tagline, games, onGameClick, selectedGame
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {games.map((game, i) => (
-          <GameCard 
+          <GameCard
             key={i}
             {...game}
+            rating={(game as any).metrics?.find((m: any) => m.label.toLowerCase() === 'overall')?.value || 4.8}
             delay={0.1 * i}
             onClick={() => onGameClick?.(game.title)} // Using title as ID proxy
             isSelected={selectedGameId === game.title}

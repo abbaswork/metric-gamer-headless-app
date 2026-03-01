@@ -5,7 +5,17 @@ export const GameBySlugQuery = gql`
     game(id: $slug, idType: SLUG) {
       title
       slug
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
       platform {
+        nodes {
+          name
+        }
+      }
+      tags {
         nodes {
           name
         }

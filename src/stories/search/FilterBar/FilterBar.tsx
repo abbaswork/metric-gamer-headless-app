@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { 
-  SlidersHorizontal, X, Monitor, Swords, 
-  TrendingUp, Brain, Repeat, BookOpen, LayoutGrid, 
-  MonitorPlay, FileText, Hash, ListFilter
+import {
+  SlidersHorizontal, X, Monitor, Swords,
+  TrendingUp, Brain, Repeat, BookOpen, LayoutGrid,
+  MonitorPlay, FileText, Hash, ListFilter, Clock
 } from "lucide-react";
 
 export interface FilterBarProps {
+  availableMetrics?: any[];
   selectedMetrics: string[];
   selectedPlatforms: string[];
   selectedGenres: string[];
@@ -20,16 +21,7 @@ export interface FilterBarProps {
 }
 
 // Configuration Constants
-const METRIC_TAGS = [
-  { id: "Story", icon: BookOpen },
-  { id: "Graphics", icon: Monitor },
-  { id: "Combat", icon: Swords },
-  { id: "Difficulty", icon: TrendingUp },
-  { id: "World Design", icon: LayoutGrid },
-  { id: "Mechanics", icon: Brain },
-  { id: "Music", icon: Repeat },
-  { id: "Atmosphere", icon: BookOpen },
-];
+import { METRIC_ICONS } from "@/utils/metricIcons";
 
 const GENRE_TAGS = [
   "RPG", "Action", "Horror", "Sci-Fi", "Indie", "Metroidvania", "Open World", "Strategy"
@@ -40,6 +32,7 @@ const BLOG_TYPE_TAGS = ["Top 5", "Best Of", "Hidden Gems"];
 const PLATFORM_TAGS = ["PS5", "PS4", "Xbox Series X/S", "Xbox One", "PC", "Switch"];
 
 export function FilterBar({
+  availableMetrics = [],
   selectedMetrics,
   selectedPlatforms,
   selectedGenres,
@@ -52,28 +45,31 @@ export function FilterBar({
   showClearAll,
   resultType
 }: FilterBarProps) {
+  const metricsToDisplay = availableMetrics.map(m => ({
+    id: m.name,
+    icon: METRIC_ICONS[m.name] || BookOpen
+  }));
   return (
     <div>
-      <div className="flex items-center justify-between gap-4 border-b border-white/5 pb-6">
-         <div className="flex items-center gap-3">
-            <div className="bg-[#F6CA56] p-2 rounded-lg text-black">
-              <ListFilter className="w-5 h-5" />
-            </div>
-            <h3 className="text-xl font-bold text-white">Filters</h3>
-         </div>
+      {/* <div className="flex items-center justify-between gap-4 border-b border-white/5 pb-6">
+        <div className="flex items-center gap-3">
+          <div className="bg-[#F6CA56] p-2 rounded-lg text-black">
+            <ListFilter className="w-5 h-5" />
+          </div>
+          <h3 className="text-xl font-bold text-white">Filters</h3>
+        </div>
 
-         {/* Clear All */}
-         {showClearAll && (
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={onClearAll}
-              className="text-gray-400 hover:text-[#F6CA56] hover:bg-white/5 transition-colors"
-            >
-              Clear All <X className="w-4 h-4 ml-2" />
-            </Button>
-          )}
-      </div>
+=      {showClearAll && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onClearAll}
+          className="text-gray-400 hover:text-[#F6CA56] hover:bg-white/5 transition-colors"
+        >
+          Clear All <X className="w-4 h-4 ml-2" />
+        </Button>
+      )}
+    </div> */}
 
       <div className="space-y-8 mt-6">
         {/* Metrics Selection */}
@@ -83,7 +79,7 @@ export function FilterBar({
             <span>Filter by Metric</span>
           </div>
           <div className="flex flex-wrap gap-2">
-            {METRIC_TAGS.map((metric) => {
+            {metricsToDisplay.map((metric) => {
               const isSelected = selectedMetrics.includes(metric.id);
               return (
                 <button
@@ -91,8 +87,8 @@ export function FilterBar({
                   onClick={() => onMetricToggle(metric.id)}
                   className={`
                     flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all duration-200 text-sm
-                    ${isSelected 
-                      ? "bg-[#F6CA56] text-black border-[#F6CA56] shadow-[0_0_15px_rgba(246,202,86,0.3)] font-bold transform -translate-y-0.5" 
+                    ${isSelected
+                      ? "bg-[#F6CA56] text-black border-[#F6CA56] shadow-[0_0_15px_rgba(246,202,86,0.3)] font-bold transform -translate-y-0.5"
                       : "bg-black/30 text-gray-300 border-white/10 hover:border-[#F6CA56]/50 hover:bg-white/5 hover:text-white"
                     }
                   `}
@@ -122,8 +118,8 @@ export function FilterBar({
                     onClick={() => onPlatformToggle(platform)}
                     className={`
                       px-3 py-1.5 rounded-lg text-xs font-bold border transition-all duration-200
-                      ${isSelected 
-                        ? "bg-[#F6CA56] text-black border-[#F6CA56]" 
+                      ${isSelected
+                        ? "bg-[#F6CA56] text-black border-[#F6CA56]"
                         : "bg-black/30 text-gray-400 border-white/10 hover:border-white/30 hover:text-white"
                       }
                     `}
@@ -136,7 +132,7 @@ export function FilterBar({
           </div>
 
           {/* Blog Type Selection (Blogs Only or All) */}
-          <div className={`space-y-3 transition-opacity ${resultType === 'game' ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+          {/* <div className={`space-y-3 transition-opacity ${resultType === 'game' ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
             <div className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-wider">
               <FileText className="w-4 h-4" />
               <span>Filter by Blog Type</span>
@@ -161,11 +157,11 @@ export function FilterBar({
                 );
               })}
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Genre Selection */}
-        <div className="space-y-3 pt-6 border-t border-white/5">
+        {/* <div className="space-y-3 pt-6 border-t border-white/5">
           <div className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-wider">
             <Hash className="w-4 h-4" />
             <span>Filter by Genre</span>
@@ -190,8 +186,8 @@ export function FilterBar({
               );
             })}
           </div>
-        </div>
+        </div> */}
       </div>
-    </div>
+    </div >
   );
 }

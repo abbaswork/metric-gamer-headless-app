@@ -3,11 +3,9 @@ import { print } from "graphql/language/printer";
 
 import { fetchGraphQL } from "@/utils/fetchGraphQL";
 import { GameBySlugQuery } from "@/queries/game/GameBySlugQuery";
+import { AllRankingsQuery } from "@/queries/ranking/AllRankingsQuery";
 import { GameBySlugQuery as GameBySlugQueryType } from "@/gql/graphql";
 import { GamePost } from "@/stories/pages/GamePost/GamePost";
-
-// Mock Icons for Metrics
-// import { BookOpen, Swords, Monitor, TrendingUp, Trophy, Gamepad2 } from "lucide-react";
 
 // Mock Images
 import darkFantasyImage from "@/assets/generated_images/dark_fantasy_action_rpg_scene_with_a_knight_facing_a_dragon.png";
@@ -20,12 +18,12 @@ export default async function GamePage({ params }: Props) {
   const { slug } = await params;
 
   // 1. Fetch Data
-  const { game } = await fetchGraphQL<GameBySlugQueryType>(
-    print(GameBySlugQuery),
-    {
-      slug: slug,
-    }
-  );
+  const [gameData, rankingsData] = await Promise.all([
+    fetchGraphQL<GameBySlugQueryType>(print(GameBySlugQuery), { slug }),
+    fetchGraphQL<any>(print(AllRankingsQuery), { first: 100 })
+  ]);
+
+  const game = gameData.game;
 
   if (!game || !game.propertiesGame) {
     return notFound();
@@ -34,24 +32,26 @@ export default async function GamePage({ params }: Props) {
   const { propertiesGame } = game;
 
   // 2. Map Data to Component Props
+  const platformsArr = (game as any).platform?.nodes?.map((n: any) => n.name) || [];
+  const tagsArr = (game as any).tags?.nodes?.map((n: any) => n.name) || [];
 
   // HEADER
   const headerData = {
     title: propertiesGame.gameTitle || game.title || "Untitled Game",
     genre: "Action RPG", // MOCK: Field missing in query
-    platforms: ["PS5", "Xbox Series X/S", "PC"], // MOCK: Field missing in query
+    platforms: platformsArr.length > 0 ? platformsArr : ["PS5", "Xbox Series X/S", "PC"],
+    tags: tagsArr,
     developer: "Unknown Developer", // MOCK: Field missing in query
-    // propertiesGame.releaseDate is "2022-03-25T00:00:00+00:00"
-    releaseDate: propertiesGame.releaseDate 
-      ? new Date(propertiesGame.releaseDate).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) 
+    releaseDate: propertiesGame.releaseDate
+      ? new Date(propertiesGame.releaseDate).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })
       : "Coming Soon",
-    heroImage: darkFantasyImage, // MOCK: Field missing in query (would usually come from featuredImage or ACF)
+    heroImage: game.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
   };
 
   // INFO
   const infoData = {
     description: propertiesGame.gameDescription || "",
-    verdict: "A masterpiece of game design that sets a new standard for the genre.", // MOCK: Field missing in query
+    verdict: "A masterpiece of game design that sets a new standard for the genre.",
     pros: propertiesGame.theGood?.map((item) => item?.goodPoint || "") || [],
     cons: propertiesGame.theBad?.map((item) => item?.badPoint || "") || [],
   };
@@ -64,8 +64,7 @@ export default async function GamePage({ params }: Props) {
     "Co-op and Multiplayer": "Swords",
     "Co-op Customisation": "Trophy",
   };
-  
-  // Helper to safely get metric name
+
   const getMetricName = (metricNode: any) => {
     return metricNode?.metric?.nodes?.[0]?.name || "Unknown Metric";
   };
@@ -81,35 +80,56 @@ export default async function GamePage({ params }: Props) {
     };
   }) || [];
 
-  // SIMILAR GAMES (MOCK)
-  const similarGamesData = [
-    {
-      title: "Similar Game 1",
-      image: darkFantasyImage,
-      date: "Oct 12, 2024",
-      author: "Metric Gamer Team",
-      slug: "#"
-    },
-    {
-      title: "Similar Game 2",
-      image: darkFantasyImage,
-      date: "Jun 20, 2024",
-      author: "Metric Gamer Team",
-      slug: "#"
-    }
-  ];
+  // SIMILAR GAMES (Ranked Lists featuring this game)
+  const similarGamesData = (rankingsData.rankings?.nodes || []).filter((ranking: any) => {
+    const selectedGames = ranking.propertiesGamePost?.selectGames?.flatMap((selection: any) => {
+      return selection?.selectedGame?.nodes || [];
+    }) || [];
+    return selectedGames.some((g: any) => g.slug === slug);
+  }).map((node: any, i: number) => {
+    const gamesContent = node.propertiesGamePost?.selectGames?.flatMap((selection: any) => {
+      return selection?.selectedGame?.nodes || [];
+    }) || [];
 
-  // SIDEBAR (MOCK)
+    const firstGame = gamesContent[0]?.propertiesGame;
+    const rankingMetrics: string[] = [];
+    const rankingPlatforms: string[] = gamesContent[0]?.platform?.nodes?.map((p: any) => p.name) || [];
+
+    if (firstGame) {
+      (firstGame.metrics || []).forEach((m: any) => {
+        const name = m?.metric?.nodes?.[0]?.name;
+        if (name) rankingMetrics.push(name);
+      });
+      if (firstGame.playtime) rankingMetrics.push("Playtime");
+    }
+
+    const leftImage = gamesContent[1]?.featuredImage?.node?.sourceUrl || undefined;
+    const rightImage = gamesContent[2]?.featuredImage?.node?.sourceUrl || undefined;
+
+    return {
+      id: node.slug || `ranking-${i}`,
+      title: node.title || "Unknown Ranking",
+      image: node.featuredImage?.node?.sourceUrl || gamesContent[0]?.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
+      leftImage: gamesContent[1]?.featuredImage?.node?.sourceUrl,
+      rightImage: gamesContent[2]?.featuredImage?.node?.sourceUrl,
+      excerpt: node.propertiesGamePost?.description || "",
+      metrics: rankingMetrics,
+      platforms: rankingPlatforms,
+      slug: node.slug,
+    };
+  });
+
+  // SIDEBAR
   const sidebarData = {
-    score: 4.5, // Could calculate average from metrics if desired, but mocking for now
+    score: 4.5,
     stats: {
       playtime: propertiesGame.playtime || "Unknown",
-      players: "1-4" // MOCK
+      players: "1-4"
     }
   };
 
   return (
-    <GamePost 
+    <GamePost
       header={headerData}
       info={infoData}
       metrics={metricsData}

@@ -1,18 +1,18 @@
 import gql from "graphql-tag";
 
-export const RankingBySlugQuery = gql`
-  query RankingBySlug($slug: ID!) {
-    ranking(id: $slug, idType: SLUG) {
+export const HomeFeaturedGamesQuery = gql`
+  query HomeFeaturedGames {
+    page(id: 8, idType: DATABASE_ID) {
       id
       title
       slug
-      featuredImage {
-        node {
-          sourceUrl
+      propertiesHome {
+        featuredTitle
+        featuredMetrics {
+          nodes {
+            name
+          }
         }
-      }
-      propertiesGamePost {
-        description
         selectGames {
           selectedGame {
             nodes {
@@ -25,16 +25,21 @@ export const RankingBySlugQuery = gql`
                     sourceUrl
                   }
                 }
+                tags {
+                  nodes {
+                    name
+                  }
+                }
+                platform {
+                  nodes {
+                    name
+                  }
+                }
                 propertiesGame {
                   gameTitle
                   gameDescription
-                  theBad {
-                    badPoint
-                  }
-                  theGood {
-                    goodPoint
-                  }
                   verdict
+                  playtime
                   metrics {
                     description
                     score

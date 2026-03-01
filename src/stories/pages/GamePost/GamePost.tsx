@@ -28,26 +28,26 @@ export function GamePost({ header, info, metrics, similarGames, sidebar }: GameP
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-[#F6CA56] selection:text-black">
       <Navbar />
       <GameHeader {...header} onScrollToSimilar={scrollToSimilarGames} />
-      
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12">
-          
+
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-2 pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 md:gap-12">
+
           {/* Main Content Area */}
-          <div className="space-y-16">
-            
+          <div className="flex flex-col gap-12">
+
             {/* Mobile-only Sidebar Card at top */}
             <div className="lg:hidden">
-              <GameSidebar {...sidebar} isInline={true} />
+              <GameSidebar {...sidebar} isInline={true} score={sidebar.score} stats={sidebar.stats} gameTitle={header.title} platforms={header.platforms} />
             </div>
 
             <GameInfo {...info} />
-            
+
             <Separator className="bg-white/10" />
-            
+
             <MetricDeepDive metrics={metrics} />
-            
+
             <Separator className="bg-white/10" />
-            
+
             <div ref={similarGamesRef}>
               <SimilarGames games={similarGames} currentGameTitle={header.title} />
             </div>
@@ -56,7 +56,7 @@ export function GamePost({ header, info, metrics, similarGames, sidebar }: GameP
 
           {/* Desktop Sidebar */}
           <div className="hidden lg:block">
-            <GameSidebar {...sidebar} />
+            <GameSidebar {...sidebar} score={sidebar.score} stats={sidebar.stats} gameTitle={header.title} platforms={header.platforms} />
           </div>
 
         </div>
