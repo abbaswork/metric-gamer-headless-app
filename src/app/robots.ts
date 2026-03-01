@@ -31,7 +31,7 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
       allow,
       disallow,
     },
-    sitemap,
+    sitemap: `${process.env.NEXT_PUBLIC_BASE_URL || "https://www.metricgamer.com"}/sitemap.xml`,
   };
 
   return robots;
