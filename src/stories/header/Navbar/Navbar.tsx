@@ -70,7 +70,6 @@ export const Navbar = memo(function Navbar() {
                 variant="ghost"
                 size="sm"
                 className={`rounded-full px-4 h-10 gap-1.5 text-xs font-sans transition-all ${pathname === '/' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
-                aria-hidden="true"
               >
                 <Home className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Home</span>
@@ -82,7 +81,6 @@ export const Navbar = memo(function Navbar() {
                 variant="ghost"
                 size="sm"
                 className={`rounded-full px-4 h-10 gap-1.5 text-xs font-sans transition-all ${pathname === '/metrics' ? 'bg-[#F6CA56] text-black hover:bg-[#e0b545]' : 'text-gray-400 hover:text-[#F6CA56] hover:bg-white/5'}`}
-                aria-hidden="true"
               >
                 <Gamepad2 className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Find Games</span>
@@ -94,7 +92,6 @@ export const Navbar = memo(function Navbar() {
                 variant="ghost"
                 size="sm"
                 className={`rounded-full px-4 h-10 gap-1.5 text-xs font-sans transition-all ${pathname === '/metrics' ? 'bg-[#F6CA56] text-black hover:bg-[#e0b545]' : 'text-gray-400 hover:text-[#F6CA56] hover:bg-white/5'}`}
-                aria-hidden="true"
               >
                 <ListOrdered className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Find Ranked Lists</span>

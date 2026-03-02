@@ -11,17 +11,17 @@ export function Footer() {
           <h3 className="text-2xl font-bold mb-4 font-heading text-white">Follow Us</h3>
           <div className="flex gap-3 mb-6">
             <a href="https://www.youtube.com/@MetricGamerOfficial" target="_blank" rel="noopener noreferrer" aria-label="Visit our YouTube channel">
-              <Button size="icon" variant="outline" className="rounded-xl border-[#F6CA56] text-[#F6CA56] hover:bg-[#F6CA56] hover:text-black transition-all h-12 w-12" aria-hidden="true">
+              <Button size="icon" variant="outline" className="rounded-xl border-[#F6CA56] text-[#F6CA56] hover:bg-[#F6CA56] hover:text-black transition-all h-12 w-12" >
                 <Youtube className="w-6 h-6" />
               </Button>
             </a>
             <a href="https://www.instagram.com/metric.gamer.official/" target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram profile">
-              <Button size="icon" variant="outline" className="rounded-xl border-[#F6CA56] text-[#F6CA56] hover:bg-[#F6CA56] hover:text-black transition-all h-12 w-12" aria-hidden="true">
+              <Button size="icon" variant="outline" className="rounded-xl border-[#F6CA56] text-[#F6CA56] hover:bg-[#F6CA56] hover:text-black transition-all h-12 w-12" >
                 <Instagram className="w-6 h-6" />
               </Button>
             </a>
             <a href="https://www.tiktok.com/@metric.gamer.official?lang=en" target="_blank" rel="noopener noreferrer" aria-label="Follow us on TikTok">
-              <Button size="icon" variant="outline" className="rounded-xl border-[#F6CA56] text-[#F6CA56] hover:bg-[#F6CA56] hover:text-black transition-all h-12 w-12" aria-hidden="true">
+              <Button size="icon" variant="outline" className="rounded-xl border-[#F6CA56] text-[#F6CA56] hover:bg-[#F6CA56] hover:text-black transition-all h-12 w-12" >
                 <Music2 className="w-6 h-6" />
               </Button>
             </a>
