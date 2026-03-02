@@ -77,7 +77,7 @@ export function BuyNowDialog({ isOpen, onClose, gameTitle = "", platforms = [] }
                   {gameTitle ? `Search ${gameTitle}` : "Choose Your Platform"}
                 </h3>
                 <p className="text-gray-400 text-sm md:text-lg">
-                  Search Stores to find the game you're looking for
+                  Search Stores to find the game you&apos;re looking for
                 </p>
               </div>
 
