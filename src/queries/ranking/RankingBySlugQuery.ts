@@ -8,7 +8,7 @@ export const RankingBySlugQuery = gql`
       slug
       featuredImage {
         node {
-          sourceUrl
+          sourceUrl(size: LARGE)
         }
       }
       propertiesGamePost {
@@ -22,7 +22,7 @@ export const RankingBySlugQuery = gql`
                 slug
                 featuredImage {
                   node {
-                    sourceUrl
+                    sourceUrl(size: LARGE)
                   }
                 }
                 propertiesGame {

@@ -13,6 +13,12 @@ export async function middleware(request: NextRequest) {
     "",
   );
 
+  // 1. Internal Path Redirects
+  if (pathnameWithoutTrailingSlash.startsWith("/blog/")) {
+    const newPath = pathnameWithoutTrailingSlash.replace("/blog/", "/ranking/");
+    return NextResponse.redirect(new URL(newPath, request.url), 301);
+  }
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/wp-json/redirection/v1/redirect/?filterBy%5Burl-match%5D=plain&filterBy%5Burl%5D=${pathnameWithoutTrailingSlash}`,
     {

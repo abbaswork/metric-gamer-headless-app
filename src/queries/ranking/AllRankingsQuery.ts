@@ -9,7 +9,7 @@ export const AllRankingsQuery = gql`
         slug
         featuredImage {
           node {
-            sourceUrl
+            sourceUrl(size: LARGE)
           }
         }
         propertiesGamePost {

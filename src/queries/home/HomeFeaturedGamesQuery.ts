@@ -26,7 +26,7 @@ export const HomeFeaturedGamesQuery = gql`
                 slug
                 featuredImage {
                   node {
-                    sourceUrl
+                    sourceUrl(size: LARGE)
                   }
                 }
                 tags {
