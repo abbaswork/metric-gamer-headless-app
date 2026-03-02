@@ -59,7 +59,7 @@ export function HelpPopup({ onClose }: HelpPopupProps) {
                     The Metric Method
                   </h4>
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                    We break down every game into 50+ data points, creating a unique &ldquo;fingerprint&rdquo; to help you find your perfect match mathematically.
+                    Every metric score is based on real gamer feedback and broken down into curated scores. Find your next game based on the metrics that matter to you or browse our ranked lists.
                   </p>
                   <div className="text-[#F6CA56] hover:text-[#e0b545] font-bold text-sm flex items-center gap-1">
                     Learn More
@@ -82,7 +82,7 @@ export function HelpPopup({ onClose }: HelpPopupProps) {
                     How To Find Your Game
                   </h4>
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                    Use our advanced search and filtering system to discover games that match your playstyle, schedule, and preferences.
+                    Use our advanced search and filtering system to discover games that match your playstyle based on metrics most relevant to you!
                   </p>
                   <div className="text-[#F6CA56] hover:text-[#e0b545] font-bold text-sm flex items-center gap-1">
                     Learn More
