@@ -2,13 +2,25 @@ import { notFound } from "next/navigation";
 import { print } from "graphql/language/printer";
 
 import { fetchGraphQL } from "@/utils/fetchGraphQL";
+import { sanitizeImageUrl } from "@/utils/sanitizeUrl";
 import { GameBySlugQuery } from "@/queries/game/GameBySlugQuery";
 import { AllRankingsQuery } from "@/queries/ranking/AllRankingsQuery";
 import { GameBySlugQuery as GameBySlugQueryType } from "@/gql/graphql";
 import { GamePost } from "@/stories/pages/GamePost/GamePost";
+import { Metadata } from "next";
 
-// Mock Images
-import darkFantasyImage from "@/assets/generated_images/dark_fantasy_action_rpg_scene_with_a_knight_facing_a_dragon.png";
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await fetchGraphQL<GameBySlugQueryType>(print(GameBySlugQuery), { slug });
+
+  const seo = data?.game?.seo;
+
+  return {
+    title: seo?.title || `${data?.game?.title} Review & Metrics | Metric Gamer`,
+    description: seo?.metaDesc || `Discover deep performance metrics and detailed analysis for ${data?.game?.title} on Metric Gamer.`,
+  };
+}
+
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -45,13 +57,13 @@ export default async function GamePage({ params }: Props) {
     releaseDate: propertiesGame.releaseDate
       ? new Date(propertiesGame.releaseDate).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })
       : "Coming Soon",
-    heroImage: game.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
+    heroImage: sanitizeImageUrl(game.featuredImage?.node?.sourceUrl),
   };
 
   // INFO
   const infoData = {
     description: propertiesGame.gameDescription || "",
-    verdict: "A masterpiece of game design that sets a new standard for the genre.",
+    verdict: propertiesGame.verdict || "A masterpiece of game design that sets a new standard for the genre.",
     pros: propertiesGame.theGood?.map((item) => item?.goodPoint || "") || [],
     cons: propertiesGame.theBad?.map((item) => item?.badPoint || "") || [],
   };
@@ -109,9 +121,9 @@ export default async function GamePage({ params }: Props) {
     return {
       id: node.slug || `ranking-${i}`,
       title: node.title || "Unknown Ranking",
-      image: node.featuredImage?.node?.sourceUrl || gamesContent[0]?.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
-      leftImage: gamesContent[1]?.featuredImage?.node?.sourceUrl,
-      rightImage: gamesContent[2]?.featuredImage?.node?.sourceUrl,
+      image: sanitizeImageUrl(node.featuredImage?.node?.sourceUrl || gamesContent[0]?.featuredImage?.node?.sourceUrl),
+      leftImage: sanitizeImageUrl(gamesContent[1]?.featuredImage?.node?.sourceUrl),
+      rightImage: sanitizeImageUrl(gamesContent[2]?.featuredImage?.node?.sourceUrl),
       excerpt: node.propertiesGamePost?.description || "",
       metrics: rankingMetrics,
       platforms: rankingPlatforms,
@@ -119,9 +131,19 @@ export default async function GamePage({ params }: Props) {
     };
   });
 
+  // Calculate actual average score
+  let totalScore = 0;
+  const gameMetrics = propertiesGame.metrics || [];
+  gameMetrics.forEach((m: any) => {
+    totalScore += m.score || 0;
+  });
+  const averageScore = gameMetrics.length > 0
+    ? parseFloat((totalScore / gameMetrics.length).toFixed(1))
+    : 0;
+
   // SIDEBAR
   const sidebarData = {
-    score: 4.5,
+    score: averageScore,
     stats: {
       playtime: propertiesGame.playtime || "Unknown",
       players: "1-4"

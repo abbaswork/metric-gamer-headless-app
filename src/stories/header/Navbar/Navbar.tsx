@@ -65,33 +65,36 @@ export const Navbar = memo(function Navbar() {
 
           {/* Navigation Items */}
           <nav className="flex items-center gap-1">
-            <Link href="/">
+            <Link href="/" aria-label="Go to Home page" id="nav-home">
               <Button
                 variant="ghost"
                 size="sm"
-                className={`rounded-full px-3 h-8 gap-1.5 text-xs font-sans transition-all ${pathname === '/' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+                className={`rounded-full px-4 h-10 gap-1.5 text-xs font-sans transition-all ${pathname === '/' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+                aria-hidden="true"
               >
                 <Home className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Home</span>
               </Button>
             </Link>
 
-            <Link href="/metrics">
+            <Link href="/metrics" aria-label="Find Games" id="nav-find-games">
               <Button
                 variant="ghost"
                 size="sm"
-                className={`rounded-full px-3 h-8 gap-1.5 text-xs font-sans transition-all ${pathname === '/metrics' ? 'bg-[#F6CA56] text-black hover:bg-[#e0b545]' : 'text-gray-400 hover:text-[#F6CA56] hover:bg-white/5'}`}
+                className={`rounded-full px-4 h-10 gap-1.5 text-xs font-sans transition-all ${pathname === '/metrics' ? 'bg-[#F6CA56] text-black hover:bg-[#e0b545]' : 'text-gray-400 hover:text-[#F6CA56] hover:bg-white/5'}`}
+                aria-hidden="true"
               >
                 <Gamepad2 className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Find Games</span>
               </Button>
             </Link>
 
-            <Link href="/metrics?type=blog">
+            <Link href="/metrics?type=blog" aria-label="Find Ranked Lists" id="nav-find-ranked">
               <Button
                 variant="ghost"
                 size="sm"
-                className={`rounded-full px-3 h-8 gap-1.5 text-xs font-sans transition-all ${pathname === '/metrics' ? 'bg-[#F6CA56] text-black hover:bg-[#e0b545]' : 'text-gray-400 hover:text-[#F6CA56] hover:bg-white/5'}`}
+                className={`rounded-full px-4 h-10 gap-1.5 text-xs font-sans transition-all ${pathname === '/metrics' ? 'bg-[#F6CA56] text-black hover:bg-[#e0b545]' : 'text-gray-400 hover:text-[#F6CA56] hover:bg-white/5'}`}
+                aria-hidden="true"
               >
                 <ListOrdered className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Find Ranked Lists</span>
@@ -106,16 +109,20 @@ export const Navbar = memo(function Navbar() {
           <div className="flex items-center gap-2" ref={subscribeButtonRef}>
             <Button
               size="sm"
-              className="bg-white/5 hover:bg-white/10 text-white rounded-full px-4 h-8 text-xs font-bold hidden md:flex transition-all active:scale-95"
+              className="bg-white/5 hover:bg-white/10 text-white rounded-full px-4 h-10 text-xs font-bold hidden md:flex transition-all active:scale-95"
               onClick={() => setIsSubscribeOpen(true)}
+              aria-label="Subscribe to our newsletter"
+              id="nav-subscribe"
             >
               Subscribe
             </Button>
             <Button
               size="icon"
               variant="ghost"
-              className="rounded-full w-8 h-8 text-gray-400 hover:text-white md:hidden"
+              className="rounded-full w-10 h-10 text-gray-400 hover:text-white md:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              id="nav-mobile-toggle"
             >
               {isMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </Button>

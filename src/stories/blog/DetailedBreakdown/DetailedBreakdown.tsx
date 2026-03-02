@@ -4,7 +4,8 @@ import { useState } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronDown, Award, Star, Eye, EyeOff } from "lucide-react";
+import { ArrowRight, ChevronDown, Award, Star, Eye, EyeOff, ExternalLink } from "lucide-react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -42,7 +43,8 @@ export interface DetailedGame {
     pros: string[];
     cons: string[];
     verdict: string;
-  }
+  };
+  slug: string;
 }
 
 export interface DetailedBreakdownProps {
@@ -220,8 +222,14 @@ export function DetailedBreakdown({ games, activeMetrics, onToggleMetric }: Deta
                       </div>
 
                       <div className="flex gap-4 w-full md:w-auto">
-                        <Button className="flex-1 md:flex-none bg-[#F6CA56] text-black hover:bg-[#e0b545] font-bold rounded-xl px-8 h-12 shadow-[0_0_20px_rgba(246,202,86,0.2)] hover:shadow-[0_0_30px_rgba(246,202,86,0.4)] transition-all">
-                          Read Full Review
+                        <Button
+                          asChild
+                          id={`full-review-${game.slug}`}
+                          className="flex-1 md:flex-none bg-[#F6CA56] text-black hover:bg-[#e0b545] font-bold rounded-xl px-8 h-12 shadow-[0_0_20px_rgba(246,202,86,0.2)] hover:shadow-[0_0_30px_rgba(246,202,86,0.4)] transition-all"
+                        >
+                          <Link href={`/game/${game.slug}`}>
+                            Read Full Review
+                          </Link>
                         </Button>
                       </div>
                     </div>

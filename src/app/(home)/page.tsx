@@ -2,10 +2,9 @@
 // Forced re-sync for dev server
 import { HomeHero } from "@/stories/sections/HomeHero/HomeHero";
 import { SearchSection } from "@/stories/sections/Search/SearchSection";
-import { Footer } from "@/stories/layouts/Footer/Footer";
-
 import { print } from "graphql/language/printer";
 import { fetchGraphQL } from "@/utils/fetchGraphQL";
+import { sanitizeImageUrl } from "@/utils/sanitizeUrl";
 import { AllGamesQuery } from "@/queries/game/AllGamesQuery";
 import { AllRankingsQuery } from "@/queries/ranking/AllRankingsQuery";
 import { HomeFeaturedGamesQuery } from "@/queries/home/HomeFeaturedGamesQuery";
@@ -14,6 +13,17 @@ import {
   AllGamesQuery as GamesType,
   AllRankingsQuery as RankingsType
 } from "@/gql/graphql";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await fetchGraphQL<any>(print(HomeFeaturedGamesQuery));
+  const seo = data?.page?.seo;
+
+  return {
+    title: seo?.title || "Metric Gamer | Expert Game Performance Analysis & Metrics",
+    description: seo?.metaDesc || "Find your next favorite game using our deep performance metrics and expert game analysis. The ultimate destination for core gamers.",
+  };
+}
 
 export default async function HomePage() {
   // 1. Fetch Data Concurrently
@@ -72,7 +82,7 @@ export default async function HomePage() {
       title: g?.gameTitle || node.title || "Unknown Game",
       genre: platforms[0] || (tags[0] || "Game"),
       description: g?.verdict || "",
-      image: node.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
+      image: sanitizeImageUrl(node.featuredImage?.node?.sourceUrl),
       metrics: displayMetrics,
       tags: tags,
       slug: node.slug
@@ -87,48 +97,39 @@ export default async function HomePage() {
 
   // Rest of the mapping...
   const fetchedGames = (gamesData.games?.nodes || []).map((node, i) => {
-    // Map metrics array back to record style if needed, or extract values directly.
-    // For the unified search map, we pass a simplified metrics object or keep it as what it expects.
+    // Calculate actual rating from metrics
+    const gameMetrics = node.propertiesGame?.metrics || [];
     const metricsRecord: Record<string, number> = {};
-    node.metrics?.nodes?.forEach(m => {
-      if (m.name) metricsRecord[m.name.toLowerCase()] = 4; // Mocking score for now if not available in this query node type structure
+    let totalScore = 0;
+
+    gameMetrics.forEach((m: any) => {
+      const name = m?.metric?.nodes?.[0]?.name;
+      if (name) {
+        metricsRecord[name.toLowerCase()] = m.score || 0;
+        totalScore += m.score || 0;
+      }
     });
+
+    const averageRating = gameMetrics.length > 0
+      ? parseFloat((totalScore / gameMetrics.length).toFixed(1))
+      : 0;
 
     return {
       id: node.slug || `game-${i}`,
       type: 'game',
       title: node.propertiesGame?.gameTitle || node.title || "Unknown Game",
-      image: node.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
+      image: sanitizeImageUrl(node.featuredImage?.node?.sourceUrl),
       genres: [
-        ...(node.tags?.nodes?.map(t => t.name) || []),
-        ...(node.crossplatform?.nodes?.map(c => c.taxonomyName) || []),
+        ...(node.tags?.nodes?.map((t: any) => t.name) || []),
+        ...(node.crossplatform?.nodes?.map((c: any) => c.taxonomyName) || []),
       ].filter(Boolean) as string[],
-      platforms: node.platform?.nodes?.map(p => p.name).filter(Boolean) as string[],
+      platforms: node.platform?.nodes?.map((p: any) => p.name).filter(Boolean) as string[],
       metrics: metricsRecord,
+      rating: averageRating,
       slug: node.slug,
     };
   });
 
-  const fetchedRankings = (rankingsData.rankings?.nodes || []).map((node, i) => {
-    const gamesContent = node.propertiesGamePost?.selectGames?.flatMap((selection: any) => {
-      return selection?.selectedGame?.nodes || [];
-    }) || [];
-
-    const leftImage = gamesContent[1]?.featuredImage?.node?.sourceUrl || undefined;
-    const rightImage = gamesContent[2]?.featuredImage?.node?.sourceUrl || undefined;
-
-    return {
-      id: node.slug || `ranking-${i}`,
-      type: 'blog',
-      blogType: 'Ranking',
-      title: node.title || "Unknown Ranking",
-      image: node.featuredImage?.node?.sourceUrl || gamesContent[0]?.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
-      leftImage,
-      rightImage,
-      excerpt: node.propertiesGamePost?.description || "",
-      slug: node.slug,
-    };
-  });
 
   return (
     <main className="bg-[#160026] min-h-screen text-white">
@@ -178,9 +179,9 @@ export default async function HomePage() {
               type: 'blog',
               blogType: 'Ranking',
               title: node.title || "Unknown Ranking",
-              image: node.featuredImage?.node?.sourceUrl || gamesContent[0]?.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
-              leftImage: gamesContent[1]?.featuredImage?.node?.sourceUrl,
-              rightImage: gamesContent[2]?.featuredImage?.node?.sourceUrl,
+              image: sanitizeImageUrl(node.featuredImage?.node?.sourceUrl || gamesContent[0]?.featuredImage?.node?.sourceUrl),
+              leftImage: sanitizeImageUrl(gamesContent[1]?.featuredImage?.node?.sourceUrl),
+              rightImage: sanitizeImageUrl(gamesContent[2]?.featuredImage?.node?.sourceUrl),
               metrics: rankingMetrics,
               platforms: rankingPlatforms,
               slug: node.slug,

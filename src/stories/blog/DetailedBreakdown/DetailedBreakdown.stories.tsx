@@ -36,7 +36,8 @@ const GAMES = [
       pros: ["Unmatched exploration freedom", "Incredible build variety"],
       cons: ["Late game balancing issues"],
       verdict: "The new gold standard for action RPGs."
-    }
+    },
+    slug: "elden-ring"
   },
   {
     id: "bloodborne",
@@ -52,7 +53,8 @@ const GAMES = [
       pros: ["Aggressive, satisfying combat", "Best-in-class atmosphere"],
       cons: ["30 FPS lock"],
       verdict: "A masterpiece of gothic horror and action."
-    }
+    },
+    slug: "bloodborne"
   }
 ];
 

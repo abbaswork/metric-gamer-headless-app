@@ -163,7 +163,7 @@ function SearchSectionContent({ initialGames, initialBlogs, availableMetrics }: 
               {...item}
               rank={item.rank}
               // Adapt logic for GameCard props as needed if mismatch
-              rating={item.type === 'game' ? 4.8 : undefined} // Mocking rating if missing in unified data or map it properly
+              rating={item.rating}
             />
           ))
         ) : (

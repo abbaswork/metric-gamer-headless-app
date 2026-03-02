@@ -96,6 +96,7 @@ export function HeroSection({ selectedMonth, onMonthChange, featuredTitle, game 
               alt={game.title}
               fill
               priority
+              fetchPriority="high"
               sizes="100vw"
               className="object-cover transition-transform duration-1000 group-hover:scale-105"
             />
@@ -128,7 +129,8 @@ export function HeroSection({ selectedMonth, onMonthChange, featuredTitle, game 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-5xl md:text-7xl lg:text-[70px] font-bold text-white font-heading leading-tight tracking-tight drop-shadow-2xl"
+                  className="text-3xl md:text-5xl lg:text-[50px] font-bold text-white font-heading leading-tight tracking-tight drop-shadow-2xl"
+                  style={{ width: "70vw" }}
                 >
                   {game.title}
                 </motion.h2>
@@ -151,6 +153,7 @@ export function HeroSection({ selectedMonth, onMonthChange, featuredTitle, game 
                 >
                   <Button
                     asChild
+                    id={`hero-full-review-${game.slug}`}
                     className="bg-[#F6CA56] hover:bg-[#e0b545] text-black font-sans font-bold text-lg h-14 px-8 rounded-xl shadow-[0_0_20px_rgba(246,202,86,0.3)] hover:shadow-[0_0_30px_rgba(246,202,86,0.5)] transition-all transform hover:-translate-y-1 w-full md:w-auto"
                   >
                     <Link href={`/game/${game.slug}`}>

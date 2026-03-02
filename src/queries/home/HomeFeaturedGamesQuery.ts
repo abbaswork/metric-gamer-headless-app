@@ -6,6 +6,10 @@ export const HomeFeaturedGamesQuery = gql`
       id
       title
       slug
+      seo {
+        title
+        metaDesc
+      }
       propertiesHome {
         featuredTitle
         featuredMetrics {

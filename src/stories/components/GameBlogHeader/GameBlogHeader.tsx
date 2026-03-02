@@ -1,4 +1,6 @@
 import React from 'react';
+import Image from 'next/image';
+import { sanitizeImageUrl } from '@/utils/sanitizeUrl';
 
 export interface GameBlogHeaderProps {
     leftImage?: string;
@@ -8,8 +10,8 @@ export interface GameBlogHeaderProps {
 }
 
 export function GameBlogHeader({
-    leftImage = 'https://images.unsplash.com/photo-1573306522308-82ff5dd4abe4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cmFja21hbmlhJTIwcmFjaW5nJTIwZ2FtZXxlbnwxfHx8fDE3NzE3NTE1NDR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    rightImage = 'https://images.unsplash.com/photo-1660300734218-bcfa7a23e6f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhc3BoYWx0JTIwOSUyMGxlZ2VuZHMlMjByYWNpbmd8ZW58MXx8fHwxNzcxNzUxNTQ0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    leftImage = 'http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg',
+    rightImage = 'http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg',
     width = 1600,
     height = 900
 }: GameBlogHeaderProps) {
@@ -72,15 +74,22 @@ export function GameBlogHeader({
                 height={height - borderWidth * 2}
                 fill="#1a1a2e"
             />
-            <image
-                href={leftImage}
+            <foreignObject
                 x={borderWidth}
                 y={borderWidth}
                 width={sectionWidth}
                 height={height - borderWidth * 2}
-                preserveAspectRatio="xMidYMid slice"
                 clipPath="url(#leftClip)"
-            />
+            >
+                <div className="w-full h-full relative">
+                    <Image
+                        src={sanitizeImageUrl(leftImage)}
+                        alt="Left"
+                        fill
+                        className="object-cover"
+                    />
+                </div>
+            </foreignObject>
 
             {/* Middle section - question mark with gradient */}
             <rect
@@ -115,15 +124,22 @@ export function GameBlogHeader({
                 height={height - borderWidth * 2}
                 fill="#1a1a2e"
             />
-            <image
-                href={rightImage}
+            <foreignObject
                 x={borderWidth * 3 + sectionWidth * 2}
                 y={borderWidth}
                 width={sectionWidth}
                 height={height - borderWidth * 2}
-                preserveAspectRatio="xMidYMid slice"
                 clipPath="url(#rightClip)"
-            />
+            >
+                <div className="w-full h-full relative">
+                    <Image
+                        src={sanitizeImageUrl(rightImage)}
+                        alt="Right"
+                        fill
+                        className="object-cover"
+                    />
+                </div>
+            </foreignObject>
         </svg>
     );
 }

@@ -50,6 +50,10 @@ export const RankingBySlugQuery = gql`
           }
         }
       }
+      seo {
+        title
+        metaDesc
+      }
     }
   }
 `;

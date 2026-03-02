@@ -84,7 +84,11 @@ export function GlanceCarousel({ games, activeMetrics, onToggleMetric, onGameCli
         className="flex overflow-x-auto pb-6 gap-6 px-1 scrollbar-hide snap-x snap-mandatory w-full"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
-        {games.map((game, i) => {
+        {[...games].sort((a, b) => {
+          const scoreA = typeof a.dynamicScore === 'number' ? a.dynamicScore : parseFloat(a.dynamicScore as string) || 0;
+          const scoreB = typeof b.dynamicScore === 'number' ? b.dynamicScore : parseFloat(b.dynamicScore as string) || 0;
+          return scoreB - scoreA;
+        }).map((game, i) => {
           const imageSrc = typeof game.image === 'string' ? game.image : game.image.src;
           return (
             <motion.div

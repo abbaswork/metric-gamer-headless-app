@@ -23,6 +23,7 @@ export const GameBySlugQuery = gql`
       propertiesGame {
         gameTitle
         gameDescription
+        verdict
         playtime
         releaseDate
         theBad {
@@ -40,6 +41,10 @@ export const GameBySlugQuery = gql`
             }
           }
         }
+      }
+      seo {
+        title
+        metaDesc
       }
     }
   }

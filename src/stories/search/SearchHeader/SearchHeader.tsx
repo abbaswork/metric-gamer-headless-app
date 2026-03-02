@@ -23,6 +23,7 @@ export function SearchHeader({
         </div>
         <Input
           type="text"
+          id="search-input"
           placeholder="Search for games, genres, or topics..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
@@ -34,12 +35,14 @@ export function SearchHeader({
       <div className="bg-black/40 p-1 rounded-2xl flex items-center h-[52px]">
         <button
           onClick={() => onResultTypeChange("game")}
+          id="toggle-game"
           className={`flex-1 h-full px-6 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${resultType === "game" ? "bg-[#F6CA56] text-black shadow-lg" : "text-gray-400 hover:text-white"}`}
         >
           <Gamepad2 className="w-4 h-4" /> Games
         </button>
         <button
           onClick={() => onResultTypeChange("blog")}
+          id="toggle-blog"
           className={`flex-1 h-full px-6 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${resultType === "blog" ? "bg-[#F6CA56] text-black shadow-lg" : "text-gray-400 hover:text-white"}`}
         >
           <FileText className="w-4 h-4" /> Rankings

@@ -15,19 +15,16 @@ export const AllGamesQuery = gql`
         propertiesGame {
           gameTitle
           gameDescription
-        }
-        uri
-        crossplatform {
-          nodes {
-            taxonomyName
+          metrics {
+            score
+            metric {
+              nodes {
+                name
+              }
+            }
           }
         }
         platform {
-          nodes {
-            name
-          }
-        }
-        players {
           nodes {
             name
           }
@@ -37,9 +34,9 @@ export const AllGamesQuery = gql`
             name
           }
         }
-        metrics {
+        crossplatform {
           nodes {
-            name
+            taxonomyName
           }
         }
       }

@@ -2,10 +2,24 @@ import { notFound } from "next/navigation";
 import { print } from "graphql/language/printer";
 
 import { fetchGraphQL } from "@/utils/fetchGraphQL";
+import { sanitizeImageUrl } from "@/utils/sanitizeUrl";
 import { RankingBySlugQuery } from "@/queries/ranking/RankingBySlugQuery";
 import { AllRankingsQuery } from "@/queries/ranking/AllRankingsQuery";
 import { RankingBySlugQuery as RankingType } from "@/gql/graphql";
 import { BlogPost } from "@/stories/pages/BlogPost/BlogPost";
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await fetchGraphQL<RankingType>(print(RankingBySlugQuery), { slug });
+
+  const seo = data?.ranking?.seo;
+
+  return {
+    title: seo?.title || `${data?.ranking?.title} | Metric Gamer Ranking`,
+    description: seo?.metaDesc || `Check out our expert ranking for ${data?.ranking?.title} based on core performance metrics.`,
+  };
+}
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -39,7 +53,7 @@ export default async function RankingPage({ params }: Props) {
     author: "Metric Gamer Team",
     date: new Date().toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }),
     readTime: "8 min read",
-    image: ranking.featuredImage?.node?.sourceUrl || allGames[0]?.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
+    image: sanitizeImageUrl(ranking.featuredImage?.node?.sourceUrl || allGames[0]?.featuredImage?.node?.sourceUrl),
     description: propertiesGamePost.description || "",
   };
 
@@ -66,7 +80,7 @@ export default async function RankingPage({ params }: Props) {
       id: node.slug || `game-${index}`,
       rank: index + 1,
       title: g?.gameTitle || node.title || "Unknown Game",
-      image: node.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
+      image: sanitizeImageUrl(node.featuredImage?.node?.sourceUrl),
       dynamicScore: 0,
       tags: ["RPG", "Action"],
       releaseDate: "2024",
@@ -76,7 +90,8 @@ export default async function RankingPage({ params }: Props) {
         pros: g?.theGood?.map((item: any) => item?.goodPoint || "") || [],
         cons: g?.theBad?.map((item: any) => item?.badPoint || "") || [],
         verdict: g?.verdict || "A must-play for fans of the genre."
-      }
+      },
+      slug: node.slug
     };
   });
 
@@ -101,9 +116,9 @@ export default async function RankingPage({ params }: Props) {
     return {
       id: node.slug || `sidebar-ranking-${i}`,
       title: node.title || "Unknown Ranking",
-      image: node.featuredImage?.node?.sourceUrl || gamesContent[0]?.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
-      leftImage: gamesContent[1]?.featuredImage?.node?.sourceUrl,
-      rightImage: gamesContent[2]?.featuredImage?.node?.sourceUrl,
+      image: sanitizeImageUrl(node.featuredImage?.node?.sourceUrl || gamesContent[0]?.featuredImage?.node?.sourceUrl),
+      leftImage: sanitizeImageUrl(gamesContent[1]?.featuredImage?.node?.sourceUrl),
+      rightImage: sanitizeImageUrl(gamesContent[2]?.featuredImage?.node?.sourceUrl),
       excerpt: node.propertiesGamePost?.description || "",
       metrics: rankingMetrics,
       platforms: rankingPlatforms,

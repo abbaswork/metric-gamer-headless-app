@@ -5,6 +5,7 @@ import { Footer } from "@/stories/layouts/Footer/Footer";
 
 import { print } from "graphql/language/printer";
 import { fetchGraphQL } from "@/utils/fetchGraphQL";
+import { sanitizeImageUrl } from "@/utils/sanitizeUrl";
 import { AllGamesQuery } from "@/queries/game/AllGamesQuery";
 import { AllRankingsQuery } from "@/queries/ranking/AllRankingsQuery";
 import { AllMetricsQuery } from "@/queries/general/AllMetricsQuery";
@@ -12,6 +13,12 @@ import {
   AllGamesQuery as AllGamesQueryType,
   AllRankingsQuery as AllRankingsQueryType
 } from "@/gql/graphql";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Game Metrics & Discovery | Metric Gamer",
+  description: "Filter and discover games by specific metrics like difficulty, playtime, story depth, and more.",
+};
 
 export default async function MetricsPage() {
   const [data, rankingsData, metricsData] = await Promise.all([
@@ -21,22 +28,35 @@ export default async function MetricsPage() {
   ]);
 
   const fetchedGames = (data.games?.nodes || []).map((node, i) => {
+    // Calculate actual rating from metrics
+    const gameMetrics = node.propertiesGame?.metrics || [];
     const metricsRecord: Record<string, number> = {};
-    node.metrics?.nodes?.forEach(m => {
-      if (m.name) metricsRecord[m.name.toLowerCase()] = 4; // Mock score for filter demonstration
+    let totalScore = 0;
+
+    gameMetrics.forEach((m: any) => {
+      const name = m?.metric?.nodes?.[0]?.name;
+      if (name) {
+        metricsRecord[name.toLowerCase()] = m.score || 0;
+        totalScore += m.score || 0;
+      }
     });
+
+    const averageRating = gameMetrics.length > 0
+      ? parseFloat((totalScore / gameMetrics.length).toFixed(1))
+      : 0;
 
     return {
       id: node.slug || `game-${i}`,
       type: 'game',
       title: node.propertiesGame?.gameTitle || node.title || "Unknown Game",
-      image: node.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
+      image: sanitizeImageUrl(node.featuredImage?.node?.sourceUrl),
       genres: [
-        ...(node.tags?.nodes?.map(t => t.name) || []),
-        ...(node.crossplatform?.nodes?.map(c => c.taxonomyName) || []),
+        ...(node.tags?.nodes?.map((t: any) => t.name) || []),
+        ...(node.crossplatform?.nodes?.map((c: any) => c.taxonomyName) || []),
       ].filter(Boolean) as string[],
-      platforms: node.platform?.nodes?.map(p => p.name).filter(Boolean) as string[],
+      platforms: node.platform?.nodes?.map((p: any) => p.name).filter(Boolean) as string[],
       metrics: metricsRecord,
+      rating: averageRating,
       slug: node.slug,
     };
   });
@@ -66,9 +86,9 @@ export default async function MetricsPage() {
       type: 'blog',
       blogType: 'Ranking', // Required for standardizing the blog filter type "Ranking"
       title: node.title || "Unknown Ranking",
-      image: node.featuredImage?.node?.sourceUrl || "http://ec2-18-213-34-154.compute-1.amazonaws.com/wp-content/uploads/2024/09/efootball.jpg",
-      leftImage,
-      rightImage,
+      image: sanitizeImageUrl(node.featuredImage?.node?.sourceUrl || gamesContent[0]?.featuredImage?.node?.sourceUrl),
+      leftImage: sanitizeImageUrl(gamesContent[1]?.featuredImage?.node?.sourceUrl),
+      rightImage: sanitizeImageUrl(gamesContent[2]?.featuredImage?.node?.sourceUrl),
       excerpt: node.propertiesGamePost?.description || "",
       metrics: rankingMetrics,
       platforms: rankingPlatforms,
