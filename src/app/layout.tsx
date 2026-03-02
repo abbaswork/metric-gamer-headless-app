@@ -8,6 +8,13 @@ import { Navbar } from "@/stories/header/Navbar/Navbar";
 import { Footer } from "@/stories/layouts/Footer/Footer";
 import { HelpBubble } from "@/components/HelpBubble/HelpBubble";
 import { PreviewNotice } from "@/components/Globals/PreviewNotice/PreviewNotice";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Metric Gamer | Expert Game Performance Analysis & Metrics",
+  description: "Discover the best games based on deep performance metrics, expert analysis, and community rankings. Find your next favorite game on Metric Gamer.",
+  metadataBase: new URL("https://metricgamer.com"),
+};
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-heading" });
