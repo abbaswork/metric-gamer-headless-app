@@ -55,7 +55,7 @@ export function GameSidebar({ score, stats, isInline = false, gameTitle, platfor
             className="w-full bg-[#F6CA56] hover:bg-[#e0b545] text-black font-bold h-12 text-lg shadow-lg shadow-[#F6CA56]/20"
             onClick={() => setIsBuyNowOpen(true)}
           >
-            Buy Now
+            Search Platforms
           </Button>
         </div>
 

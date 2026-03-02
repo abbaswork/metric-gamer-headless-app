@@ -19,7 +19,7 @@ export function BuyNowDialog({ isOpen, onClose, gameTitle = "", platforms = [] }
     { name: "PlayStation Store", icon: Gamepad2, url: `https://store.playstation.com/en-us/search/${encodedTitle}`, platform: "PlayStation" },
     { name: "Xbox Store", icon: Gamepad2, url: `https://www.xbox.com/en-us/search?q=${encodedTitle}`, platform: "Xbox" },
     { name: "Nintendo eShop", icon: Gamepad2, url: `https://www.nintendo.com/search/#q=${encodedTitle}`, platform: "Nintendo" },
-    { name: "Epic Games", icon: Monitor, url: `https://www.epicgames.com/store/en-US/browse?q=${encodedTitle}&sortBy=relevancy`, platform: "PC" },
+    // { name: "Epic Games", icon: Monitor, url: `https://www.epicgames.com/store/en-US/browse?q=${encodedTitle}&sortBy=relevancy`, platform: "PC" },
   ];
 
   // Filter stores based on active platforms
@@ -74,10 +74,10 @@ export function BuyNowDialog({ isOpen, onClose, gameTitle = "", platforms = [] }
 
               <div className="text-center space-y-2 md:space-y-3 mb-8 md:mb-12 pt-6 md:pt-0 relative z-10">
                 <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white font-heading tracking-wide px-10 md:px-0">
-                  {gameTitle ? `Buy ${gameTitle}` : "Choose Your Platform"}
+                  {gameTitle ? `Search ${gameTitle}` : "Choose Your Platform"}
                 </h3>
                 <p className="text-gray-400 text-sm md:text-lg">
-                  Select a store to purchase the digital edition
+                  Search Stores to find the game you're looking for
                 </p>
               </div>
 
