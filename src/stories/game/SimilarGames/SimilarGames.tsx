@@ -25,7 +25,7 @@ export function SimilarGames({ games, currentGameTitle }: SimilarGamesProps) {
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-bold text-white font-heading flex items-center gap-3">
             <Gamepad2 className="w-8 h-8 text-[#F6CA56]" />
-            Explore Similar Games Here
+            What are {currentGameTitle} similar games
           </h2>
         </div>
         <p className="text-gray-400 text-lg">

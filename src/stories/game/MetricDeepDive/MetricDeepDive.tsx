@@ -19,7 +19,7 @@ export interface MetricDeepDiveProps {
 export function MetricDeepDive({ metrics }: MetricDeepDiveProps) {
   return (
     <div className="space-y-12">
-      <h2 className="text-4xl font-bold text-white font-heading">In-Depth Analysis</h2>
+      <h2 className="text-4xl font-bold text-white font-heading">In-Depth Metric Analysis</h2>
 
       <div className="space-y-16">
         {metrics.map((metric) => {

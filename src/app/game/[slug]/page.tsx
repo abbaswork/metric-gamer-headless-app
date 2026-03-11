@@ -49,6 +49,8 @@ export default async function GamePage({ params }: Props) {
   // 2. Map Data to Component Props
   const platformsArr = (game as any).platform?.nodes?.map((n: any) => n.name) || [];
   const tagsArr = (game as any).tags?.nodes?.map((n: any) => n.name) || [];
+  const isCrossPlatform = (game as any).crossplatform?.nodes?.length > 0;
+  const playersStr = (game as any).players?.nodes?.[0]?.name || "Single Player"; // Default to Single Player if not set
 
   // HEADER
   const headerData = {
@@ -65,10 +67,14 @@ export default async function GamePage({ params }: Props) {
 
   // INFO
   const infoData = {
+    gameTitle: propertiesGame.gameTitle || game.title || "Untitled Game",
     description: propertiesGame.gameDescription || "",
     verdict: propertiesGame.verdict || "A masterpiece of game design that sets a new standard for the genre.",
     pros: propertiesGame.theGood?.map((item) => item?.goodPoint || "") || [],
     cons: propertiesGame.theBad?.map((item) => item?.badPoint || "") || [],
+    platforms: platformsArr,
+    isCrossPlatform,
+    players: playersStr,
   };
 
   // METRICS

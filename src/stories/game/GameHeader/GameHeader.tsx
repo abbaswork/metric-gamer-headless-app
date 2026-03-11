@@ -1,8 +1,7 @@
 "use client";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowDownCircle } from "lucide-react";
+import { ArrowDownCircle, HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -15,17 +14,19 @@ export interface GameHeaderProps {
   releaseDate: string;
   heroImage: string | any;
   onScrollToSimilar?: () => void;
+  onScrollToFAQ?: () => void;
 }
 
 export function GameHeader({
   title,
-  genre,
   platforms,
   tags,
-  developer,
-  releaseDate,
+  // genre,
+  // developer,
+  // releaseDate,
   heroImage,
-  onScrollToSimilar
+  onScrollToSimilar,
+  onScrollToFAQ
 }: GameHeaderProps) {
   const imageSrc = typeof heroImage === 'string' ? heroImage : heroImage.src;
 
@@ -69,7 +70,7 @@ export function GameHeader({
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold text-white font-heading leading-none drop-shadow-2xl">
-            {title}
+            {title}{' Review'}
           </h1>
 
           {/* <div className="flex items-center gap-6 text-gray-300 text-sm md:text-base">
@@ -78,9 +79,9 @@ export function GameHeader({
             <span>Released {releaseDate}</span>
           </div> */}
 
-          {/* Scroll Button */}
-          {onScrollToSimilar && (
-            <div className="pt-4">
+          {/* Scroll Buttons */}
+          <div className="flex flex-wrap gap-4 pt-4">
+            {onScrollToSimilar && (
               <Button
                 onClick={onScrollToSimilar}
                 className="bg-white/10 hover:bg-white/20 text-white backdrop-blur border border-white/20 gap-2 rounded-full pl-4 pr-5 h-10"
@@ -88,8 +89,18 @@ export function GameHeader({
                 <ArrowDownCircle className="w-4 h-4 text-[#F6CA56]" />
                 Find Similar Games
               </Button>
-            </div>
-          )}
+            )}
+
+            {onScrollToFAQ && (
+              <Button
+                onClick={onScrollToFAQ}
+                className="bg-white/10 hover:bg-white/20 text-white backdrop-blur border border-white/20 gap-2 rounded-full pl-4 pr-5 h-10"
+              >
+                <HelpCircle className="w-4 h-4 text-[#F6CA56]" />
+                FAQ
+              </Button>
+            )}
+          </div>
         </motion.div>
       </div>
     </div>

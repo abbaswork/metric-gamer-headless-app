@@ -7,6 +7,7 @@ import { GameInfo } from "@/stories/game/GameInfo/GameInfo";
 import { MetricDeepDive } from "@/stories/game/MetricDeepDive/MetricDeepDive";
 import { SimilarGames } from "@/stories/game/SimilarGames/SimilarGames";
 import { GameSidebar } from "@/stories/game/GameSidebar/GameSidebar";
+import { GameFAQ } from "@/stories/game/GameFAQ/GameFAQ";
 import { Separator } from "@/components/ui/separator";
 
 export interface GamePostProps {
@@ -19,15 +20,24 @@ export interface GamePostProps {
 
 export function GamePost({ header, info, metrics, similarGames, sidebar }: GamePostProps) {
   const similarGamesRef = useRef<HTMLDivElement>(null);
+  const faqRef = useRef<HTMLDivElement>(null);
 
   const scrollToSimilarGames = () => {
     similarGamesRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToFAQ = () => {
+    faqRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-[#F6CA56] selection:text-black">
       <Navbar />
-      <GameHeader {...header} onScrollToSimilar={scrollToSimilarGames} />
+      <GameHeader
+        {...header}
+        onScrollToSimilar={scrollToSimilarGames}
+        onScrollToFAQ={scrollToFAQ}
+      />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-2 pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 md:gap-12">
@@ -40,11 +50,22 @@ export function GamePost({ header, info, metrics, similarGames, sidebar }: GameP
               <GameSidebar {...sidebar} isInline={true} score={sidebar.score} stats={sidebar.stats} gameTitle={header.title} platforms={header.platforms} />
             </div>
 
-            <GameInfo {...info} />
+            <GameInfo {...info} faqRef={faqRef} />
 
             <Separator className="bg-white/10" />
 
             <MetricDeepDive metrics={metrics} />
+
+            <Separator className="bg-white/10" />
+
+            <div ref={faqRef}>
+              <GameFAQ
+                gameTitle={header.title}
+                platforms={header.platforms}
+                isCrossPlatform={info.isCrossPlatform}
+                players={info.players}
+              />
+            </div>
 
             <Separator className="bg-white/10" />
 

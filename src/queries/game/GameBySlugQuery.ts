@@ -20,6 +20,16 @@ export const GameBySlugQuery = gql`
           name
         }
       }
+      crossplatform {
+        nodes {
+          name
+        }
+      }
+      players {
+        nodes {
+          name
+        }
+      }
       propertiesGame {
         gameTitle
         gameDescription
