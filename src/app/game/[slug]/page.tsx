@@ -49,7 +49,7 @@ export default async function GamePage({ params }: Props) {
   // 2. Map Data to Component Props
   const platformsArr = (game as any).platform?.nodes?.map((n: any) => n.name) || [];
   const tagsArr = (game as any).tags?.nodes?.map((n: any) => n.name) || [];
-  const isCrossPlatform = (game as any).crossplatform?.nodes?.length > 0;
+  const isCrossPlatform = (game as any).crossplatform?.nodes?.some((n: any) => n.name.toLowerCase() === "yes") || false;
   const playersStr = (game as any).players?.nodes?.[0]?.name || "Single Player"; // Default to Single Player if not set
 
   // HEADER
@@ -75,6 +75,9 @@ export default async function GamePage({ params }: Props) {
     platforms: platformsArr,
     isCrossPlatform,
     players: playersStr,
+    lastUpdated: (game as any).modified 
+      ? new Date((game as any).modified).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })
+      : null,
   };
 
   // METRICS
@@ -155,7 +158,7 @@ export default async function GamePage({ params }: Props) {
     score: averageScore,
     stats: {
       playtime: propertiesGame.playtime || "Unknown",
-      players: "1-4"
+      players: playersStr
     }
   };
 

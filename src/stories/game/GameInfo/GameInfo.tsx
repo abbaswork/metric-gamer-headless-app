@@ -7,6 +7,7 @@ export interface GameInfoProps {
   verdict: string;
   pros: string[];
   cons: string[];
+  lastUpdated?: string | null;
 }
 
 export function GameInfo({
@@ -14,7 +15,8 @@ export function GameInfo({
   description,
   verdict,
   pros,
-  cons
+  cons,
+  lastUpdated
 }: GameInfoProps) {
   return (
     <div className="space-y-16">
@@ -24,6 +26,13 @@ export function GameInfo({
           <span className="w-8 h-1 bg-[#F6CA56] rounded-full" />
           {gameTitle} rating breakdown
         </h2>
+        
+        {lastUpdated && (
+          <p className="text-sm text-gray-400 font-light italic">
+            Last updated: {lastUpdated}
+          </p>
+        )}
+
         <p className="text-lg text-gray-300 leading-relaxed font-light">
           {description}
         </p>
