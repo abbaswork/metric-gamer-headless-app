@@ -4,7 +4,7 @@ import { AllGamesQuery } from "@/queries/game/AllGamesQuery";
 import { print } from "graphql/language/printer";
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.metricgamer.com";
+  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || "https://www.metricgamer.com").replace(/\/$/, "");
   const now = new Date().toISOString();
 
   try {
@@ -18,7 +18,7 @@ export async function GET() {
     .map(
       (game: any) => `
     <url>
-      <loc>${baseUrl}/game/${game.slug}</loc>
+      <loc>${baseUrl}/game/${game.slug}/</loc>
       <lastmod>${now}</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.7</priority>

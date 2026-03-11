@@ -22,6 +22,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: seo?.title || "Metric Gamer | Expert Game Performance Analysis & Metrics",
     description: seo?.metaDesc || "Find your next favorite game using our deep performance metrics and expert game analysis. The ultimate destination for core gamers.",
+    alternates: {
+      canonical: "https://www.metricgamer.com/",
+    },
   };
 }
 

@@ -13,7 +13,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Metric Gamer | Expert Game Performance Analysis & Metrics",
   description: "Discover the best games based on deep performance metrics, expert analysis, and community rankings. Find your next favorite game on Metric Gamer.",
-  metadataBase: new URL("https://metricgamer.com"),
+  metadataBase: new URL("https://www.metricgamer.com/"),
 };
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });

@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     ...metadata,
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}${slug}`,
+      canonical: slug === "/" || slug === "" ? "/" : `${slug}/`,
     },
   } as Metadata;
 }

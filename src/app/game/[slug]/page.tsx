@@ -18,6 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: seo?.title || `${data?.game?.title} Review & Metrics | Metric Gamer`,
     description: seo?.metaDesc || `Discover deep performance metrics and detailed analysis for ${data?.game?.title} on Metric Gamer.`,
+    alternates: {
+      canonical: `/game/${slug}/`,
+    },
   };
 }
 

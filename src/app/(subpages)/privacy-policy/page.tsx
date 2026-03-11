@@ -2,10 +2,13 @@ import { PrivacyPolicy } from "@/stories/pages/PrivacyPolicy/PrivacyPolicy";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Privacy Policy | Metric Gamer",
-    description: "Read the Metric Gamer Privacy Policy to understand how we handle your data.",
+  title: "Privacy Policy | Metric Gamer",
+  description: "Read the Metric Gamer Privacy Policy to understand how we handle your data.",
+  alternates: {
+    canonical: "/privacy-policy/",
+  },
 };
 
 export default function PrivacyPolicyPage() {
-    return <PrivacyPolicy />;
+  return <PrivacyPolicy />;
 }

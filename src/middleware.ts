@@ -2,13 +2,37 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
+  const host = request.headers.get("host") || "";
+  const { pathname, search } = request.nextUrl;
+
+  // 0. Enforce www. prefix and trailing slash for production domain
+  if (host === "metricgamer.com") {
+    return NextResponse.redirect(
+      `https://www.metricgamer.com${pathname}${pathname.endsWith("/") ? "" : "/"}${search}`,
+      301
+    );
+  }
+
+  // 1. Enforce trailing slash for internal paths (even on www or local)
+  // Excluding API routes and static files (dots in pathname)
+  if (
+    !pathname.endsWith("/") &&
+    !pathname.startsWith("/api/") &&
+    !pathname.includes(".")
+  ) {
+    return NextResponse.redirect(
+      new URL(`${pathname}/${search}`, request.url),
+      301
+    );
+  }
+
   if (!process.env.WP_USER || !process.env.WP_APP_PASS) {
     return NextResponse.next();
   }
 
   const basicAuth = `${process.env.WP_USER}:${process.env.WP_APP_PASS}`;
 
-  const pathnameWithoutTrailingSlash = request.nextUrl.pathname.replace(
+  const pathnameWithoutTrailingSlash = pathname.replace(
     /\/$/,
     "",
   );

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.metricgamer.com";
+  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || "https://www.metricgamer.com").replace(/\/$/, "");
   const now = new Date().toISOString();
 
   const pages = [
@@ -18,7 +18,7 @@ export async function GET() {
     .map(
       (page) => `
     <url>
-      <loc>${baseUrl}${page}</loc>
+      <loc>${baseUrl}${page.endsWith("/") ? page : page + "/"}</loc>
       <lastmod>${now}</lastmod>
       <changefreq>daily</changefreq>
       <priority>${page === "" ? "1.0" : "0.8"}</priority>

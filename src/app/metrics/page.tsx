@@ -1,8 +1,6 @@
 
 
 import { SearchSection } from "@/stories/sections/Search/SearchSection";
-import { Footer } from "@/stories/layouts/Footer/Footer";
-
 import { print } from "graphql/language/printer";
 import { fetchGraphQL } from "@/utils/fetchGraphQL";
 import { sanitizeImageUrl } from "@/utils/sanitizeUrl";
@@ -18,6 +16,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Game Metrics & Discovery | Metric Gamer",
   description: "Filter and discover games by specific metrics like difficulty, playtime, story depth, and more.",
+  alternates: {
+    canonical: "/metrics/",
+  },
 };
 
 export default async function MetricsPage() {
