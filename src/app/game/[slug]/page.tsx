@@ -7,6 +7,7 @@ import { GameBySlugQuery } from "@/queries/game/GameBySlugQuery";
 import { AllRankingsQuery } from "@/queries/ranking/AllRankingsQuery";
 import { GameBySlugQuery as GameBySlugQueryType } from "@/gql/graphql";
 import { GamePost } from "@/stories/pages/GamePost/GamePost";
+import { GameSchema } from "@/components/seo/GameSchema";
 import { Metadata } from "next";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -162,13 +163,45 @@ export default async function GamePage({ params }: Props) {
     }
   };
 
+  // SCHEMA FAQs
+  const faqSchemaData = [
+    {
+      question: `What platforms is ${headerData.title} on?`,
+      answer: `${headerData.title} is available to play on ${headerData.platforms.join(", ")}.`
+    },
+    {
+      question: `Is ${headerData.title} cross-platform?`,
+      answer: isCrossPlatform
+        ? `Yes, ${headerData.title} supports cross-platform play, allowing you to play with friends across different systems.`
+        : `No, ${headerData.title} does not currently support cross-platform play.`
+    },
+    {
+      question: `How many players is ${headerData.title}?`,
+      answer: `${headerData.title} is a ${playersStr} game.`
+    }
+  ];
+
   return (
-    <GamePost
-      header={headerData}
-      info={infoData}
-      metrics={metricsData}
-      similarGames={similarGamesData}
-      sidebar={sidebarData}
-    />
+    <>
+      <GameSchema
+        gameTitle={headerData.title}
+        description={infoData.description}
+        url={`https://www.metricgamer.com/game/${slug}/`}
+        image={headerData.heroImage}
+        datePublished={(game as any).date}
+        dateModified={(game as any).modified}
+        platforms={headerData.platforms}
+        averageScore={averageScore}
+        verdict={infoData.verdict}
+        faqs={faqSchemaData}
+      />
+      <GamePost
+        header={headerData}
+        info={infoData}
+        metrics={metricsData}
+        similarGames={similarGamesData}
+        sidebar={sidebarData}
+      />
+    </>
   );
 }
