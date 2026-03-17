@@ -15,131 +15,36 @@ export function GameBlogHeader({
     width = 1600,
     height = 900
 }: GameBlogHeaderProps) {
-    const borderWidth = 8;
-    const sectionWidth = (width - borderWidth * 4) / 3;
-
     return (
-        <svg
-            width="100%"
-            height="100%"
-            viewBox={`0 0 ${width} ${height}`}
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
-        >
-            {/* Define gradient for middle section */}
-            <defs>
-                <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#451870', stopOpacity: 1 }} />
-                    <stop offset="50%" style={{ stopColor: '#351150', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#250a40', stopOpacity: 1 }} />
-                </linearGradient>
-
-                {/* Glow filter for question mark */}
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="8" result="coloredBlur" />
-                    <feMerge>
-                        <feMergeNode in="coloredBlur" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-
-                {/* Clip paths for each section */}
-                <clipPath id="leftClip">
-                    <rect
-                        x={borderWidth}
-                        y={borderWidth}
-                        width={sectionWidth}
-                        height={height - borderWidth * 2}
-                    />
-                </clipPath>
-
-                <clipPath id="rightClip">
-                    <rect
-                        x={borderWidth * 3 + sectionWidth * 2}
-                        y={borderWidth}
-                        width={sectionWidth}
-                        height={height - borderWidth * 2}
-                    />
-                </clipPath>
-            </defs>
-
-            {/* Outer yellow border background */}
-            <rect width={width} height={height} fill="#E8C547" />
-
+        <div className="w-full h-full flex gap-1 md:gap-[6px] p-1 md:p-[6px] bg-[#E8C547]">
             {/* Left section - game image */}
-            <rect
-                x={borderWidth}
-                y={borderWidth}
-                width={sectionWidth}
-                height={height - borderWidth * 2}
-                fill="#1a1a2e"
-            />
-            <foreignObject
-                x={borderWidth}
-                y={borderWidth}
-                width={sectionWidth}
-                height={height - borderWidth * 2}
-                clipPath="url(#leftClip)"
-            >
-                <div className="w-full h-full relative">
-                    <Image
-                        src={sanitizeImageUrl(leftImage)}
-                        alt="Left"
-                        fill
-                        className="object-cover"
-                    />
-                </div>
-            </foreignObject>
+            <div className="flex-1 relative overflow-hidden bg-[#1a1a2e]">
+                <Image
+                    src={sanitizeImageUrl(leftImage)}
+                    alt="Left"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 33vw, 20vw"
+                />
+            </div>
 
-            {/* Middle section - question mark with gradient */}
-            <rect
-                x={borderWidth * 2 + sectionWidth}
-                y={borderWidth}
-                width={sectionWidth}
-                height={height - borderWidth * 2}
-                fill="url(#purpleGradient)"
-            />
-
-            {/* Question mark with glow effect - centered */}
-            <g filter="url(#glow)">
-                <text
-                    x={borderWidth * 2 + sectionWidth + sectionWidth / 2}
-                    y={height / 2 + 10}
-                    fontSize="420"
-                    fontWeight="bold"
-                    fontFamily="Arial, sans-serif"
-                    fill="#E8C547"
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                >
+            {/* Middle section - purple gradient question mark */}
+            <div className="flex-1 flex items-center justify-center relative bg-gradient-to-b from-[#451870] via-[#351150] to-[#250a40]">
+                <span className="text-[#E8C547] text-6xl md:text-8xl font-black md:font-bold drop-shadow-[0_0_15px_rgba(232,197,71,0.6)] leading-none select-none">
                     ?
-                </text>
-            </g>
+                </span>
+            </div>
 
             {/* Right section - game image */}
-            <rect
-                x={borderWidth * 3 + sectionWidth * 2}
-                y={borderWidth}
-                width={sectionWidth}
-                height={height - borderWidth * 2}
-                fill="#1a1a2e"
-            />
-            <foreignObject
-                x={borderWidth * 3 + sectionWidth * 2}
-                y={borderWidth}
-                width={sectionWidth}
-                height={height - borderWidth * 2}
-                clipPath="url(#rightClip)"
-            >
-                <div className="w-full h-full relative">
-                    <Image
-                        src={sanitizeImageUrl(rightImage)}
-                        alt="Right"
-                        fill
-                        className="object-cover"
-                    />
-                </div>
-            </foreignObject>
-        </svg>
+            <div className="flex-1 relative overflow-hidden bg-[#1a1a2e]">
+                <Image
+                    src={sanitizeImageUrl(rightImage)}
+                    alt="Right"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 33vw, 20vw"
+                />
+            </div>
+        </div>
     );
 }

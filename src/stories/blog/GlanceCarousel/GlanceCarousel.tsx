@@ -116,7 +116,7 @@ export function GlanceCarousel({ games, activeMetrics, onToggleMetric, onGameCli
                 <div className="absolute inset-0 p-5 pt-14 flex flex-col justify-evenly">
                   {/* Rank Badge - Top Left */}
                   <div className="absolute top-0 left-0 bg-[#F6CA56] text-black font-bold text-xl px-4 py-3 rounded-br-2xl z-20 font-heading shadow-[5px_5px_15px_rgba(0,0,0,0.3)]">
-                    #{game.rank}
+                    #{i + 1}
                   </div>
 
                   {/* Dynamic Score - Large Glowing Bubble (Positioned higher with even spacing) */}
