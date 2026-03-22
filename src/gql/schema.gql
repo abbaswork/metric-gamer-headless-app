@@ -786,6 +786,22 @@ type CategoryToGameConnectionPageInfo implements GameConnectionPageInfo & PageIn
 
 """Arguments for filtering the CategoryToGameConnection connection"""
 input CategoryToGameConnectionWhereArgs {
+  """
+  The user that's connected as the author of the object. Use the userId for the author object.
+  """
+  author: Int
+
+  """Find objects connected to author(s) in the array of author's userIds"""
+  authorIn: [ID]
+
+  """Find objects connected to the author by the author's nicename"""
+  authorName: String
+
+  """
+  Find objects NOT connected to author(s) in the array of author's userIds
+  """
+  authorNotIn: [ID]
+
   """Category ID"""
   categoryId: Int
 
@@ -1079,6 +1095,22 @@ type CategoryToRankingConnectionPageInfo implements PageInfo & RankingConnection
 
 """Arguments for filtering the CategoryToRankingConnection connection"""
 input CategoryToRankingConnectionWhereArgs {
+  """
+  The user that's connected as the author of the object. Use the userId for the author object.
+  """
+  author: Int
+
+  """Find objects connected to author(s) in the array of author's userIds"""
+  authorIn: [ID]
+
+  """Find objects connected to the author by the author's nicename"""
+  authorName: String
+
+  """
+  Find objects NOT connected to author(s) in the array of author's userIds
+  """
+  authorNotIn: [ID]
+
   """Category ID"""
   categoryId: Int
 
@@ -2713,6 +2745,9 @@ type CreateCrossplatformPayload {
 
 """Input for the createGame mutation."""
 input CreateGameInput {
+  """The userId to assign as the author of the object"""
+  authorId: ID
+
   """Set connections between the game and categories"""
   categories: GameCategoriesInput
 
@@ -3089,6 +3124,9 @@ type CreatePostPayload {
 
 """Input for the createRanking mutation."""
 input CreateRankingInput {
+  """The userId to assign as the author of the object"""
+  authorId: ID
+
   """Set connections between the ranking and categories"""
   categories: RankingCategoriesInput
 
@@ -3601,6 +3639,22 @@ type CrossplatformToGameConnectionPageInfo implements GameConnectionPageInfo & P
 
 """Arguments for filtering the CrossplatformToGameConnection connection"""
 input CrossplatformToGameConnectionWhereArgs {
+  """
+  The user that's connected as the author of the object. Use the userId for the author object.
+  """
+  author: Int
+
+  """Find objects connected to author(s) in the array of author's userIds"""
+  authorIn: [ID]
+
+  """Find objects connected to the author by the author's nicename"""
+  authorName: String
+
+  """
+  Find objects NOT connected to author(s) in the array of author's userIds
+  """
+  authorNotIn: [ID]
+
   """Category ID"""
   categoryId: Int
 
@@ -4435,7 +4489,7 @@ interface EnqueuedStylesheetConnectionPageInfo implements PageInfo & WPPageInfo 
 }
 
 """The game type"""
-type Game implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfPropertiesGame {
+type Game implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfPropertiesGame {
   """The ancestors of the content node."""
   ancestors(
     """
@@ -4454,6 +4508,15 @@ type Game implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     """The number of items to return before the referenced "before" cursor"""
     last: Int
   ): GameToGameConnection @deprecated(reason: "This content type is not hierarchical and typically will not have ancestors")
+
+  """Connection between the NodeWithAuthor type and the User type"""
+  author: NodeWithAuthorToUserConnectionEdge
+
+  """The database identifier of the author of the node"""
+  authorDatabaseId: Int
+
+  """The globally unique identifier of the author of the node"""
+  authorId: ID
 
   """Connection between the Game type and the category type"""
   categories(
@@ -8143,6 +8206,22 @@ type MetricToGameConnectionPageInfo implements GameConnectionPageInfo & PageInfo
 
 """Arguments for filtering the MetricToGameConnection connection"""
 input MetricToGameConnectionWhereArgs {
+  """
+  The user that's connected as the author of the object. Use the userId for the author object.
+  """
+  author: Int
+
+  """Find objects connected to author(s) in the array of author's userIds"""
+  authorIn: [ID]
+
+  """Find objects connected to the author by the author's nicename"""
+  authorName: String
+
+  """
+  Find objects NOT connected to author(s) in the array of author's userIds
+  """
+  authorNotIn: [ID]
+
   """Category ID"""
   categoryId: Int
 
@@ -9944,6 +10023,22 @@ type PlatformToGameConnectionPageInfo implements GameConnectionPageInfo & PageIn
 
 """Arguments for filtering the PlatformToGameConnection connection"""
 input PlatformToGameConnectionWhereArgs {
+  """
+  The user that's connected as the author of the object. Use the userId for the author object.
+  """
+  author: Int
+
+  """Find objects connected to author(s) in the array of author's userIds"""
+  authorIn: [ID]
+
+  """Find objects connected to the author by the author's nicename"""
+  authorName: String
+
+  """
+  Find objects NOT connected to author(s) in the array of author's userIds
+  """
+  authorNotIn: [ID]
+
   """Category ID"""
   categoryId: Int
 
@@ -10404,6 +10499,22 @@ type PlayersToGameConnectionPageInfo implements GameConnectionPageInfo & PageInf
 
 """Arguments for filtering the PlayersToGameConnection connection"""
 input PlayersToGameConnectionWhereArgs {
+  """
+  The user that's connected as the author of the object. Use the userId for the author object.
+  """
+  author: Int
+
+  """Find objects connected to author(s) in the array of author's userIds"""
+  authorIn: [ID]
+
+  """Find objects connected to the author by the author's nicename"""
+  authorName: String
+
+  """
+  Find objects NOT connected to author(s) in the array of author's userIds
+  """
+  authorNotIn: [ID]
+
   """Category ID"""
   categoryId: Int
 
@@ -13438,7 +13549,7 @@ interface PropertiesHome_Fields implements AcfFieldGroup & AcfFieldGroupFields {
 }
 
 """The ranking type"""
-type Ranking implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfPropertiesGamePost {
+type Ranking implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfPropertiesGamePost {
   """The ancestors of the content node."""
   ancestors(
     """
@@ -13457,6 +13568,15 @@ type Ranking implements ContentNode & DatabaseIdentifier & MenuItemLinkable & No
     """The number of items to return before the referenced "before" cursor"""
     last: Int
   ): RankingToRankingConnection @deprecated(reason: "This content type is not hierarchical and typically will not have ancestors")
+
+  """Connection between the NodeWithAuthor type and the User type"""
+  author: NodeWithAuthorToUserConnectionEdge
+
+  """The database identifier of the author of the node"""
+  authorDatabaseId: Int
+
+  """The globally unique identifier of the author of the node"""
+  authorId: ID
 
   """Connection between the Ranking type and the category type"""
   categories(
@@ -16121,6 +16241,22 @@ type RootQueryToGameConnectionPageInfo implements GameConnectionPageInfo & PageI
 
 """Arguments for filtering the RootQueryToGameConnection connection"""
 input RootQueryToGameConnectionWhereArgs {
+  """
+  The user that's connected as the author of the object. Use the userId for the author object.
+  """
+  author: Int
+
+  """Find objects connected to author(s) in the array of author's userIds"""
+  authorIn: [ID]
+
+  """Find objects connected to the author by the author's nicename"""
+  authorName: String
+
+  """
+  Find objects NOT connected to author(s) in the array of author's userIds
+  """
+  authorNotIn: [ID]
+
   """Category ID"""
   categoryId: Int
 
@@ -17299,6 +17435,22 @@ type RootQueryToRankingConnectionPageInfo implements PageInfo & RankingConnectio
 
 """Arguments for filtering the RootQueryToRankingConnection connection"""
 input RootQueryToRankingConnectionWhereArgs {
+  """
+  The user that's connected as the author of the object. Use the userId for the author object.
+  """
+  author: Int
+
+  """Find objects connected to author(s) in the array of author's userIds"""
+  authorIn: [ID]
+
+  """Find objects connected to the author by the author's nicename"""
+  authorName: String
+
+  """
+  Find objects NOT connected to author(s) in the array of author's userIds
+  """
+  authorNotIn: [ID]
+
   """Category ID"""
   categoryId: Int
 
@@ -18998,6 +19150,22 @@ type TagToGameConnectionPageInfo implements GameConnectionPageInfo & PageInfo & 
 
 """Arguments for filtering the TagToGameConnection connection"""
 input TagToGameConnectionWhereArgs {
+  """
+  The user that's connected as the author of the object. Use the userId for the author object.
+  """
+  author: Int
+
+  """Find objects connected to author(s) in the array of author's userIds"""
+  authorIn: [ID]
+
+  """Find objects connected to the author by the author's nicename"""
+  authorName: String
+
+  """
+  Find objects NOT connected to author(s) in the array of author's userIds
+  """
+  authorNotIn: [ID]
+
   """Category ID"""
   categoryId: Int
 
@@ -20142,6 +20310,9 @@ type UpdateCrossplatformPayload {
 
 """Input for the updateGame mutation."""
 input UpdateGameInput {
+  """The userId to assign as the author of the object"""
+  authorId: ID
+
   """Set connections between the game and categories"""
   categories: GameCategoriesInput
 
@@ -20551,6 +20722,9 @@ type UpdatePostPayload {
 
 """Input for the updateRanking mutation."""
 input UpdateRankingInput {
+  """The userId to assign as the author of the object"""
+  authorId: ID
+
   """Set connections between the ranking and categories"""
   categories: RankingCategoriesInput
 
@@ -20914,6 +21088,28 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
   """
   firstName: String
 
+  """Connection between the User type and the game type"""
+  games(
+    """
+    Cursor used along with the "first" argument to reference where in the dataset to get data
+    """
+    after: String
+
+    """
+    Cursor used along with the "last" argument to reference where in the dataset to get data
+    """
+    before: String
+
+    """The number of items to return after the referenced "after" cursor"""
+    first: Int
+
+    """The number of items to return before the referenced "before" cursor"""
+    last: Int
+
+    """Arguments for filtering the connection"""
+    where: UserToGameConnectionWhereArgs
+  ): UserToGameConnection
+
   """
   Whether the user has enabled keyboard shortcuts for comment moderation. Defaults to false.
   """
@@ -21038,6 +21234,28 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
     """Arguments for filtering the connection"""
     where: UserToPostConnectionWhereArgs
   ): UserToPostConnection
+
+  """Connection between the User type and the ranking type"""
+  rankings(
+    """
+    Cursor used along with the "first" argument to reference where in the dataset to get data
+    """
+    after: String
+
+    """
+    Cursor used along with the "last" argument to reference where in the dataset to get data
+    """
+    before: String
+
+    """The number of items to return after the referenced "after" cursor"""
+    first: Int
+
+    """The number of items to return before the referenced "before" cursor"""
+    last: Int
+
+    """Arguments for filtering the connection"""
+    where: UserToRankingConnectionWhereArgs
+  ): UserToRankingConnection
 
   """
   The date the user registered or was created. The field follows a full ISO8601 date string format.
@@ -21505,6 +21723,155 @@ type UserToEnqueuedStylesheetConnectionPageInfo implements EnqueuedStylesheetCon
   startCursor: String
 }
 
+"""Connection between the User type and the game type"""
+type UserToGameConnection implements Connection & GameConnection {
+  """Edges for the UserToGameConnection connection"""
+  edges: [UserToGameConnectionEdge!]!
+
+  """The nodes of the connection, without the edges"""
+  nodes: [Game!]!
+
+  """Information about pagination in a connection."""
+  pageInfo: UserToGameConnectionPageInfo!
+}
+
+"""An edge in a connection"""
+type UserToGameConnectionEdge implements Edge & GameConnectionEdge {
+  """A cursor for use in pagination"""
+  cursor: String
+
+  """The item at the end of the edge"""
+  node: Game!
+}
+
+"""
+Pagination metadata specific to &quot;UserToGameConnection&quot; collections. Provides cursors and flags for navigating through sets of UserToGameConnection Nodes.
+"""
+type UserToGameConnectionPageInfo implements GameConnectionPageInfo & PageInfo & WPPageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+"""Arguments for filtering the UserToGameConnection connection"""
+input UserToGameConnectionWhereArgs {
+  """
+  The user that's connected as the author of the object. Use the userId for the author object.
+  """
+  author: Int
+
+  """Find objects connected to author(s) in the array of author's userIds"""
+  authorIn: [ID]
+
+  """Find objects connected to the author by the author's nicename"""
+  authorName: String
+
+  """
+  Find objects NOT connected to author(s) in the array of author's userIds
+  """
+  authorNotIn: [ID]
+
+  """Category ID"""
+  categoryId: Int
+
+  """
+  Array of category IDs, used to display objects from one category OR another
+  """
+  categoryIn: [ID]
+
+  """Use Category Slug"""
+  categoryName: String
+
+  """
+  Array of category IDs, used to display objects from one category OR another
+  """
+  categoryNotIn: [ID]
+
+  """Filter the connection based on dates"""
+  dateQuery: DateQueryInput
+
+  """
+  True for objects with passwords; False for objects without passwords; null for all objects with or without passwords
+  """
+  hasPassword: Boolean
+
+  """Specific database ID of the object"""
+  id: Int
+
+  """Array of IDs for the objects to retrieve"""
+  in: [ID]
+
+  """Get objects with a specific mimeType property"""
+  mimeType: MimeTypeEnum
+
+  """Slug / post_name of the object"""
+  name: String
+
+  """Specify objects to retrieve. Use slugs"""
+  nameIn: [String]
+
+  """
+  Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored
+  """
+  notIn: [ID]
+
+  """What parameter to use to order the objects by."""
+  orderby: [PostObjectsConnectionOrderbyInput]
+
+  """Use ID to return only children. Use 0 to return only top-level items"""
+  parent: ID
+
+  """Specify objects whose parent is in an array"""
+  parentIn: [ID]
+
+  """Specify posts whose parent is not in an array"""
+  parentNotIn: [ID]
+
+  """Show posts with a specific password."""
+  password: String
+
+  """Show Posts based on a keyword search"""
+  search: String
+
+  """Retrieve posts where post status is in an array."""
+  stati: [PostStatusEnum]
+
+  """Show posts with a specific status."""
+  status: PostStatusEnum
+
+  """Tag Slug"""
+  tag: String
+
+  """Use Tag ID"""
+  tagId: String
+
+  """Array of tag IDs, used to display objects from one tag OR another"""
+  tagIn: [ID]
+
+  """Array of tag IDs, used to display objects from one tag OR another"""
+  tagNotIn: [ID]
+
+  """Array of tag slugs, used to display objects from one tag AND another"""
+  tagSlugAnd: [String]
+
+  """Array of tag slugs, used to include objects in ANY specified tags"""
+  tagSlugIn: [String]
+
+  """Title of the object"""
+  title: String
+}
+
 """Connection between the User type and the mediaItem type"""
 type UserToMediaItemConnection implements Connection & MediaItemConnection {
   """Edges for the UserToMediaItemConnection connection"""
@@ -21879,6 +22246,137 @@ input UserToPostConnectionWhereArgs {
 
   """Array of tag slugs, used to include objects in ANY specified tags"""
   tagSlugIn: [String]
+
+  """Title of the object"""
+  title: String
+}
+
+"""Connection between the User type and the ranking type"""
+type UserToRankingConnection implements Connection & RankingConnection {
+  """Edges for the UserToRankingConnection connection"""
+  edges: [UserToRankingConnectionEdge!]!
+
+  """The nodes of the connection, without the edges"""
+  nodes: [Ranking!]!
+
+  """Information about pagination in a connection."""
+  pageInfo: UserToRankingConnectionPageInfo!
+}
+
+"""An edge in a connection"""
+type UserToRankingConnectionEdge implements Edge & RankingConnectionEdge {
+  """A cursor for use in pagination"""
+  cursor: String
+
+  """The item at the end of the edge"""
+  node: Ranking!
+}
+
+"""
+Pagination metadata specific to &quot;UserToRankingConnection&quot; collections. Provides cursors and flags for navigating through sets of UserToRankingConnection Nodes.
+"""
+type UserToRankingConnectionPageInfo implements PageInfo & RankingConnectionPageInfo & WPPageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """Raw schema for page"""
+  seo: SEOPostTypePageInfo
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+"""Arguments for filtering the UserToRankingConnection connection"""
+input UserToRankingConnectionWhereArgs {
+  """
+  The user that's connected as the author of the object. Use the userId for the author object.
+  """
+  author: Int
+
+  """Find objects connected to author(s) in the array of author's userIds"""
+  authorIn: [ID]
+
+  """Find objects connected to the author by the author's nicename"""
+  authorName: String
+
+  """
+  Find objects NOT connected to author(s) in the array of author's userIds
+  """
+  authorNotIn: [ID]
+
+  """Category ID"""
+  categoryId: Int
+
+  """
+  Array of category IDs, used to display objects from one category OR another
+  """
+  categoryIn: [ID]
+
+  """Use Category Slug"""
+  categoryName: String
+
+  """
+  Array of category IDs, used to display objects from one category OR another
+  """
+  categoryNotIn: [ID]
+
+  """Filter the connection based on dates"""
+  dateQuery: DateQueryInput
+
+  """
+  True for objects with passwords; False for objects without passwords; null for all objects with or without passwords
+  """
+  hasPassword: Boolean
+
+  """Specific database ID of the object"""
+  id: Int
+
+  """Array of IDs for the objects to retrieve"""
+  in: [ID]
+
+  """Get objects with a specific mimeType property"""
+  mimeType: MimeTypeEnum
+
+  """Slug / post_name of the object"""
+  name: String
+
+  """Specify objects to retrieve. Use slugs"""
+  nameIn: [String]
+
+  """
+  Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored
+  """
+  notIn: [ID]
+
+  """What parameter to use to order the objects by."""
+  orderby: [PostObjectsConnectionOrderbyInput]
+
+  """Use ID to return only children. Use 0 to return only top-level items"""
+  parent: ID
+
+  """Specify objects whose parent is in an array"""
+  parentIn: [ID]
+
+  """Specify posts whose parent is not in an array"""
+  parentNotIn: [ID]
+
+  """Show posts with a specific password."""
+  password: String
+
+  """Show Posts based on a keyword search"""
+  search: String
+
+  """Retrieve posts where post status is in an array."""
+  stati: [PostStatusEnum]
+
+  """Show posts with a specific status."""
+  status: PostStatusEnum
 
   """Title of the object"""
   title: String

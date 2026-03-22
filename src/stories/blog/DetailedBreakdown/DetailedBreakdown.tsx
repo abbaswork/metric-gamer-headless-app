@@ -64,7 +64,11 @@ export function DetailedBreakdown({ games, activeMetrics, onToggleMetric }: Deta
     <div className="space-y-12">
       <h2 className="text-3xl font-bold text-white font-heading border-b border-white/10 pb-4">Detailed Breakdown</h2>
 
-      {games.map((game, index) => {
+      {[...games].sort((a, b) => {
+        const scoreA = typeof a.dynamicScore === 'number' ? a.dynamicScore : parseFloat(a.dynamicScore as string) || 0;
+        const scoreB = typeof b.dynamicScore === 'number' ? b.dynamicScore : parseFloat(b.dynamicScore as string) || 0;
+        return scoreB - scoreA;
+      }).map((game, index) => {
         const imageSrc = typeof game.image === 'string' ? game.image : game.image.src;
         const isExpanded = !collapsedCards[game.title];
 
@@ -85,7 +89,7 @@ export function DetailedBreakdown({ games, activeMetrics, onToggleMetric }: Deta
             >
               {/* Rank Badge Absolute - Larger */}
               <div className="absolute top-0 left-0 bg-[#F6CA56] text-black font-bold text-2xl px-5 py-4 rounded-br-2xl z-20 font-heading shadow-[5px_5px_15px_rgba(0,0,0,0.3)]">
-                #{game.rank}
+                #{index + 1}
               </div>
 
               {/* Card Body */}
