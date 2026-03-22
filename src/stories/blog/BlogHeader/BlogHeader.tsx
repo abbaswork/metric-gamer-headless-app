@@ -44,8 +44,14 @@ export function BlogHeader({
 
       <div className="flex flex-wrap items-center gap-4 text-gray-400 text-sm border-b border-white/10 pb-8 mt-2">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full overflow-hidden border border-white/20">
-            <img src={authorAvatar} alt={displayAuthor} className="w-full h-full object-cover scale-150" />
+          <div className="w-6 h-6 rounded-full overflow-hidden border border-white/20 relative">
+            <Image 
+              src={authorAvatar} 
+              alt={displayAuthor} 
+              width={24}
+              height={24}
+              className="w-full h-full object-cover scale-150" 
+            />
           </div>
           <span>By</span>
           <Link href="/about#team" className="text-[#F6CA56] font-bold hover:text-white transition-colors">

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { User, Gamepad2, ArrowRight } from "lucide-react";
 
 const createSlug = (name: string) => {
@@ -121,11 +122,11 @@ export function AuthorProfiles() {
               {/* Floating Avatar */}
               <div className="flex justify-center -mt-16 relative z-20 shrink-0">
                 <div className="w-32 h-32 rounded-full border-4 border-[#160026] group-hover/card:border-[#F6CA56]/20 transition-colors duration-500 bg-[#0d0014] overflow-hidden shadow-2xl relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={author.avatar}
                     alt={author.name}
-                    className="w-full h-full object-cover opacity-90 transition-all duration-700 scale-[1.53] group-hover/card:scale-[1.6]"
+                    fill
+                    className="object-cover opacity-90 transition-all duration-700 scale-[1.53] group-hover/card:scale-[1.6]"
                   />
                   <div className="absolute inset-0 rounded-full ring-inset ring-1 ring-white/10 pointer-events-none"></div>
                 </div>
@@ -137,7 +138,7 @@ export function AuthorProfiles() {
                 {/* Name & Bio */}
                 <h3 className="text-2xl font-black text-white font-heading tracking-tight mb-4 group-hover/card:text-[#F6CA56] transition-colors duration-500">{author.name}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed mb-6 italic">
-                  "{author.description}"
+                  &quot;{author.description}&quot;
                 </p>
 
                 {/* Details Section */}
