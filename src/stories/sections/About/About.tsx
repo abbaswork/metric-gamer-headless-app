@@ -3,78 +3,17 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Gamepad2, Trophy, Microscope, Binary, Target, Search, ArrowRight, Sparkles, Sliders, BarChart3, BookOpen, Monitor, Swords, TrendingUp, Brain, Repeat, FileText, ListFilter } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { Send } from "lucide-react";
 import { useHubSpotForm } from "@/hooks/useHubSpotForm";
 import { METRIC_ICONS } from "@/utils/metricIcons";
+import { AuthorProfiles } from "./AuthorProfiles";
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
-};
 
-const FloatingNumber = () => {
-  const [config, setConfig] = useState({
-    x: 0,
-    y: 0,
-    duration: 10,
-    delay: 0,
-    fontSize: 10,
-    value: 0
-  });
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setConfig({
-      x: Math.random() * 1000,
-      y: Math.random() * 500 + 500,
-      duration: Math.random() * 10 + 10,
-      delay: Math.random() * 10,
-      fontSize: Math.random() * 20 + 10,
-      value: Math.floor(Math.random() * 100)
-    });
-  }, []);
-
-  if (config.duration === 10 && config.x === 0) return null; // Wait for hydration
-
-  return (
-    <motion.div
-      className="absolute text-[#F6CA56] font-mono font-bold"
-      initial={{
-        x: config.x,
-        y: config.y,
-        opacity: 0
-      }}
-      animate={{
-        y: -100,
-        opacity: [0, 1, 0]
-      }}
-      transition={{
-        duration: config.duration,
-        repeat: Infinity,
-        ease: "linear",
-        delay: config.delay
-      }}
-      style={{ fontSize: config.fontSize }}
-    >
-      {config.value}%
-    </motion.div>
-  );
-};
 
 export function AboutSection() {
   const { submitForm, status } = useHubSpotForm("341872712", "91132ed5-cb00-409d-bc16-d39d90617349");
@@ -99,6 +38,7 @@ export function AboutSection() {
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#F6CA56]/30 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
+
         {/* The Metric Method Section */}
         <div id="metric-method" className="text-center mb-16 space-y-4">
           <motion.div
@@ -192,93 +132,100 @@ export function AboutSection() {
           </div>
         </div>
 
+        {/* Author Profiles Section */}
+        <div id="team" className="pt-20 border-t border-white/5">
+          <AuthorProfiles />
+        </div>
+
         {/* How to Get Started Section - Tabbed Interface */}
-        <motion.div
-          id="how-to"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative bg-[#351150]/30 border border-[#F6CA56]/20 rounded-3xl p-8 md:p-12 mb-16"
-        >
-          <div className="absolute top-0 right-0 p-8 opacity-10">
-            <Sparkles className="w-32 h-32 text-[#F6CA56]" />
-          </div>
-
-          <h3 className="text-3xl font-bold text-white font-heading mb-8 text-center md:text-left">How to Find Your Next Game</h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
-            <div className="space-y-8">
-              <div className="flex gap-6">
-                <div className="shrink-0 w-12 h-12 rounded-2xl bg-[#F6CA56] text-black flex items-center justify-center font-bold text-xl shadow-lg shadow-[#F6CA56]/20">
-                  <Sliders className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold text-white mb-2">1. Check out our Find Games page</h4>
-                  <p className="text-gray-300 leading-relaxed">
-                    Head to our Find Games page and filter by Metric, Platform, or simply browse all games on our database!
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-6">
-                <div className="shrink-0 w-12 h-12 rounded-2xl bg-[#160026] border border-[#F6CA56] text-[#F6CA56] flex items-center justify-center font-bold text-xl">
-                  <FileText className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold text-white mb-2">2. Explore the Find Ranked Lists page</h4>
-                  <p className="text-gray-300 leading-relaxed">
-                    Not sure what game to play? Why not check our Find Ranked Lists page to find a collection of games ranked by what matters most to you!
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-6">
-                <div className="shrink-0 w-12 h-12 rounded-2xl bg-[#160026] border border-[#F6CA56] text-[#F6CA56] flex items-center justify-center font-bold text-xl">
-                  <BarChart3 className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold text-white mb-2">3. Compare Metrics</h4>
-                  <p className="text-gray-300 leading-relaxed">
-                    Compare a range of metrics from gameplay, graphics, or combat through our unique metric system, or completely hide the metrics that don’t matter to you to truly personalise your experience on Metric Gamer.
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <Link href="/metrics">
-                  <Button className="bg-[#F6CA56] text-black hover:bg-[#e0b545] font-bold text-lg px-8 py-6 rounded-xl w-full md:w-auto shadow-lg shadow-[#F6CA56]/20 transition-all hover:scale-105">
-                    Start Searching Now <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                </Link>
-              </div>
+        <div className="pt-20 border-t border-white/5">
+          <motion.div
+            id="how-to"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative bg-[#351150]/30 border border-[#F6CA56]/20 rounded-3xl p-8 md:p-12 mb-16"
+          >
+            <div className="absolute top-0 right-0 p-8 opacity-10">
+              <Sparkles className="w-32 h-32 text-[#F6CA56]" />
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 h-full">
-              {[
-                { label: "Story", color: "text-blue-400" },
-                { label: "Graphics", color: "text-green-400" },
-                { label: "Combat", color: "text-red-400" },
-                { label: "Skill Ceiling", color: "text-yellow-400" },
-                { label: "Learning Curve", color: "text-purple-400" },
-                { label: "Replay Value", color: "text-orange-400" },
-              ].map((metric, i) => {
-                const Icon = METRIC_ICONS[metric.label] || Sparkles;
-                return (
-                  <Link key={i} href="/metrics" className="group">
-                    <div
-                      className="bg-[#160026] hover:bg-[#351150] border border-white/5 hover:border-[#F6CA56]/50 rounded-xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer transition-all hover:-translate-y-1 h-full"
-                    >
-                      <div className={`p-2 rounded-lg bg-white/5 group-hover:bg-white/10 ${metric.color}`}>
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      <span className="text-xs font-bold text-gray-300 group-hover:text-white uppercase tracking-wider text-center">{metric.label}</span>
-                    </div>
+            <h3 className="text-3xl font-bold text-white font-heading mb-8 text-center md:text-left">How to Find Your Next Game</h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+              <div className="space-y-8">
+                <div className="flex gap-6">
+                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-[#F6CA56] text-black flex items-center justify-center font-bold text-xl shadow-lg shadow-[#F6CA56]/20">
+                    <Sliders className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-white mb-2">1. Check out our Find Games page</h4>
+                    <p className="text-gray-300 leading-relaxed">
+                      Head to our Find Games page and filter by Metric, Platform, or simply browse all games on our database!
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-6">
+                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-[#160026] border border-[#F6CA56] text-[#F6CA56] flex items-center justify-center font-bold text-xl">
+                    <FileText className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-white mb-2">2. Explore the Find Ranked Lists page</h4>
+                    <p className="text-gray-300 leading-relaxed">
+                      Not sure what game to play? Why not check our Find Ranked Lists page to find a collection of games ranked by what matters most to you!
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-6">
+                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-[#160026] border border-[#F6CA56] text-[#F6CA56] flex items-center justify-center font-bold text-xl">
+                    <BarChart3 className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-white mb-2">3. Compare Metrics</h4>
+                    <p className="text-gray-300 leading-relaxed">
+                      Compare a range of metrics from gameplay, graphics, or combat through our unique metric system, or completely hide the metrics that don’t matter to you to truly personalise your experience on Metric Gamer.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4">
+                  <Link href="/metrics">
+                    <Button className="bg-[#F6CA56] text-black hover:bg-[#e0b545] font-bold text-lg px-8 py-6 rounded-xl w-full md:w-auto shadow-lg shadow-[#F6CA56]/20 transition-all hover:scale-105">
+                      Start Searching Now <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
                   </Link>
-                );
-              })}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 h-full">
+                {[
+                  { label: "Story", color: "text-blue-400" },
+                  { label: "Graphics", color: "text-green-400" },
+                  { label: "Combat", color: "text-red-400" },
+                  { label: "Skill Ceiling", color: "text-yellow-400" },
+                  { label: "Learning Curve", color: "text-purple-400" },
+                  { label: "Replay Value", color: "text-orange-400" },
+                ].map((metric, i) => {
+                  const Icon = METRIC_ICONS[metric.label] || Sparkles;
+                  return (
+                    <Link key={i} href="/metrics" className="group">
+                      <div
+                        className="bg-[#160026] hover:bg-[#351150] border border-white/5 hover:border-[#F6CA56]/50 rounded-xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer transition-all hover:-translate-y-1 h-full"
+                      >
+                        <div className={`p-2 rounded-lg bg-white/5 group-hover:bg-white/10 ${metric.color}`}>
+                          <Icon className="w-6 h-6" />
+                        </div>
+                        <span className="text-xs font-bold text-gray-300 group-hover:text-white uppercase tracking-wider text-center">{metric.label}</span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         {/* Fun Stat Banner */}
         <motion.div

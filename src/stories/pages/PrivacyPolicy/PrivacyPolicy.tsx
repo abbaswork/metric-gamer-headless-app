@@ -91,7 +91,7 @@ export function PrivacyPolicy() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-4xl md:text-6xl font-bold text-white font-heading"
                     >
-                        Privacy and Cookie Policy
+                        Privacy & Cookie Policy
                     </motion.h1>
 
                     <motion.p
@@ -100,7 +100,7 @@ export function PrivacyPolicy() {
                         transition={{ delay: 0.2 }}
                         className="text-lg text-gray-400 font-medium"
                     >
-                        Last Updated: March 2026
+                        Last Updated: 18th March 2026
                     </motion.p>
                 </div>
 
@@ -120,43 +120,53 @@ export function PrivacyPolicy() {
                             <section className="space-y-4">
                                 <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
                                     <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">1</span>
-                                    Information We Collect
+                                    Who We Are
                                 </h2>
                                 <div className="text-gray-400 leading-relaxed space-y-4">
-                                    <p>We collect information to provide a better experience for our readers. This includes:</p>
-                                    <ul className="list-disc pl-6 space-y-2">
-                                        <li><strong className="text-white">Voluntary Information:</strong> Email addresses if you sign up for our newsletter or contact us via our contact forms.</li>
-                                        <li><strong className="text-white">Automated Information:</strong> Technical data such as your IP address, browser type, and device information collected through cookies.</li>
-                                    </ul>
+                                    <p>Metric Gamer is operated by Accipiter Tech, a tech consulting firm.</p>
+                                    <p>This website serves a global audience, including users in the United Kingdom, European Economic Area (EEA), and the United States.</p>
+                                    <p>If you have any questions about this policy, you can contact us at: <a href="mailto:accipiterconsultancy@gmail.com" className="text-[#F6CA56] hover:underline">accipiterconsultancy@gmail.com</a></p>
                                 </div>
                             </section>
 
                             <section className="space-y-4">
                                 <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
                                     <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">2</span>
-                                    Google AdSense and Third-Party Advertising
+                                    Information We Collect
                                 </h2>
                                 <div className="text-gray-400 leading-relaxed space-y-4">
-                                    <p>We use Google AdSense to serve advertisements on our site.</p>
-                                    <ul className="list-disc pl-6 space-y-2">
-                                        <li><strong className="text-white">Google&apos;s Use of Cookies:</strong> Google, as a third-party vendor, uses cookies to serve ads on Metric Gamer. Google&apos;s use of advertising cookies enables it and its partners to serve ads to our users based on their visit to this site and/or other sites on the Internet.</li>
-                                        <li><strong className="text-white">Personalized Advertising:</strong> Users may opt out of personalized advertising by visiting Google Ads Settings.</li>
-                                        <li><strong className="text-white">Third-Party Vendors:</strong> Other third-party vendors or ad networks may also use cookies to serve ads on our site. You can opt out of some third-party vendors’ uses of cookies for personalized advertising by visiting www.aboutads.info.</li>
-                                    </ul>
+                                    <p>We collect information in the following ways:</p>
+                                    <div className="space-y-2">
+                                        <h3 className="text-white font-bold text-lg">a) Information You Provide</h3>
+                                        <ul className="list-disc pl-6 space-y-2">
+                                            <li>Email address (e.g. when contacting us or subscribing to a newsletter)</li>
+                                        </ul>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h3 className="text-white font-bold text-lg">b) Information Collected Automatically</h3>
+                                        <ul className="list-disc pl-6 space-y-2">
+                                            <li>IP address</li>
+                                            <li>Browser type and device information</li>
+                                            <li>Pages visited and interactions on our website</li>
+                                        </ul>
+                                    </div>
+                                    <p>This information is collected using cookies and similar technologies.</p>
                                 </div>
                             </section>
 
                             <section className="space-y-4">
                                 <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
                                     <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">3</span>
-                                    Analytics and Tracking (Google & HubSpot)
+                                    How We Use Your Information
                                 </h2>
                                 <div className="text-gray-400 leading-relaxed space-y-4">
-                                    <p>To understand how our readers use the &quot;Metric Method,&quot; we use industry-standard tracking tools:</p>
+                                    <p>We use collected data to:</p>
                                     <ul className="list-disc pl-6 space-y-2">
-                                        <li><strong className="text-white">Google Analytics 4 (GA4):</strong> We use Google cookies to analyze website traffic and user behavior. This helps us see which game reviews are the most popular so we can create better content.</li>
-                                        <li><strong className="text-white">HubSpot:</strong> We use HubSpot for our site analytics and customer relationship management. HubSpot places cookies on your device to track your interactions with our site, help us manage our marketing efforts, and provide a personalized experience.</li>
-                                        <li><strong className="text-white">Consent Mode:</strong> We implement Google Consent Mode v2. This ensures that Google and HubSpot services respect your privacy choices made via our cookie banner. If you decline cookies, these services will operate in a restricted, non-identifying mode.</li>
+                                        <li>Operate and maintain our website</li>
+                                        <li>Improve content and user experience</li>
+                                        <li>Understand how users interact with our site</li>
+                                        <li>Respond to enquiries or messages</li>
+                                        <li>Support future advertising and monetisation efforts</li>
                                     </ul>
                                 </div>
                             </section>
@@ -164,25 +174,147 @@ export function PrivacyPolicy() {
                             <section className="space-y-4">
                                 <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
                                     <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">4</span>
-                                    How to Manage Cookies
+                                    Cookies and Tracking Technologies
                                 </h2>
                                 <div className="text-gray-400 leading-relaxed space-y-4">
-                                    <p>You have the right to decide whether to accept or reject cookies.</p>
+                                    <p>We use cookies to improve your experience. These may include:</p>
                                     <ul className="list-disc pl-6 space-y-2">
-                                        <li><strong className="text-white">Cookie Banner:</strong> Upon your first visit, you can select your preferences via our consent manager.</li>
-                                        <li><strong className="text-white">Browser Settings:</strong> You can set or amend your web browser controls to accept or refuse cookies.</li>
-                                        <li><strong className="text-white">HubSpot Opt-Out:</strong> You can manage your HubSpot-specific tracking preferences at any time by clicking the &quot;Manage Cookies&quot; link in our footer.</li>
+                                        <li><strong className="text-white">Essential Cookies</strong> – necessary for the website to function</li>
+                                        <li><strong className="text-white">Analytics Cookies</strong> – help us understand site usage</li>
+                                        <li><strong className="text-white">Advertising Cookies</strong> – used to display relevant ads (when enabled)</li>
                                     </ul>
+                                    <p>On your first visit, you may be asked to set your cookie preferences via our consent banner.</p>
+                                    <p>You can also control cookies through your browser settings.</p>
                                 </div>
                             </section>
 
                             <section className="space-y-4">
                                 <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
                                     <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">5</span>
-                                    Data Protection Rights (GDPR/CCPA)
+                                    Analytics and Third-Party Services
                                 </h2>
-                                <div className="text-gray-400 leading-relaxed">
-                                    <p>Depending on your location, you have rights regarding your personal data, including the right to access, correct, or delete your information. To exercise these rights, please contact us at <a href="mailto:accipiterconsultancy@gmail.com" className="text-[#F6CA56] hover:underline">accipiterconsultancy@gmail.com</a>.</p>
+                                <div className="text-gray-400 leading-relaxed space-y-4">
+                                    <p>We use trusted third-party services to analyse usage and improve our website:</p>
+                                    <ul className="list-disc pl-6 space-y-2">
+                                        <li><strong className="text-white">Google Analytics 4 (GA4)</strong> – helps us understand user behaviour and site performance</li>
+                                        <li><strong className="text-white">HubSpot</strong> – used for analytics and customer relationship management</li>
+                                    </ul>
+                                    <p>These services may use cookies and process data according to their own privacy policies.</p>
+                                </div>
+                            </section>
+
+                            <section className="space-y-4">
+                                <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
+                                    <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">6</span>
+                                    Advertising (Google AdSense)
+                                </h2>
+                                <div className="text-gray-400 leading-relaxed space-y-4">
+                                    <p>We may use advertising services such as Google AdSense to display ads on this website in the future.</p>
+                                    <ul className="list-disc pl-6 space-y-2">
+                                        <li>Google, as a third-party vendor, uses cookies (including the DoubleClick cookie) to serve ads based on users’ visits to this and other websites.</li>
+                                        <li>These cookies allow Google and its partners to display relevant advertisements.</li>
+                                        <li>Users can opt out of personalised advertising by visiting Google Ads Settings.</li>
+                                        <li>Advertising cookies will only be used where required by law after obtaining user consent.</li>
+                                    </ul>
+                                </div>
+                            </section>
+
+                            <section className="space-y-4">
+                                <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
+                                    <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">7</span>
+                                    Consent and Google Consent Mode
+                                </h2>
+                                <div className="text-gray-400 leading-relaxed space-y-4">
+                                    <p>We use or plan to use consent management tools (including Google Consent Mode v2) to ensure that cookies and tracking technologies respect your choices.</p>
+                                    <p>If you decline cookies, certain features (such as analytics or personalised ads) may operate in a limited or non-identifying mode.</p>
+                                </div>
+                            </section>
+
+                            <section className="space-y-4">
+                                <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
+                                    <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">8</span>
+                                    Data Sharing and Third Parties
+                                </h2>
+                                <div className="text-gray-400 leading-relaxed space-y-4">
+                                    <p>We do not sell your personal data.</p>
+                                    <p>However, we may share data with trusted third-party service providers (such as analytics or advertising partners) who help us operate the website.</p>
+                                    <p>Some of these providers may process data in countries outside your own, including the United States.</p>
+                                </div>
+                            </section>
+
+                            <section className="space-y-4">
+                                <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
+                                    <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">9</span>
+                                    Data Retention
+                                </h2>
+                                <div className="text-gray-400 leading-relaxed space-y-4">
+                                    <p>We retain personal data only for as long as necessary to fulfil the purposes outlined in this policy, unless a longer retention period is required or permitted by law.</p>
+                                </div>
+                            </section>
+
+                            <section className="space-y-4">
+                                <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
+                                    <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">10</span>
+                                    Your Privacy Rights
+                                </h2>
+                                <div className="text-gray-400 leading-relaxed space-y-6">
+                                    <div className="space-y-2">
+                                        <h3 className="text-white font-bold text-lg">For UK/EEA Users (GDPR)</h3>
+                                        <p>You have the right to:</p>
+                                        <ul className="list-disc pl-6 space-y-2">
+                                            <li>Access your personal data</li>
+                                            <li>Request correction or deletion</li>
+                                            <li>Restrict or object to processing</li>
+                                            <li>Request data portability</li>
+                                        </ul>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h3 className="text-white font-bold text-lg">For US Users (CCPA/CPRA)</h3>
+                                        <p>You have the right to:</p>
+                                        <ul className="list-disc pl-6 space-y-2">
+                                            <li>Know what personal data we collect</li>
+                                            <li>Request deletion of your data</li>
+                                            <li>Opt out of the sale or sharing of personal data</li>
+                                            <li>Not be discriminated against for exercising your rights</li>
+                                        </ul>
+                                    </div>
+                                    <p>We do not sell personal data. However, certain third-party cookies may be considered “sharing” under US law.</p>
+                                </div>
+                            </section>
+
+                            <section className="space-y-4">
+                                <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
+                                    <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">11</span>
+                                    International Data Transfers
+                                </h2>
+                                <div className="text-gray-400 leading-relaxed space-y-4">
+                                    <p>Your information may be processed in countries outside your country of residence, including where our service providers operate.</p>
+                                    <p>We take reasonable steps to ensure your data is handled securely and in accordance with applicable laws.</p>
+                                </div>
+                            </section>
+
+                            <section className="space-y-4">
+                                <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
+                                    <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">12</span>
+                                    Managing Your Choices
+                                </h2>
+                                <div className="text-gray-400 leading-relaxed space-y-4">
+                                    <p>You can manage your privacy preferences by:</p>
+                                    <ul className="list-disc pl-6 space-y-2">
+                                        <li>Using our cookie consent banner</li>
+                                        <li>Adjusting your browser settings</li>
+                                        <li>Contacting us directly</li>
+                                    </ul>
+                                </div>
+                            </section>
+
+                            <section className="space-y-4">
+                                <h2 className="text-2xl font-bold text-[#F6CA56] font-heading flex items-center gap-3">
+                                    <span className="shrink-0 w-8 h-8 rounded-lg bg-[#351150] text-[#F6CA56] flex items-center justify-center text-sm">13</span>
+                                    Changes to This Policy
+                                </h2>
+                                <div className="text-gray-400 leading-relaxed space-y-4">
+                                    <p>We may update this policy from time to time. Updates will be posted on this page with a revised “Last Updated” date.</p>
                                 </div>
                             </section>
                         </div>

@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowDownCircle, HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { AUTHORS } from "@/stories/sections/About/AuthorProfiles";
 
 export interface GameHeaderProps {
   title: string;
@@ -13,9 +15,12 @@ export interface GameHeaderProps {
   developer: string;
   releaseDate: string;
   heroImage: string | any;
+  author?: string;
   onScrollToSimilar?: () => void;
   onScrollToFAQ?: () => void;
 }
+
+const FALLBACK_AUTHORS = ["Pixel Pirate", "Arcane Archer", "Raging Racer", "8-Bit Bandit"];
 
 export function GameHeader({
   title,
@@ -25,10 +30,13 @@ export function GameHeader({
   // developer,
   // releaseDate,
   heroImage,
+  author,
   onScrollToSimilar,
   onScrollToFAQ
 }: GameHeaderProps) {
   const imageSrc = typeof heroImage === 'string' ? heroImage : heroImage.src;
+  const displayAuthor = author || FALLBACK_AUTHORS[title.length % FALLBACK_AUTHORS.length];
+  const authorAvatar = AUTHORS.find(a => a.name === displayAuthor)?.avatar || "/images/authors/arcane-archer.jpg";
 
   return (
     <div className="relative h-[60vh] min-h-[500px] w-full overflow-hidden">
@@ -72,6 +80,18 @@ export function GameHeader({
           <h1 className="text-5xl md:text-7xl font-bold text-white font-heading leading-none drop-shadow-2xl">
             {title}{' Review'}
           </h1>
+
+          <div className="flex items-center gap-3 text-gray-300 text-sm md:text-base">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full overflow-hidden border border-white/20">
+                <img src={authorAvatar} alt={displayAuthor} className="w-full h-full object-cover scale-150" />
+              </div>
+              <span>By</span>
+              <Link href="/about#team" className="text-[#F6CA56] font-bold hover:text-white transition-colors">
+                {displayAuthor}
+              </Link>
+            </div>
+          </div>
 
           {/* <div className="flex items-center gap-6 text-gray-300 text-sm md:text-base">
             <span className="font-bold text-white">{developer}</span>
