@@ -34,6 +34,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="yandex-verification" content="3a6d09689b70131f" />
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
