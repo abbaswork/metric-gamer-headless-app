@@ -1,16 +1,13 @@
 "use client";
-import { ContentBlockClient } from "@/components/ui/ContentBlockClient";
-
-import { useRef, useState, useEffect } from "react";
-import { ChevronUp } from "lucide-react";
+import { useRef } from "react";
 import { Navbar } from "@/stories/header/Navbar/Navbar";
 import { GameHeader } from "@/stories/game/GameHeader/GameHeader";
-import { GameOverview, GameProsAndCons, GameVerdict } from "@/stories/game/GameInfo/GameInfo";
 import { MetricDeepDive } from "@/stories/game/MetricDeepDive/MetricDeepDive";
 import { SimilarGames } from "@/stories/game/SimilarGames/SimilarGames";
 import { GameSidebar } from "@/stories/game/GameSidebar/GameSidebar";
 import { GameFAQ } from "@/stories/game/GameFAQ/GameFAQ";
 import { Separator } from "@/components/ui/separator";
+import { GameInfo } from "@/stories/game/GameInfo/GameInfo";
 
 export interface GamePostProps {
   header: any;
@@ -53,10 +50,8 @@ export function GamePost({ header, info, metrics, similarGames, sidebar }: GameP
             </div>
 
 
-            <div ref={overviewRef}>
-              <GameOverview description={info.description} />
-              {/* ContentBlockClient: right after overview, before metrics */}
-              {info.contentBlock && <ContentBlockClient html={info.contentBlock} />}
+            <div>
+              <GameInfo {...info} faqRef={faqRef} />
             </div>
 
             <Separator className="bg-white/10" />
