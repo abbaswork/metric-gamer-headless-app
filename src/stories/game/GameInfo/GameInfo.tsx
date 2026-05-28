@@ -1,5 +1,6 @@
+"use client";
 import { Quote, Check, X } from "lucide-react";
-
+import { ContentBlockClient } from "@/components/ui/ContentBlockClient";
 
 export interface GameInfoProps {
   gameTitle: string;
@@ -8,6 +9,7 @@ export interface GameInfoProps {
   pros: string[];
   cons: string[];
   lastUpdated?: string | null;
+  contentBlock?: string | null;
 }
 
 export function GameInfo({
@@ -16,7 +18,8 @@ export function GameInfo({
   verdict,
   pros,
   cons,
-  lastUpdated
+  contentBlock,
+  lastUpdated,
 }: GameInfoProps) {
   return (
     <div className="space-y-16">
@@ -26,7 +29,7 @@ export function GameInfo({
           <span className="w-8 h-1 bg-[#F6CA56] rounded-full" />
           {gameTitle} rating breakdown
         </h2>
-        
+
         {lastUpdated && (
           <p className="text-sm text-gray-400 font-light italic">
             Last updated: {lastUpdated}
@@ -36,6 +39,8 @@ export function GameInfo({
         <p className="text-lg text-gray-300 leading-relaxed font-light">
           {description}
         </p>
+        {/* ContentBlockClient: right after overview, before metrics */}
+        {contentBlock && <ContentBlockClient html={contentBlock} />}
       </div>
 
       {/* Pros & Cons */}
@@ -80,7 +85,9 @@ export function GameInfo({
         {/* Verdict Box */}
         <div className="bg-[#351150]/30 border-l-4 border-[#F6CA56] p-8 rounded-r-xl relative overflow-hidden backdrop-blur-sm">
           <Quote className="absolute top-4 right-4 w-12 h-12 text-[#F6CA56]/10" />
-          <h3 className="text-2xl font-bold text-white font-heading mb-4">{gameTitle} verdict</h3>
+          <h3 className="text-2xl font-bold text-white font-heading mb-4">
+            {gameTitle} verdict
+          </h3>
           <p className="text-gray-200 text-lg italic leading-relaxed">
             &quot;{verdict}&quot;
           </p>
