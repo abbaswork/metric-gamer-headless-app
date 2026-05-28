@@ -53,6 +53,7 @@ export const GameBySlugQuery = gql`
             }
           }
         }
+        contentBlock
       }
       seo {
         title

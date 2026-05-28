@@ -1,24 +1,31 @@
 import { Button } from "@/components/ui/button";
-import { Clock, User } from "lucide-react";
+import { Clock, Monitor, Calendar, Tag, Users } from "lucide-react";
 import { useState } from "react";
 import { BuyNowDialog } from "@/stories/game/BuyNowDialog/BuyNowDialog";
 
 export interface GameStats {
   playtime: string;
-  players: string;
+  platforms?: string[];
+  releaseDate?: string;
+  genres?: string[];
+  players?: string;
 }
 
 export interface GameSidebarProps {
   score: number;
   stats: GameStats;
-  buyLink?: string;
   isInline?: boolean;
   gameTitle?: string;
-  platforms?: string[];
 }
 
-export function GameSidebar({ score, stats, isInline = false, gameTitle, platforms = [] }: GameSidebarProps) {
+export function GameSidebar({ score, stats, isInline = false, gameTitle }: GameSidebarProps) {
   const [isBuyNowOpen, setIsBuyNowOpen] = useState(false);
+
+  const playtimeDisplay = typeof stats.playtime === 'string' && stats.playtime.trim() ? stats.playtime : "N/A";
+  const platformsDisplay = stats.platforms?.length ? stats.platforms.join(", ") : "N/A";
+  const releaseDateDisplay = stats.releaseDate || "N/A";
+  const genresDisplay = stats.genres?.length ? stats.genres.join(", ") : "N/A";
+  const playersDisplay = stats.players || "N/A";
 
   return (
     <div className="relative">
@@ -39,15 +46,39 @@ export function GameSidebar({ score, stats, isInline = false, gameTitle, platfor
                 <Clock className="w-4 h-4 text-[#F6CA56]" />
                 <span className="text-sm font-bold">Playtime</span>
               </div>
-              <span className="text-white font-bold">{stats.playtime}</span>
+              <span className="text-white font-bold text-sm">{playtimeDisplay}</span>
             </div>
-            {/* Difficulty removed as per request */}
+
             <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/5">
               <div className="flex items-center gap-3 text-gray-300">
-                <User className="w-4 h-4 text-[#F6CA56]" />
+                <Monitor className="w-4 h-4 text-[#F6CA56]" />
+                <span className="text-sm font-bold">Platform(s)</span>
+              </div>
+              <span className="text-white font-bold text-sm">{platformsDisplay}</span>
+            </div>
+
+            <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/5">
+              <div className="flex items-center gap-3 text-gray-300">
+                <Calendar className="w-4 h-4 text-[#F6CA56]" />
+                <span className="text-sm font-bold">Release Date</span>
+              </div>
+              <span className="text-white font-bold text-sm">{releaseDateDisplay}</span>
+            </div>
+
+            <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/5">
+              <div className="flex items-center gap-3 text-gray-300">
+                <Tag className="w-4 h-4 text-[#F6CA56]" />
+                <span className="text-sm font-bold">Genre(s)</span>
+              </div>
+              <span className="text-white font-bold text-sm">{genresDisplay}</span>
+            </div>
+
+            <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/5">
+              <div className="flex items-center gap-3 text-gray-300">
+                <Users className="w-4 h-4 text-[#F6CA56]" />
                 <span className="text-sm font-bold">Players</span>
               </div>
-              <span className="text-white font-bold text-sm">{stats.players}</span>
+              <span className="text-white font-bold text-sm">{playersDisplay}</span>
             </div>
           </div>
 
@@ -55,11 +86,11 @@ export function GameSidebar({ score, stats, isInline = false, gameTitle, platfor
             className="w-full bg-[#F6CA56] hover:bg-[#e0b545] text-black font-bold h-12 text-lg shadow-lg shadow-[#F6CA56]/20"
             onClick={() => setIsBuyNowOpen(true)}
           >
-            Search Platforms
+            Where To Play
           </Button>
         </div>
 
-        <BuyNowDialog isOpen={isBuyNowOpen} onClose={() => setIsBuyNowOpen(false)} gameTitle={gameTitle} platforms={platforms} />
+        <BuyNowDialog isOpen={isBuyNowOpen} onClose={() => setIsBuyNowOpen(false)} gameTitle={gameTitle} platforms={stats.platforms} />
 
       </div>
     </div>

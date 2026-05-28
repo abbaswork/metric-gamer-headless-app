@@ -1,11 +1,15 @@
 import { notFound } from "next/navigation";
+import { ContentBlockClient } from "@/components/ui/ContentBlockClient";
 import { print } from "graphql/language/printer";
-
+import { WYSIWYGContent } from "@/components/ui/WYSIWYGContent";
 import { fetchGraphQL } from "@/utils/fetchGraphQL";
 import { sanitizeImageUrl } from "@/utils/sanitizeUrl";
 import { GameBySlugQuery } from "@/queries/game/GameBySlugQuery";
 import { AllRankingsQuery } from "@/queries/ranking/AllRankingsQuery";
 import { GameBySlugQuery as GameBySlugQueryType } from "@/gql/graphql";
+
+// Patch PropertiesGame type to include contentBlock for type safety
+type PropertiesGameWithContentBlock = NonNullable<GameBySlugQueryType["game"]>["propertiesGame"] & { contentBlock?: string | null };
 import { GamePost } from "@/stories/pages/GamePost/GamePost";
 import { GameSchema } from "@/components/seo/GameSchema";
 import { Metadata } from "next";
@@ -45,7 +49,7 @@ export default async function GamePage({ params }: Props) {
     return notFound();
   }
 
-  const { propertiesGame } = game;
+  const propertiesGame = game.propertiesGame as PropertiesGameWithContentBlock;
 
   // 2. Map Data to Component Props
   const platformsArr = (game as any).platform?.nodes?.map((n: any) => n.name) || [];
@@ -70,6 +74,7 @@ export default async function GamePage({ params }: Props) {
   const infoData = {
     gameTitle: propertiesGame.gameTitle || game.title || "Untitled Game",
     description: propertiesGame.gameDescription || "",
+    contentBlock: propertiesGame.contentBlock || null,
     verdict: propertiesGame.verdict || "A masterpiece of game design that sets a new standard for the genre.",
     pros: propertiesGame.theGood?.map((item) => item?.goodPoint || "") || [],
     cons: propertiesGame.theBad?.map((item) => item?.badPoint || "") || [],
@@ -158,8 +163,11 @@ export default async function GamePage({ params }: Props) {
   const sidebarData = {
     score: averageScore,
     stats: {
-      playtime: propertiesGame.playtime || "Unknown",
-      players: playersStr
+      playtime: propertiesGame.playtime ? `${propertiesGame.playtime} Hours` : "N/A",
+      platforms: platformsArr,
+      releaseDate: headerData.releaseDate,
+      genres: tagsArr,
+      players: playersStr,
     }
   };
 
@@ -180,6 +188,7 @@ export default async function GamePage({ params }: Props) {
       answer: `${headerData.title} is a ${playersStr} game.`
     }
   ];
+
 
   return (
     <>
@@ -202,6 +211,14 @@ export default async function GamePage({ params }: Props) {
         similarGames={similarGamesData}
         sidebar={sidebarData}
       />
+      {/* For SEO/AI bots: fallback for non-JS environments */}
+      {infoData.contentBlock && (
+        <noscript>
+          <section className="mt-6 mb-8 max-w-2xl mx-auto w-full" aria-label="Additional Game Context">
+            <WYSIWYGContent html={infoData.contentBlock} />
+          </section>
+        </noscript>
+      )}
     </>
   );
 }

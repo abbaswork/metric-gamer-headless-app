@@ -26,7 +26,7 @@ export function Footer() {
               </Button>
             </a>
           </div>
-          <p className="text-sm text-gray-400 max-w-md">Join our community for the latest reviews and rankings. This isn’t just another critic review; this is gamer to gamer.</p>
+          <p className="text-sm text-gray-400 max-w-md">Join our community for the latest reviews and rankings. For any inquiries, please reach out at <a href="mailto:metricgamer.content@gmail.com" className="text-[#F6CA56] hover:underline">metricgamer.content@gmail.com</a></p>
         </div>
 
         <div className="flex flex-col gap-2 items-center md:items-end">

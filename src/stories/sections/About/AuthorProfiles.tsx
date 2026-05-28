@@ -15,33 +15,36 @@ const createSlug = (name: string) => {
 export const AUTHORS = [
   {
     id: "arcane-archer",
-    name: "Arcane Archer",
+    name: "ABossProductions",
     avatar: "/images/authors/arcane-archer.jpg",
     description: "Lead reviewer and award winning game modder. I am a gaming enthusiast who genuinely loves interacting with fellow gamers and really sinking my teeth into the mechanics of the games I play.",
     favoriteGenres: "Souls-like, JRPG, Story-Rich",
     favoriteGames: ["Elden Ring", "Skyrim", "Final Fantasy 16"],
     favoriteSetup: "I play across a wide range of consoles, with my favourite setups being PC with a PS4 controller, the Steam Deck, and PS4",
     postLink: "/author/arcane-archer",
+    profileLink: "https://www.nexusmods.com/profile/ABossProductions",
   },
   {
     id: "pixel-pirate",
-    name: "Pixel Pirate",
+    name: "Metric Gamer",
     avatar: "/images/authors/pixel-pirate.jpg",
     description: "I'm a huge fan of cozy Switch games and love finding that perfect balance between relaxing gameplay and a great story.",
     favoriteGenres: "RPG, Indie, Party",
     favoriteGames: ["Stardew Valley", "It Takes Two", "Mario Kart 8"],
     favoriteSetup: "Love anything handheld from mobile, Nintendo Switch, to the Steam Deck!",
     postLink: "/author/pixel-pirate",
+    profileLink: "https://store.steampowered.com/curator/45037659-Metric-Gamer-Official/",
   },
   {
     id: "raging-racer",
-    name: "Raging Racer",
+    name: "Lobotomy Gaming",
     avatar: "/images/authors/raging-racer.jpg",
     description: "I am a massive car enthusiast, which is reflected in the games I enjoy. I've played almost every Need for Speed game and am always on the hunt for new car games.",
     favoriteGenres: "Racing, First Person Shooters, Story-Rich",
     favoriteGames: ["Gran Turismo 7", "Call of Duty Modern Warfare 2", "Detroit Become Human"],
     favoriteSetup: "I mostly game on PC with keyboard and mouse for FPS and story driven games. For racing games, I use an 8bitdoo controller and a Logitech g29 wheel with a Logitech H pattern shifter",
     postLink: "/author/raging-racer",
+    profileLink: "https://steamcommunity.com/id/lobotmy_gaming",
   },
   {
     id: "8-bit-bandit",
@@ -143,6 +146,20 @@ export function AuthorProfiles() {
 
                 {/* Details Section */}
                 <div className="w-full border-t border-white/5 pt-5 space-y-6 text-sm mt-auto">
+                  {author.profileLink && (
+                    <div className="flex flex-col gap-1 items-center">
+                      <span className="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Profile</span>
+                      <a
+                        href={author.profileLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#F6CA56] font-bold inline-flex items-center gap-1"
+                      >
+                        {author.name}
+                        <ArrowRight className="w-3 h-3" />
+                      </a>
+                    </div>
+                  )}
                   <div className="flex flex-col gap-1 items-center">
                     <span className="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Favourite Genres</span>
                     <span className="text-white font-medium">{author.favoriteGenres}</span>

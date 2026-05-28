@@ -145,6 +145,247 @@ export enum AvatarRatingEnum {
   X = 'X'
 }
 
+/** The blogContent type */
+export type BlogContent = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfPropertiesBlogContent & {
+  __typename?: 'BlogContent';
+  /**
+   * The ancestors of the content node.
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  ancestors?: Maybe<BlogContentToBlogContentConnection>;
+  /** Connection between the NodeWithAuthor type and the User type */
+  author?: Maybe<NodeWithAuthorToUserConnectionEdge>;
+  /** The database identifier of the author of the node */
+  authorDatabaseId?: Maybe<Scalars['Int']['output']>;
+  /** The globally unique identifier of the author of the node */
+  authorId?: Maybe<Scalars['ID']['output']>;
+  /**
+   * The id field matches the WP_Post-&gt;ID field.
+   * @deprecated Deprecated in favor of the databaseId field
+   */
+  blogContentId: Scalars['Int']['output'];
+  /** Connection between the ContentNode type and the ContentType type */
+  contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String']['output'];
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int']['output'];
+  /** Post publishing date. */
+  date?: Maybe<Scalars['String']['output']>;
+  /** The publishing date set in GMT. */
+  dateGmt?: Maybe<Scalars['String']['output']>;
+  /** The desired slug of the post */
+  desiredSlug?: Maybe<Scalars['String']['output']>;
+  /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
+  editingLockedBy?: Maybe<ContentNodeToEditLockConnectionEdge>;
+  /** The RSS enclosure for the object */
+  enclosure?: Maybe<Scalars['String']['output']>;
+  /** Connection between the ContentNode type and the EnqueuedScript type */
+  enqueuedScripts?: Maybe<ContentNodeToEnqueuedScriptConnection>;
+  /** Connection between the ContentNode type and the EnqueuedStylesheet type */
+  enqueuedStylesheets?: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
+  /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
+  featuredImage?: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;
+  /** The database identifier for the featured image node assigned to the content node */
+  featuredImageDatabaseId?: Maybe<Scalars['Int']['output']>;
+  /** Globally unique ID of the featured image assigned to the node */
+  featuredImageId?: Maybe<Scalars['ID']['output']>;
+  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
+  guid?: Maybe<Scalars['String']['output']>;
+  /** Whether the blog-content object is password protected. */
+  hasPassword?: Maybe<Scalars['Boolean']['output']>;
+  /** The globally unique identifier of the blog-content object. */
+  id: Scalars['ID']['output'];
+  /** Whether the node is a Comment */
+  isComment: Scalars['Boolean']['output'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean']['output'];
+  /** Whether the node represents the front page. */
+  isFrontPage: Scalars['Boolean']['output'];
+  /** Whether  the node represents the blog page. */
+  isPostsPage: Scalars['Boolean']['output'];
+  /** Whether the object is a node in the preview state */
+  isPreview?: Maybe<Scalars['Boolean']['output']>;
+  /** Whether the object is restricted from the current viewer */
+  isRestricted?: Maybe<Scalars['Boolean']['output']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean']['output'];
+  /** The user that most recently edited the node */
+  lastEditedBy?: Maybe<ContentNodeToEditLastConnectionEdge>;
+  /** The permalink of the post */
+  link?: Maybe<Scalars['String']['output']>;
+  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
+  modified?: Maybe<Scalars['String']['output']>;
+  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
+  modifiedGmt?: Maybe<Scalars['String']['output']>;
+  /**
+   * The parent of the content node.
+   * @deprecated This content type is not hierarchical and typically will not have a parent
+   */
+  parent?: Maybe<BlogContentToParentConnectionEdge>;
+  /** The password for the blog-content object. */
+  password?: Maybe<Scalars['String']['output']>;
+  /** Connection between the blogContent type and the blogContent type */
+  preview?: Maybe<BlogContentToPreviewConnectionEdge>;
+  /** The database id of the preview node */
+  previewRevisionDatabaseId?: Maybe<Scalars['Int']['output']>;
+  /** Whether the object is a node in the preview state */
+  previewRevisionId?: Maybe<Scalars['ID']['output']>;
+  /** Fields of the PropertiesBlogContent ACF Field Group */
+  propertiesBlogContent?: Maybe<PropertiesBlogContent>;
+  /** The Yoast SEO data of the ContentNode */
+  seo?: Maybe<PostTypeSeo>;
+  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
+  slug?: Maybe<Scalars['String']['output']>;
+  /** The current status of the object */
+  status?: Maybe<Scalars['String']['output']>;
+  /** The template assigned to the node */
+  template?: Maybe<ContentTemplate>;
+  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
+  title?: Maybe<Scalars['String']['output']>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** The blogContent type */
+export type BlogContentAncestorsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The blogContent type */
+export type BlogContentEnqueuedScriptsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The blogContent type */
+export type BlogContentEnqueuedStylesheetsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** The blogContent type */
+export type BlogContentTitleArgs = {
+  format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
+
+/** A paginated collection of blogContent Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of blogContent Nodes */
+export type BlogContentConnection = {
+  /** A list of edges (relational context) between RootQuery and connected blogContent Nodes */
+  edges: Array<BlogContentConnectionEdge>;
+  /** A list of connected blogContent Nodes */
+  nodes: Array<BlogContent>;
+  /** Information about pagination in a connection. */
+  pageInfo: BlogContentConnectionPageInfo;
+};
+
+/** Represents a connection to a blogContent. Contains both the blogContent Node and metadata about the relationship. */
+export type BlogContentConnectionEdge = {
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The connected blogContent Node */
+  node: BlogContent;
+};
+
+/** Pagination metadata specific to &quot;BlogContentConnectionEdge&quot; collections. Provides cursors and flags for navigating through sets of &quot;BlogContentConnectionEdge&quot; Nodes. */
+export type BlogContentConnectionPageInfo = {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Identifier types for retrieving a specific BlogContent. Specifies which unique attribute is used to find an exact BlogContent. */
+export enum BlogContentIdType {
+  /** Identify a resource by the Database ID. */
+  DatabaseId = 'DATABASE_ID',
+  /** Identify a resource by the (hashed) Global ID. */
+  Id = 'ID',
+  /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
+  Slug = 'SLUG',
+  /** Identify a resource by the URI. */
+  Uri = 'URI'
+}
+
+/** Connection between the blogContent type and the blogContent type */
+export type BlogContentToBlogContentConnection = BlogContentConnection & Connection & {
+  __typename?: 'BlogContentToBlogContentConnection';
+  /** Edges for the BlogContentToBlogContentConnection connection */
+  edges: Array<BlogContentToBlogContentConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<BlogContent>;
+  /** Information about pagination in a connection. */
+  pageInfo: BlogContentToBlogContentConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type BlogContentToBlogContentConnectionEdge = BlogContentConnectionEdge & Edge & {
+  __typename?: 'BlogContentToBlogContentConnectionEdge';
+  /**
+   * A cursor for use in pagination
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /**
+   * The item at the end of the edge
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  node: BlogContent;
+};
+
+/** Pagination metadata specific to &quot;BlogContentToBlogContentConnection&quot; collections. Provides cursors and flags for navigating through sets of BlogContentToBlogContentConnection Nodes. */
+export type BlogContentToBlogContentConnectionPageInfo = BlogContentConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'BlogContentToBlogContentConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Connection between the blogContent type and the blogContent type */
+export type BlogContentToParentConnectionEdge = BlogContentConnectionEdge & Edge & OneToOneConnection & {
+  __typename?: 'BlogContentToParentConnectionEdge';
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /**
+   * The node of the connection, without the edges
+   * @deprecated This content type is not hierarchical and typically will not have a parent
+   */
+  node: BlogContent;
+};
+
+/** Connection between the blogContent type and the blogContent type */
+export type BlogContentToPreviewConnectionEdge = BlogContentConnectionEdge & Edge & OneToOneConnection & {
+  __typename?: 'BlogContentToPreviewConnectionEdge';
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The node of the connection, without the edges */
+  node: BlogContent;
+};
+
 /** A taxonomy term that classifies content. Categories support hierarchy and can be used to create a nested structure. */
 export type Category = DatabaseIdentifier & HierarchicalNode & HierarchicalTermNode & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
   __typename?: 'Category';
@@ -1631,6 +1872,8 @@ export enum ContentTypeEnum {
   /** The Type of Content object */
   Attachment = 'ATTACHMENT',
   /** The Type of Content object */
+  BlogContent = 'BLOG_CONTENT',
+  /** The Type of Content object */
   Game = 'GAME',
   /** The Type of Content object */
   GamePost = 'GAME_POST',
@@ -1807,6 +2050,35 @@ export enum ContentTypesOfTagEnum {
   /** The Type of Content object */
   Post = 'POST'
 }
+
+/** Input for the createBlogContent mutation. */
+export type CreateBlogContentInput = {
+  /** The userId to assign as the author of the object */
+  authorId?: InputMaybe<Scalars['ID']['input']>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']['input']>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']['input']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the createBlogContent mutation. */
+export type CreateBlogContentPayload = {
+  __typename?: 'CreateBlogContentPayload';
+  /** The Post object mutation type. */
+  blogContent?: Maybe<BlogContent>;
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+};
 
 /** Input for the createCategory mutation. */
 export type CreateCategoryInput = {
@@ -2630,6 +2902,29 @@ export type DefaultTemplate = ContentTemplate & {
   __typename?: 'DefaultTemplate';
   /** The name of the template */
   templateName?: Maybe<Scalars['String']['output']>;
+};
+
+/** Input for the deleteBlogContent mutation. */
+export type DeleteBlogContentInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** Whether the object should be force deleted instead of being moved to the trash */
+  forceDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The ID of the blogContent to delete */
+  id: Scalars['ID']['input'];
+  /** Override the edit lock when another user is editing the post */
+  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** The payload for the deleteBlogContent mutation. */
+export type DeleteBlogContentPayload = {
+  __typename?: 'DeleteBlogContentPayload';
+  /** The object before it was deleted */
+  blogContent?: Maybe<BlogContent>;
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The ID of the deleted object */
+  deletedId?: Maybe<Scalars['ID']['output']>;
 };
 
 /** Input for the deleteCategory mutation. */
@@ -5189,7 +5484,7 @@ export enum MenuItemNodeIdTypeEnum {
 }
 
 /** Deprecated in favor of MenuItemLinkable Interface */
-export type MenuItemObjectUnion = Category | Crossplatform | Game | Metric | Page | Platform | Players | Post | Ranking | Tag;
+export type MenuItemObjectUnion = BlogContent | Category | Crossplatform | Game | Metric | Page | Platform | Players | Post | Ranking | Tag;
 
 /** Connection between the MenuItem type and the Menu type */
 export type MenuItemToMenuConnectionEdge = Edge & MenuConnectionEdge & OneToOneConnection & {
@@ -8803,9 +9098,34 @@ export type Previewable = {
   previewRevisionId?: Maybe<Scalars['ID']['output']>;
 };
 
+/** The &quot;PropertiesBlogContent&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PropertiesBlogContent = AcfFieldGroup & AcfFieldGroupFields & PropertiesBlogContent_Fields & {
+  __typename?: 'PropertiesBlogContent';
+  /** Uninterrupted block of content that appears after the description, only visible when see more button is pressed */
+  contentBlock?: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+};
+
+/** Interface representing fields of the ACF &quot;PropertiesBlogContent&quot; Field Group */
+export type PropertiesBlogContent_Fields = {
+  /** Uninterrupted block of content that appears after the description, only visible when see more button is pressed */
+  contentBlock?: Maybe<Scalars['String']['output']>;
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName?: Maybe<Scalars['String']['output']>;
+};
+
 /** The &quot;PropertiesGame&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
 export type PropertiesGame = AcfFieldGroup & AcfFieldGroupFields & PropertiesGame_Fields & {
   __typename?: 'PropertiesGame';
+  /** Uninterrupted block of content that appears after the description, only visible when see more button is pressed */
+  contentBlock?: Maybe<Scalars['String']['output']>;
   /**
    * The name of the field group
    * @deprecated Use __typename instead
@@ -8994,6 +9314,8 @@ export type PropertiesGameTheGood_Fields = {
 
 /** Interface representing fields of the ACF &quot;PropertiesGame&quot; Field Group */
 export type PropertiesGame_Fields = {
+  /** Uninterrupted block of content that appears after the description, only visible when see more button is pressed */
+  contentBlock?: Maybe<Scalars['String']['output']>;
   /**
    * The name of the field group
    * @deprecated Use __typename instead
@@ -9665,6 +9987,8 @@ export type RestoreCommentPayload = {
 /** The root mutation */
 export type RootMutation = {
   __typename?: 'RootMutation';
+  /** The createBlogContent mutation */
+  createBlogContent?: Maybe<CreateBlogContentPayload>;
   /** The createCategory mutation */
   createCategory?: Maybe<CreateCategoryPayload>;
   /** The createComment mutation */
@@ -9693,6 +10017,8 @@ export type RootMutation = {
   createTag?: Maybe<CreateTagPayload>;
   /** The createUser mutation */
   createUser?: Maybe<CreateUserPayload>;
+  /** The deleteBlogContent mutation */
+  deleteBlogContent?: Maybe<DeleteBlogContentPayload>;
   /** The deleteCategory mutation */
   deleteCategory?: Maybe<DeleteCategoryPayload>;
   /** The deleteComment mutation */
@@ -9731,6 +10057,8 @@ export type RootMutation = {
   restoreComment?: Maybe<RestoreCommentPayload>;
   /** Send password reset email to user */
   sendPasswordResetEmail?: Maybe<SendPasswordResetEmailPayload>;
+  /** The updateBlogContent mutation */
+  updateBlogContent?: Maybe<UpdateBlogContentPayload>;
   /** The updateCategory mutation */
   updateCategory?: Maybe<UpdateCategoryPayload>;
   /** The updateComment mutation */
@@ -9761,6 +10089,12 @@ export type RootMutation = {
   updateTag?: Maybe<UpdateTagPayload>;
   /** The updateUser mutation */
   updateUser?: Maybe<UpdateUserPayload>;
+};
+
+
+/** The root mutation */
+export type RootMutationCreateBlogContentArgs = {
+  input: CreateBlogContentInput;
 };
 
 
@@ -9845,6 +10179,12 @@ export type RootMutationCreateTagArgs = {
 /** The root mutation */
 export type RootMutationCreateUserArgs = {
   input: CreateUserInput;
+};
+
+
+/** The root mutation */
+export type RootMutationDeleteBlogContentArgs = {
+  input: DeleteBlogContentInput;
 };
 
 
@@ -9963,6 +10303,12 @@ export type RootMutationSendPasswordResetEmailArgs = {
 
 
 /** The root mutation */
+export type RootMutationUpdateBlogContentArgs = {
+  input: UpdateBlogContentInput;
+};
+
+
+/** The root mutation */
 export type RootMutationUpdateCategoryArgs = {
   input: UpdateCategoryInput;
 };
@@ -10054,6 +10400,8 @@ export type RootMutationUpdateUserArgs = {
 /** The root entry point into the Graph */
 export type RootQuery = {
   __typename?: 'RootQuery';
+  /** Connection between the RootQuery type and the blogContent type */
+  allBlogContent?: Maybe<RootQueryToBlogContentConnection>;
   /** Connection between the RootQuery type and the crossplatform type */
   allCrossplatform?: Maybe<RootQueryToCrossplatformConnection>;
   /** Connection between the RootQuery type and the platform type */
@@ -10062,6 +10410,13 @@ export type RootQuery = {
   allPlayers?: Maybe<RootQueryToPlayersConnection>;
   /** Entry point to get all settings for the site */
   allSettings?: Maybe<Settings>;
+  /** An object of the blogContent Type.  */
+  blogContent?: Maybe<BlogContent>;
+  /**
+   * A blogContent object
+   * @deprecated Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)
+   */
+  blogContentBy?: Maybe<BlogContent>;
   /** Connection between the RootQuery type and the category type */
   categories?: Maybe<RootQueryToCategoryConnection>;
   /** A 0bject */
@@ -10199,6 +10554,16 @@ export type RootQuery = {
 
 
 /** The root entry point into the Graph */
+export type RootQueryAllBlogContentArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<RootQueryToBlogContentConnectionWhereArgs>;
+};
+
+
+/** The root entry point into the Graph */
 export type RootQueryAllCrossplatformArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -10225,6 +10590,23 @@ export type RootQueryAllPlayersArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<RootQueryToPlayersConnectionWhereArgs>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryBlogContentArgs = {
+  asPreview?: InputMaybe<Scalars['Boolean']['input']>;
+  id: Scalars['ID']['input'];
+  idType?: InputMaybe<BlogContentIdType>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryBlogContentByArgs = {
+  blogContentId?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  uri?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -10671,6 +11053,87 @@ export type RootQueryUsersArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<RootQueryToUserConnectionWhereArgs>;
+};
+
+/** Connection between the RootQuery type and the blogContent type */
+export type RootQueryToBlogContentConnection = BlogContentConnection & Connection & {
+  __typename?: 'RootQueryToBlogContentConnection';
+  /** Edges for the RootQueryToBlogContentConnection connection */
+  edges: Array<RootQueryToBlogContentConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<BlogContent>;
+  /** Information about pagination in a connection. */
+  pageInfo: RootQueryToBlogContentConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type RootQueryToBlogContentConnectionEdge = BlogContentConnectionEdge & Edge & {
+  __typename?: 'RootQueryToBlogContentConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: BlogContent;
+};
+
+/** Pagination metadata specific to &quot;RootQueryToBlogContentConnection&quot; collections. Provides cursors and flags for navigating through sets of RootQueryToBlogContentConnection Nodes. */
+export type RootQueryToBlogContentConnectionPageInfo = BlogContentConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'RootQueryToBlogContentConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the RootQueryToBlogContentConnection connection */
+export type RootQueryToBlogContentConnectionWhereArgs = {
+  /** The user that's connected as the author of the object. Use the userId for the author object. */
+  author?: InputMaybe<Scalars['Int']['input']>;
+  /** Find objects connected to author(s) in the array of author's userIds */
+  authorIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Find objects connected to the author by the author's nicename */
+  authorName?: InputMaybe<Scalars['String']['input']>;
+  /** Find objects NOT connected to author(s) in the array of author's userIds */
+  authorNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Connection between the RootQuery type and the category type */
@@ -12486,6 +12949,7 @@ export type SeoContentTypeArchive = {
 /** The Yoast SEO search appearance content types */
 export type SeoContentTypes = {
   __typename?: 'SEOContentTypes';
+  blogContent?: Maybe<SeoContentType>;
   game?: Maybe<SeoContentType>;
   mediaItem?: Maybe<SeoContentType>;
   page?: Maybe<SeoContentType>;
@@ -13752,6 +14216,39 @@ export type UniformResourceIdentifiable = {
   uri?: Maybe<Scalars['String']['output']>;
 };
 
+/** Input for the updateBlogContent mutation. */
+export type UpdateBlogContentInput = {
+  /** The userId to assign as the author of the object */
+  authorId?: InputMaybe<Scalars['ID']['input']>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the blogContent object */
+  id: Scalars['ID']['input'];
+  /** Override the edit lock when another user is editing the post */
+  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']['input']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the updateBlogContent mutation. */
+export type UpdateBlogContentPayload = {
+  __typename?: 'UpdateBlogContentPayload';
+  /** The Post object mutation type. */
+  blogContent?: Maybe<BlogContent>;
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
 /** Input for the updateCategory mutation. */
 export type UpdateCategoryInput = {
   /** The slug that the category will be an alias of */
@@ -14298,6 +14795,8 @@ export type User = Commenter & DatabaseIdentifier & Node & UniformResourceIdenti
   adminColor?: Maybe<Scalars['String']['output']>;
   /** Avatar object for user. The avatar object can be retrieved in different sizes by specifying the size argument. */
   avatar?: Maybe<Avatar>;
+  /** Connection between the User type and the blogContent type */
+  blogContent?: Maybe<UserToBlogContentConnection>;
   /** User metadata option name. Usually it will be &quot;wp_capabilities&quot;. */
   capKey?: Maybe<Scalars['String']['output']>;
   /** A list of capabilities (permissions) granted to the user */
@@ -14389,6 +14888,16 @@ export type UserAvatarArgs = {
   forceDefault?: InputMaybe<Scalars['Boolean']['input']>;
   rating?: InputMaybe<AvatarRatingEnum>;
   size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** A registered user account. Users can be assigned roles, author content, and have various capabilities within the site. */
+export type UserBlogContentArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<UserToBlogContentConnectionWhereArgs>;
 };
 
 
@@ -14604,6 +15113,87 @@ export enum UserRoleEnum {
   /** User role with specific capabilities */
   Subscriber = 'SUBSCRIBER'
 }
+
+/** Connection between the User type and the blogContent type */
+export type UserToBlogContentConnection = BlogContentConnection & Connection & {
+  __typename?: 'UserToBlogContentConnection';
+  /** Edges for the UserToBlogContentConnection connection */
+  edges: Array<UserToBlogContentConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<BlogContent>;
+  /** Information about pagination in a connection. */
+  pageInfo: UserToBlogContentConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type UserToBlogContentConnectionEdge = BlogContentConnectionEdge & Edge & {
+  __typename?: 'UserToBlogContentConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: BlogContent;
+};
+
+/** Pagination metadata specific to &quot;UserToBlogContentConnection&quot; collections. Provides cursors and flags for navigating through sets of UserToBlogContentConnection Nodes. */
+export type UserToBlogContentConnectionPageInfo = BlogContentConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'UserToBlogContentConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the UserToBlogContentConnection connection */
+export type UserToBlogContentConnectionWhereArgs = {
+  /** The user that's connected as the author of the object. Use the userId for the author object. */
+  author?: InputMaybe<Scalars['Int']['input']>;
+  /** Find objects connected to author(s) in the array of author's userIds */
+  authorIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Find objects connected to the author by the author's nicename */
+  authorName?: InputMaybe<Scalars['String']['input']>;
+  /** Find objects NOT connected to author(s) in the array of author's userIds */
+  authorNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
 
 /** Connection between the User type and the Comment type */
 export type UserToCommentConnection = CommentConnection & Connection & {
@@ -15391,6 +15981,12 @@ export type WpPageInfo = {
   startCursor?: Maybe<Scalars['String']['output']>;
 };
 
+/** Provides access to fields of the &quot;PropertiesBlogContent&quot; ACF Field Group via the &quot;propertiesBlogContent&quot; field */
+export type WithAcfPropertiesBlogContent = {
+  /** Fields of the PropertiesBlogContent ACF Field Group */
+  propertiesBlogContent?: Maybe<PropertiesBlogContent>;
+};
+
 /** Provides access to fields of the &quot;PropertiesGame&quot; ACF Field Group via the &quot;propertiesGame&quot; field */
 export type WithAcfPropertiesGame = {
   /** Fields of the PropertiesGame ACF Field Group */
@@ -15441,6 +16037,20 @@ export type PostQueryQueryVariables = Exact<{
 
 export type PostQueryQuery = { __typename?: 'RootQuery', post?: { __typename?: 'Post', date?: string | null, title?: string | null, author?: { __typename?: 'NodeWithAuthorToUserConnectionEdge', node: { __typename?: 'User', name?: string | null } } | null, contentBlocks?: Array<{ __typename: 'ContentBlocks', blockName?: string | null, data?: any | null } | null> | null } | null };
 
+export type BlogContentByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type BlogContentByIdQuery = { __typename?: 'RootQuery', blogContent?: { __typename?: 'BlogContent', title?: string | null, slug?: string | null, date?: string | null, modified?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, propertiesBlogContent?: { __typename?: 'PropertiesBlogContent', contentBlock?: string | null } | null, seo?: { __typename?: 'PostTypeSEO', title?: string | null, metaDesc?: string | null } | null } | null };
+
+export type BlogContentBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type BlogContentBySlugQuery = { __typename?: 'RootQuery', blogContentBy?: { __typename?: 'BlogContent', title?: string | null, slug?: string | null, date?: string | null, modified?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, propertiesBlogContent?: { __typename?: 'PropertiesBlogContent', contentBlock?: string | null } | null, seo?: { __typename?: 'PostTypeSEO', title?: string | null, metaDesc?: string | null } | null } | null };
+
 export type AllGamesQueryVariables = Exact<{
   where?: InputMaybe<RootQueryToGameConnectionWhereArgs>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -15454,7 +16064,7 @@ export type GameBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GameBySlugQuery = { __typename?: 'RootQuery', game?: { __typename?: 'Game', title?: string | null, slug?: string | null, date?: string | null, modified?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, platform?: { __typename?: 'GameToPlatformConnection', nodes: Array<{ __typename?: 'Platform', name?: string | null }> } | null, tags?: { __typename?: 'GameToTagConnection', nodes: Array<{ __typename?: 'Tag', name?: string | null }> } | null, crossplatform?: { __typename?: 'GameToCrossplatformConnection', nodes: Array<{ __typename?: 'Crossplatform', name?: string | null }> } | null, players?: { __typename?: 'GameToPlayersConnection', nodes: Array<{ __typename?: 'Players', name?: string | null }> } | null, propertiesGame?: { __typename?: 'PropertiesGame', gameTitle?: string | null, gameDescription?: string | null, verdict?: string | null, playtime?: number | null, releaseDate?: string | null, theBad?: Array<{ __typename?: 'PropertiesGameTheBad', badPoint?: string | null } | null> | null, theGood?: Array<{ __typename?: 'PropertiesGameTheGood', goodPoint?: string | null } | null> | null, metrics?: Array<{ __typename?: 'PropertiesGameMetrics', description?: string | null, score?: number | null, metric?: { __typename?: 'AcfTermNodeConnection', nodes: Array<{ __typename?: 'Category', name?: string | null } | { __typename?: 'Crossplatform', name?: string | null } | { __typename?: 'Metric', name?: string | null } | { __typename?: 'Platform', name?: string | null } | { __typename?: 'Players', name?: string | null } | { __typename?: 'PostFormat', name?: string | null } | { __typename?: 'Tag', name?: string | null }> } | null } | null> | null } | null, seo?: { __typename?: 'PostTypeSEO', title?: string | null, metaDesc?: string | null } | null } | null };
+export type GameBySlugQuery = { __typename?: 'RootQuery', game?: { __typename?: 'Game', title?: string | null, slug?: string | null, date?: string | null, modified?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, platform?: { __typename?: 'GameToPlatformConnection', nodes: Array<{ __typename?: 'Platform', name?: string | null }> } | null, tags?: { __typename?: 'GameToTagConnection', nodes: Array<{ __typename?: 'Tag', name?: string | null }> } | null, crossplatform?: { __typename?: 'GameToCrossplatformConnection', nodes: Array<{ __typename?: 'Crossplatform', name?: string | null }> } | null, players?: { __typename?: 'GameToPlayersConnection', nodes: Array<{ __typename?: 'Players', name?: string | null }> } | null, propertiesGame?: { __typename?: 'PropertiesGame', gameTitle?: string | null, gameDescription?: string | null, verdict?: string | null, playtime?: number | null, releaseDate?: string | null, contentBlock?: string | null, theBad?: Array<{ __typename?: 'PropertiesGameTheBad', badPoint?: string | null } | null> | null, theGood?: Array<{ __typename?: 'PropertiesGameTheGood', goodPoint?: string | null } | null> | null, metrics?: Array<{ __typename?: 'PropertiesGameMetrics', description?: string | null, score?: number | null, metric?: { __typename?: 'AcfTermNodeConnection', nodes: Array<{ __typename?: 'Category', name?: string | null } | { __typename?: 'Crossplatform', name?: string | null } | { __typename?: 'Metric', name?: string | null } | { __typename?: 'Platform', name?: string | null } | { __typename?: 'Players', name?: string | null } | { __typename?: 'PostFormat', name?: string | null } | { __typename?: 'Tag', name?: string | null }> } | null } | null> | null } | null, seo?: { __typename?: 'PostTypeSEO', title?: string | null, metaDesc?: string | null } | null } | null };
 
 export type AllMetricsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -15467,7 +16077,7 @@ export type ContentInfoQueryVariables = Exact<{
 }>;
 
 
-export type ContentInfoQuery = { __typename?: 'RootQuery', contentNode?: { __typename?: 'Game', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'MediaItem', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'Page', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'Post', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'Ranking', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | null };
+export type ContentInfoQuery = { __typename?: 'RootQuery', contentNode?: { __typename?: 'BlogContent', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'Game', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'MediaItem', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'Page', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'Post', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | { __typename?: 'Ranking', contentTypeName: string, databaseId: number, status?: string | null, uri?: string | null } | null };
 
 export type SeoQueryQueryVariables = Exact<{
   slug: Scalars['ID']['input'];
@@ -15476,33 +16086,35 @@ export type SeoQueryQueryVariables = Exact<{
 }>;
 
 
-export type SeoQueryQuery = { __typename?: 'RootQuery', contentNode?: { __typename?: 'Game', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'MediaItem', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'Page', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'Post', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'Ranking', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | null };
+export type SeoQueryQuery = { __typename?: 'RootQuery', contentNode?: { __typename?: 'BlogContent', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'Game', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'MediaItem', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'Page', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'Post', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | { __typename?: 'Ranking', seo?: { __typename?: 'PostTypeSEO', canonical?: string | null, cornerstone?: boolean | null, focuskw?: string | null, metaDesc?: string | null, metaKeywords?: string | null, metaRobotsNofollow?: string | null, metaRobotsNoindex?: string | null, opengraphAuthor?: string | null, opengraphDescription?: string | null, opengraphModifiedTime?: string | null, opengraphPublishedTime?: string | null, opengraphPublisher?: string | null, opengraphSiteName?: string | null, opengraphTitle?: string | null, opengraphType?: string | null, opengraphUrl?: string | null, readingTime?: number | null, title?: string | null, twitterDescription?: string | null, twitterTitle?: string | null, opengraphImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', height?: number | null, width?: number | null } | null } | null, twitterImage?: { __typename?: 'MediaItem', altText?: string | null, sourceUrl?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } | null } | null } | null };
 
 export type HomeFeaturedGamesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HomeFeaturedGamesQuery = { __typename?: 'RootQuery', page?: { __typename?: 'Page', id: string, title?: string | null, slug?: string | null, seo?: { __typename?: 'PostTypeSEO', title?: string | null, metaDesc?: string | null } | null, propertiesHome?: { __typename?: 'PropertiesHome', featuredTitle?: string | null, featuredMetrics?: { __typename?: 'AcfTermNodeConnection', nodes: Array<{ __typename?: 'Category', name?: string | null } | { __typename?: 'Crossplatform', name?: string | null } | { __typename?: 'Metric', name?: string | null } | { __typename?: 'Platform', name?: string | null } | { __typename?: 'Players', name?: string | null } | { __typename?: 'PostFormat', name?: string | null } | { __typename?: 'Tag', name?: string | null }> } | null, selectGames?: Array<{ __typename?: 'PropertiesHomeSelectGames', selectedGame?: { __typename?: 'AcfContentNodeConnection', nodes: Array<{ __typename?: 'Game', id: string, title?: string | null, slug?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, tags?: { __typename?: 'GameToTagConnection', nodes: Array<{ __typename?: 'Tag', name?: string | null }> } | null, platform?: { __typename?: 'GameToPlatformConnection', nodes: Array<{ __typename?: 'Platform', name?: string | null }> } | null, propertiesGame?: { __typename?: 'PropertiesGame', gameTitle?: string | null, gameDescription?: string | null, verdict?: string | null, playtime?: number | null, metrics?: Array<{ __typename?: 'PropertiesGameMetrics', description?: string | null, score?: number | null, metric?: { __typename?: 'AcfTermNodeConnection', nodes: Array<{ __typename?: 'Category', name?: string | null } | { __typename?: 'Crossplatform', name?: string | null } | { __typename?: 'Metric', name?: string | null } | { __typename?: 'Platform', name?: string | null } | { __typename?: 'Players', name?: string | null } | { __typename?: 'PostFormat', name?: string | null } | { __typename?: 'Tag', name?: string | null }> } | null } | null> | null } | null } | { __typename?: 'MediaItem' } | { __typename?: 'Page' } | { __typename?: 'Post' } | { __typename?: 'Ranking' }> } | null } | null> | null } | null } | null };
+export type HomeFeaturedGamesQuery = { __typename?: 'RootQuery', page?: { __typename?: 'Page', id: string, title?: string | null, slug?: string | null, seo?: { __typename?: 'PostTypeSEO', title?: string | null, metaDesc?: string | null } | null, propertiesHome?: { __typename?: 'PropertiesHome', featuredTitle?: string | null, featuredMetrics?: { __typename?: 'AcfTermNodeConnection', nodes: Array<{ __typename?: 'Category', name?: string | null } | { __typename?: 'Crossplatform', name?: string | null } | { __typename?: 'Metric', name?: string | null } | { __typename?: 'Platform', name?: string | null } | { __typename?: 'Players', name?: string | null } | { __typename?: 'PostFormat', name?: string | null } | { __typename?: 'Tag', name?: string | null }> } | null, selectGames?: Array<{ __typename?: 'PropertiesHomeSelectGames', selectedGame?: { __typename?: 'AcfContentNodeConnection', nodes: Array<{ __typename?: 'BlogContent' } | { __typename?: 'Game', id: string, title?: string | null, slug?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, tags?: { __typename?: 'GameToTagConnection', nodes: Array<{ __typename?: 'Tag', name?: string | null }> } | null, platform?: { __typename?: 'GameToPlatformConnection', nodes: Array<{ __typename?: 'Platform', name?: string | null }> } | null, propertiesGame?: { __typename?: 'PropertiesGame', gameTitle?: string | null, gameDescription?: string | null, verdict?: string | null, playtime?: number | null, metrics?: Array<{ __typename?: 'PropertiesGameMetrics', description?: string | null, score?: number | null, metric?: { __typename?: 'AcfTermNodeConnection', nodes: Array<{ __typename?: 'Category', name?: string | null } | { __typename?: 'Crossplatform', name?: string | null } | { __typename?: 'Metric', name?: string | null } | { __typename?: 'Platform', name?: string | null } | { __typename?: 'Players', name?: string | null } | { __typename?: 'PostFormat', name?: string | null } | { __typename?: 'Tag', name?: string | null }> } | null } | null> | null } | null } | { __typename?: 'MediaItem' } | { __typename?: 'Page' } | { __typename?: 'Post' } | { __typename?: 'Ranking' }> } | null } | null> | null } | null } | null };
 
 export type AllRankingsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
-export type AllRankingsQuery = { __typename?: 'RootQuery', rankings?: { __typename?: 'RootQueryToRankingConnection', nodes: Array<{ __typename?: 'Ranking', id: string, title?: string | null, slug?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, propertiesGamePost?: { __typename?: 'PropertiesGamePost', description?: string | null, selectGames?: Array<{ __typename?: 'PropertiesGamePostSelectGames', selectedGame?: { __typename?: 'AcfContentNodeConnection', nodes: Array<{ __typename?: 'Game', title?: string | null, slug?: string | null, propertiesGame?: { __typename?: 'PropertiesGame', playtime?: number | null, metrics?: Array<{ __typename?: 'PropertiesGameMetrics', score?: number | null, metric?: { __typename?: 'AcfTermNodeConnection', nodes: Array<{ __typename?: 'Category', name?: string | null } | { __typename?: 'Crossplatform', name?: string | null } | { __typename?: 'Metric', name?: string | null } | { __typename?: 'Platform', name?: string | null } | { __typename?: 'Players', name?: string | null } | { __typename?: 'PostFormat', name?: string | null } | { __typename?: 'Tag', name?: string | null }> } | null } | null> | null } | null, platform?: { __typename?: 'GameToPlatformConnection', nodes: Array<{ __typename?: 'Platform', name?: string | null }> } | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null } | { __typename?: 'MediaItem' } | { __typename?: 'Page' } | { __typename?: 'Post' } | { __typename?: 'Ranking' }> } | null } | null> | null } | null }> } | null };
+export type AllRankingsQuery = { __typename?: 'RootQuery', rankings?: { __typename?: 'RootQueryToRankingConnection', nodes: Array<{ __typename?: 'Ranking', id: string, title?: string | null, slug?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, propertiesGamePost?: { __typename?: 'PropertiesGamePost', description?: string | null, selectGames?: Array<{ __typename?: 'PropertiesGamePostSelectGames', selectedGame?: { __typename?: 'AcfContentNodeConnection', nodes: Array<{ __typename?: 'BlogContent' } | { __typename?: 'Game', title?: string | null, slug?: string | null, propertiesGame?: { __typename?: 'PropertiesGame', playtime?: number | null, metrics?: Array<{ __typename?: 'PropertiesGameMetrics', score?: number | null, metric?: { __typename?: 'AcfTermNodeConnection', nodes: Array<{ __typename?: 'Category', name?: string | null } | { __typename?: 'Crossplatform', name?: string | null } | { __typename?: 'Metric', name?: string | null } | { __typename?: 'Platform', name?: string | null } | { __typename?: 'Players', name?: string | null } | { __typename?: 'PostFormat', name?: string | null } | { __typename?: 'Tag', name?: string | null }> } | null } | null> | null } | null, platform?: { __typename?: 'GameToPlatformConnection', nodes: Array<{ __typename?: 'Platform', name?: string | null }> } | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null } | { __typename?: 'MediaItem' } | { __typename?: 'Page' } | { __typename?: 'Post' } | { __typename?: 'Ranking' }> } | null } | null> | null } | null }> } | null };
 
 export type RankingBySlugQueryVariables = Exact<{
   slug: Scalars['ID']['input'];
 }>;
 
 
-export type RankingBySlugQuery = { __typename?: 'RootQuery', ranking?: { __typename?: 'Ranking', id: string, title?: string | null, slug?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, propertiesGamePost?: { __typename?: 'PropertiesGamePost', description?: string | null, selectGames?: Array<{ __typename?: 'PropertiesGamePostSelectGames', selectedGame?: { __typename?: 'AcfContentNodeConnection', nodes: Array<{ __typename?: 'Game', id: string, title?: string | null, slug?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, propertiesGame?: { __typename?: 'PropertiesGame', gameTitle?: string | null, gameDescription?: string | null, verdict?: string | null, theBad?: Array<{ __typename?: 'PropertiesGameTheBad', badPoint?: string | null } | null> | null, theGood?: Array<{ __typename?: 'PropertiesGameTheGood', goodPoint?: string | null } | null> | null, metrics?: Array<{ __typename?: 'PropertiesGameMetrics', description?: string | null, score?: number | null, metric?: { __typename?: 'AcfTermNodeConnection', nodes: Array<{ __typename?: 'Category', name?: string | null } | { __typename?: 'Crossplatform', name?: string | null } | { __typename?: 'Metric', name?: string | null } | { __typename?: 'Platform', name?: string | null } | { __typename?: 'Players', name?: string | null } | { __typename?: 'PostFormat', name?: string | null } | { __typename?: 'Tag', name?: string | null }> } | null } | null> | null } | null } | { __typename?: 'MediaItem' } | { __typename?: 'Page' } | { __typename?: 'Post' } | { __typename?: 'Ranking' }> } | null } | null> | null } | null, seo?: { __typename?: 'PostTypeSEO', title?: string | null, metaDesc?: string | null } | null } | null };
+export type RankingBySlugQuery = { __typename?: 'RootQuery', ranking?: { __typename?: 'Ranking', id: string, title?: string | null, slug?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, propertiesGamePost?: { __typename?: 'PropertiesGamePost', description?: string | null, selectGames?: Array<{ __typename?: 'PropertiesGamePostSelectGames', selectedGame?: { __typename?: 'AcfContentNodeConnection', nodes: Array<{ __typename?: 'BlogContent' } | { __typename?: 'Game', id: string, title?: string | null, slug?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null, propertiesGame?: { __typename?: 'PropertiesGame', gameTitle?: string | null, gameDescription?: string | null, verdict?: string | null, theBad?: Array<{ __typename?: 'PropertiesGameTheBad', badPoint?: string | null } | null> | null, theGood?: Array<{ __typename?: 'PropertiesGameTheGood', goodPoint?: string | null } | null> | null, metrics?: Array<{ __typename?: 'PropertiesGameMetrics', description?: string | null, score?: number | null, metric?: { __typename?: 'AcfTermNodeConnection', nodes: Array<{ __typename?: 'Category', name?: string | null } | { __typename?: 'Crossplatform', name?: string | null } | { __typename?: 'Metric', name?: string | null } | { __typename?: 'Platform', name?: string | null } | { __typename?: 'Players', name?: string | null } | { __typename?: 'PostFormat', name?: string | null } | { __typename?: 'Tag', name?: string | null }> } | null } | null> | null } | null } | { __typename?: 'MediaItem' } | { __typename?: 'Page' } | { __typename?: 'Post' } | { __typename?: 'Ranking' }> } | null } | null> | null } | null, seo?: { __typename?: 'PostTypeSEO', title?: string | null, metaDesc?: string | null } | null } | null };
 
 
 export const MenuQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MenuQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"menuItems"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"location"},"value":{"kind":"EnumValue","value":"HEADER"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"uri"}},{"kind":"Field","name":{"kind":"Name","value":"target"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]}}]} as unknown as DocumentNode<MenuQueryQuery, MenuQueryQueryVariables>;
 export const PageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PageQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"preview"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}},"defaultValue":{"kind":"BooleanValue","value":false}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"page"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"idType"},"value":{"kind":"EnumValue","value":"DATABASE_ID"}},{"kind":"Argument","name":{"kind":"Name","value":"asPreview"},"value":{"kind":"Variable","name":{"kind":"Name","value":"preview"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isFrontPage"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}},{"kind":"Field","name":{"kind":"Name","value":"posts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"5"}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"orderby"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"field"},"value":{"kind":"EnumValue","value":"DATE"}},{"kind":"ObjectField","name":{"kind":"Name","value":"order"},"value":{"kind":"EnumValue","value":"DESC"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"uri"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"featuredImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sourceUrl"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<PageQueryQuery, PageQueryQueryVariables>;
 export const PostQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PostQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"preview"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}},"defaultValue":{"kind":"BooleanValue","value":false}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"post"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"idType"},"value":{"kind":"EnumValue","value":"DATABASE_ID"}},{"kind":"Argument","name":{"kind":"Name","value":"asPreview"},"value":{"kind":"Variable","name":{"kind":"Name","value":"preview"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"contentBlocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"blockName"}},{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}}]}}]} as unknown as DocumentNode<PostQueryQuery, PostQueryQueryVariables>;
+export const BlogContentByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BlogContentById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blogContent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"idType"},"value":{"kind":"EnumValue","value":"DATABASE_ID"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"modified"}},{"kind":"Field","name":{"kind":"Name","value":"featuredImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sourceUrl"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"EnumValue","value":"LARGE"}}]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertiesBlogContent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contentBlock"}}]}},{"kind":"Field","name":{"kind":"Name","value":"seo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"metaDesc"}}]}}]}}]}}]} as unknown as DocumentNode<BlogContentByIdQuery, BlogContentByIdQueryVariables>;
+export const BlogContentBySlugDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BlogContentBySlug"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blogContentBy"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"modified"}},{"kind":"Field","name":{"kind":"Name","value":"featuredImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sourceUrl"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"EnumValue","value":"LARGE"}}]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertiesBlogContent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contentBlock"}}]}},{"kind":"Field","name":{"kind":"Name","value":"seo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"metaDesc"}}]}}]}}]}}]} as unknown as DocumentNode<BlogContentBySlugQuery, BlogContentBySlugQueryVariables>;
 export const AllGamesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AllGames"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"RootQueryToGameConnectionWhereArgs"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"games"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gameId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"featuredImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sourceUrl"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"EnumValue","value":"LARGE"}}]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertiesGame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gameTitle"}},{"kind":"Field","name":{"kind":"Name","value":"gameDescription"}},{"kind":"Field","name":{"kind":"Name","value":"metrics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"metric"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"platform"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"crossplatform"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"taxonomyName"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<AllGamesQuery, AllGamesQueryVariables>;
-export const GameBySlugDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GameBySlug"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"game"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}},{"kind":"Argument","name":{"kind":"Name","value":"idType"},"value":{"kind":"EnumValue","value":"SLUG"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"modified"}},{"kind":"Field","name":{"kind":"Name","value":"featuredImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sourceUrl"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"EnumValue","value":"LARGE"}}]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"platform"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"crossplatform"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"players"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertiesGame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gameTitle"}},{"kind":"Field","name":{"kind":"Name","value":"gameDescription"}},{"kind":"Field","name":{"kind":"Name","value":"verdict"}},{"kind":"Field","name":{"kind":"Name","value":"playtime"}},{"kind":"Field","name":{"kind":"Name","value":"releaseDate"}},{"kind":"Field","name":{"kind":"Name","value":"theBad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"badPoint"}}]}},{"kind":"Field","name":{"kind":"Name","value":"theGood"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goodPoint"}}]}},{"kind":"Field","name":{"kind":"Name","value":"metrics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"metric"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"seo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"metaDesc"}}]}}]}}]}}]} as unknown as DocumentNode<GameBySlugQuery, GameBySlugQueryVariables>;
+export const GameBySlugDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GameBySlug"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"game"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}},{"kind":"Argument","name":{"kind":"Name","value":"idType"},"value":{"kind":"EnumValue","value":"SLUG"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"modified"}},{"kind":"Field","name":{"kind":"Name","value":"featuredImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sourceUrl"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"EnumValue","value":"LARGE"}}]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"platform"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"crossplatform"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"players"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertiesGame"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gameTitle"}},{"kind":"Field","name":{"kind":"Name","value":"gameDescription"}},{"kind":"Field","name":{"kind":"Name","value":"verdict"}},{"kind":"Field","name":{"kind":"Name","value":"playtime"}},{"kind":"Field","name":{"kind":"Name","value":"releaseDate"}},{"kind":"Field","name":{"kind":"Name","value":"theBad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"badPoint"}}]}},{"kind":"Field","name":{"kind":"Name","value":"theGood"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goodPoint"}}]}},{"kind":"Field","name":{"kind":"Name","value":"metrics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"metric"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"contentBlock"}}]}},{"kind":"Field","name":{"kind":"Name","value":"seo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"metaDesc"}}]}}]}}]}}]} as unknown as DocumentNode<GameBySlugQuery, GameBySlugQueryVariables>;
 export const AllMetricsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AllMetrics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"metrics"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"hideEmpty"},"value":{"kind":"BooleanValue","value":false}}]}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<AllMetricsQuery, AllMetricsQueryVariables>;
 export const ContentInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ContentInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"idType"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ContentNodeIdTypeEnum"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contentNode"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}},{"kind":"Argument","name":{"kind":"Name","value":"idType"},"value":{"kind":"Variable","name":{"kind":"Name","value":"idType"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contentTypeName"}},{"kind":"Field","name":{"kind":"Name","value":"databaseId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"uri"}}]}}]}}]} as unknown as DocumentNode<ContentInfoQuery, ContentInfoQueryVariables>;
 export const SeoQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SeoQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"idType"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ContentNodeIdTypeEnum"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"preview"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}},"defaultValue":{"kind":"BooleanValue","value":false}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contentNode"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}},{"kind":"Argument","name":{"kind":"Name","value":"idType"},"value":{"kind":"Variable","name":{"kind":"Name","value":"idType"}}},{"kind":"Argument","name":{"kind":"Name","value":"asPreview"},"value":{"kind":"Variable","name":{"kind":"Name","value":"preview"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"seo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"canonical"}},{"kind":"Field","name":{"kind":"Name","value":"cornerstone"}},{"kind":"Field","name":{"kind":"Name","value":"focuskw"}},{"kind":"Field","name":{"kind":"Name","value":"metaDesc"}},{"kind":"Field","name":{"kind":"Name","value":"metaKeywords"}},{"kind":"Field","name":{"kind":"Name","value":"metaRobotsNofollow"}},{"kind":"Field","name":{"kind":"Name","value":"metaRobotsNoindex"}},{"kind":"Field","name":{"kind":"Name","value":"opengraphAuthor"}},{"kind":"Field","name":{"kind":"Name","value":"opengraphDescription"}},{"kind":"Field","name":{"kind":"Name","value":"opengraphModifiedTime"}},{"kind":"Field","name":{"kind":"Name","value":"opengraphPublishedTime"}},{"kind":"Field","name":{"kind":"Name","value":"opengraphPublisher"}},{"kind":"Field","name":{"kind":"Name","value":"opengraphSiteName"}},{"kind":"Field","name":{"kind":"Name","value":"opengraphTitle"}},{"kind":"Field","name":{"kind":"Name","value":"opengraphType"}},{"kind":"Field","name":{"kind":"Name","value":"opengraphUrl"}},{"kind":"Field","name":{"kind":"Name","value":"readingTime"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"twitterDescription"}},{"kind":"Field","name":{"kind":"Name","value":"twitterTitle"}},{"kind":"Field","name":{"kind":"Name","value":"opengraphImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"mediaDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"width"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sourceUrl"}}]}},{"kind":"Field","name":{"kind":"Name","value":"twitterImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"mediaDetails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sourceUrl"}}]}}]}}]}}]}}]} as unknown as DocumentNode<SeoQueryQuery, SeoQueryQueryVariables>;
