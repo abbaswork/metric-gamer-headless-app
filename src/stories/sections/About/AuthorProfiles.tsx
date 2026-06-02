@@ -37,14 +37,14 @@ export const AUTHORS = [
   },
   {
     id: "raging-racer",
-    name: "Lobotomy Gaming",
+    name: "Lobotomy_gaming",
     avatar: "/images/authors/raging-racer.jpg",
     description: "I am a massive car enthusiast, which is reflected in the games I enjoy. I've played almost every Need for Speed game and am always on the hunt for new car games.",
     favoriteGenres: "Racing, First Person Shooters, Story-Rich",
     favoriteGames: ["Gran Turismo 7", "Call of Duty Modern Warfare 2", "Detroit Become Human"],
     favoriteSetup: "I mostly game on PC with keyboard and mouse for FPS and story driven games. For racing games, I use an 8bitdoo controller and a Logitech g29 wheel with a Logitech H pattern shifter",
     postLink: "/author/raging-racer",
-    profileLink: "https://steamcommunity.com/id/lobotmy_gaming",
+    profileLink: "https://steamcommunity.com/profiles/76561199141792491/",
   },
   {
     id: "8-bit-bandit",
