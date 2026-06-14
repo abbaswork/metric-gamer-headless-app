@@ -4,16 +4,14 @@ import { HomeHero } from "@/stories/sections/HomeHero/HomeHero";
 import { SearchSection } from "@/stories/sections/Search/SearchSection";
 import { print } from "graphql/language/printer";
 import { fetchGraphQL } from "@/utils/fetchGraphQL";
+import { fetchAllGames } from "@/utils/fetchAllGames";
+import { fetchAllRankings } from "@/utils/fetchAllRankings";
 import { sanitizeImageUrl } from "@/utils/sanitizeUrl";
-import { AllGamesQuery } from "@/queries/game/AllGamesQuery";
-import { AllRankingsQuery } from "@/queries/ranking/AllRankingsQuery";
 import { HomeFeaturedGamesQuery } from "@/queries/home/HomeFeaturedGamesQuery";
 import { AllMetricsQuery } from "@/queries/general/AllMetricsQuery";
-import {
-  AllGamesQuery as GamesType,
-  AllRankingsQuery as RankingsType
-} from "@/gql/graphql";
 import { Metadata } from "next";
+
+export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await fetchGraphQL<any>(print(HomeFeaturedGamesQuery));
@@ -31,8 +29,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   // 1. Fetch Data Concurrently
   const [gamesData, rankingsData, featuredData, metricsData] = await Promise.all([
-    fetchGraphQL<GamesType>(print(AllGamesQuery), { first: 50 }),
-    fetchGraphQL<RankingsType>(print(AllRankingsQuery), { first: 20 }),
+    fetchAllGames(),
+    fetchAllRankings(),
     fetchGraphQL<any>(print(HomeFeaturedGamesQuery)),
     fetchGraphQL<any>(print(AllMetricsQuery))
   ]);

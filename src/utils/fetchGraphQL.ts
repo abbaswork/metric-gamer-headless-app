@@ -1,36 +1,19 @@
-import { draftMode, cookies } from "next/headers";
-
 export async function fetchGraphQL<T = any>(
   query: string,
   variables?: { [key: string]: any },
   headers?: { [key: string]: string },
 ): Promise<T> {
-  const { isEnabled: preview } = await draftMode();
+  const preview = variables?.preview === true;
+
+  const body = JSON.stringify({ query, variables: variables || {} });
 
   try {
-    let authHeader = "";
-    if (preview) {
-      const auth = (await cookies()).get("wp_jwt")?.value;
-      if (auth) {
-        authHeader = `Bearer ${auth}`;
-      }
-    }
-
-    const body = JSON.stringify({
-      query,
-      variables: {
-        preview,
-        ...variables,
-      },
-    });
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/graphql`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...(authHeader && { Authorization: authHeader }),
           ...headers,
         },
         body,

@@ -2,10 +2,11 @@ import { notFound } from "next/navigation";
 import { ContentBlockClient } from "@/components/ui/ContentBlockClient";
 import { print } from "graphql/language/printer";
 import { WYSIWYGContent } from "@/components/ui/WYSIWYGContent";
+import { draftMode, cookies } from "next/headers";
 import { fetchGraphQL } from "@/utils/fetchGraphQL";
+import { fetchRankingsForGame } from "@/utils/fetchAllRankings";
 import { sanitizeImageUrl } from "@/utils/sanitizeUrl";
 import { GameBySlugQuery } from "@/queries/game/GameBySlugQuery";
-import { AllRankingsQuery } from "@/queries/ranking/AllRankingsQuery";
 import { GameBySlugQuery as GameBySlugQueryType } from "@/gql/graphql";
 
 // Patch PropertiesGame type to include contentBlock for type safety
@@ -14,9 +15,20 @@ import { GamePost } from "@/stories/pages/GamePost/GamePost";
 import { GameSchema } from "@/components/seo/GameSchema";
 import { Metadata } from "next";
 
+async function getPreviewHeaders(): Promise<{ variables: { preview: boolean }; headers: Record<string, string> }> {
+  const { isEnabled: preview } = await draftMode();
+  const authHeaders: Record<string, string> = {};
+  if (preview) {
+    const auth = (await cookies()).get("wp_jwt")?.value;
+    if (auth) authHeaders["Authorization"] = `Bearer ${auth}`;
+  }
+  return { variables: { preview }, headers: authHeaders };
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const data = await fetchGraphQL<GameBySlugQueryType>(print(GameBySlugQuery), { slug });
+  const { variables, headers } = await getPreviewHeaders();
+  const data = await fetchGraphQL<GameBySlugQueryType>(print(GameBySlugQuery), { slug, ...variables }, headers);
 
   const seo = data?.game?.seo;
 
@@ -36,11 +48,12 @@ type Props = {
 
 export default async function GamePage({ params }: Props) {
   const { slug } = await params;
+  const { variables, headers } = await getPreviewHeaders();
 
   // 1. Fetch Data
   const [gameData, rankingsData] = await Promise.all([
-    fetchGraphQL<GameBySlugQueryType>(print(GameBySlugQuery), { slug }),
-    fetchGraphQL<any>(print(AllRankingsQuery), { first: 100 })
+    fetchGraphQL<GameBySlugQueryType>(print(GameBySlugQuery), { slug, ...variables }, headers),
+    fetchRankingsForGame(slug).catch(() => ({ rankings: { nodes: [] } })),
   ]);
 
   const game = gameData.game;

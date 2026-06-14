@@ -1,8 +1,12 @@
 import gql from "graphql-tag";
 
 export const AllGamesQuery = gql`
-  query AllGames($where: RootQueryToGameConnectionWhereArgs, $first: Int) {
-    games(first: $first, where: $where) {
+  query AllGames($where: RootQueryToGameConnectionWhereArgs, $first: Int, $after: String) {
+    games(first: $first, after: $after, where: $where) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       nodes {
         gameId
         title

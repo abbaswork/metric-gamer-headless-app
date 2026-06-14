@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { SearchHeader } from "@/stories/search/SearchHeader/SearchHeader";
@@ -7,6 +7,8 @@ import { FilterBar } from "@/stories/search/FilterBar/FilterBar";
 import { ContentCard } from "@/stories/core/ContentCard/ContentCard";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
+
+const PAGE_SIZE = 20;
 
 export interface SearchSectionProps {
   initialGames: any[];
@@ -39,14 +41,15 @@ function SearchSectionContent({ initialGames, initialBlogs, availableMetrics }: 
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [selectedBlogTypes, setSelectedBlogTypes] = useState<string[]>([]);
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   const COMBINED_DATA = [...initialGames, ...initialBlogs];
 
-  // Helper toggles
   const toggle = (set: any) => (val: string) =>
     set((p: string[]) => p.includes(val) ? p.filter(x => x !== val) : [...p, val]);
 
-  // Blog type toggle needs side effect to switch tab
   const toggleBlogType = (type: string) => {
     setSelectedBlogTypes(prev =>
       prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
@@ -63,29 +66,22 @@ function SearchSectionContent({ initialGames, initialBlogs, availableMetrics }: 
     setResultType("game");
   };
 
-  // Logic from MetricsPage
   const filteredResults = COMBINED_DATA.filter(item => {
-    // 1. Filter by Type (Game vs Blog)
     if (resultType !== "all" && item.type !== resultType) return false;
 
-    // 2. Filter by Search Query
     const searchLower = searchQuery.toLowerCase();
     const titleMatch = item.title.toLowerCase().includes(searchLower);
     const genreMatch = item.genres?.some((g: string) => g.toLowerCase().includes(searchLower));
     const excerptMatch = item.type === "blog" && item.excerpt?.toLowerCase().includes(searchLower);
-
     if (searchQuery && !titleMatch && !genreMatch && !excerptMatch) return false;
 
-    // 3. Filter by Metrics
     if (selectedMetrics.length > 0) {
       const hasMetric = selectedMetrics.some(m => {
         if (item.type === "blog") {
           return item.metrics?.includes(m);
         } else {
-          // Map tag ID to game metric key
           const key = m.toLowerCase();
           const gameVal = item.metrics?.[key];
-          // Or check unique metric
           const uniqueLabel = item.uniqueMetric?.label;
           return (gameVal && gameVal >= 4) || (uniqueLabel && uniqueLabel.includes(m));
         }
@@ -93,29 +89,49 @@ function SearchSectionContent({ initialGames, initialBlogs, availableMetrics }: 
       if (!hasMetric) return false;
     }
 
-    // 4. Filter by Genres
     if (selectedGenres.length > 0) {
       const hasGenre = selectedGenres.some(g => item.genres?.includes(g));
       if (!hasGenre) return false;
     }
 
-    // 5. Filter by Blog Type
     if (selectedBlogTypes.length > 0) {
       if (item.type !== 'blog') return false;
-      const hasBlogType = selectedBlogTypes.includes(item.blogType);
-      if (!hasBlogType) return false;
+      if (!selectedBlogTypes.includes(item.blogType)) return false;
     }
 
-    // 6. Filter by Platform
     if (selectedPlatforms.length > 0) {
       const platforms = item.platforms || [];
-      const hasPlatform = selectedPlatforms.some(p => platforms.includes(p));
-      if (!hasPlatform) return false;
+      if (!selectedPlatforms.some(p => platforms.includes(p))) return false;
     }
 
     return true;
   });
 
+  // Reset visible count when filters change
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [searchQuery, resultType, selectedMetrics, selectedGenres, selectedBlogTypes, selectedPlatforms]);
+
+  // Infinite scroll via IntersectionObserver
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount(prev => Math.min(prev + PAGE_SIZE, filteredResults.length));
+        }
+      },
+      { rootMargin: "200px" },
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [filteredResults.length]);
+
+  const visibleResults = filteredResults.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredResults.length;
   const showClearAll = selectedMetrics.length > 0 || selectedGenres.length > 0 || selectedBlogTypes.length > 0 || selectedPlatforms.length > 0 || !!searchQuery;
 
   return (
@@ -150,19 +166,19 @@ function SearchSectionContent({ initialGames, initialBlogs, availableMetrics }: 
       {/* Results Count */}
       <div className="flex items-center justify-between px-4">
         <p className="text-gray-400">
-          Showing <span className="text-[#F6CA56] font-bold">{filteredResults.length}</span> results
+          Showing <span className="text-[#F6CA56] font-bold">{visibleResults.length}</span> of{" "}
+          <span className="text-[#F6CA56] font-bold">{filteredResults.length}</span> results
         </p>
       </div>
 
       {/* Combined Grid */}
       <div id="results" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 scroll-mt-32">
-        {filteredResults.length > 0 ? (
-          filteredResults.map((item) => (
+        {visibleResults.length > 0 ? (
+          visibleResults.map((item) => (
             <ContentCard
               key={item.id}
               {...item}
               rank={item.rank}
-              // Adapt logic for GameCard props as needed if mismatch
               rating={item.rating}
             />
           ))
@@ -183,6 +199,13 @@ function SearchSectionContent({ initialGames, initialBlogs, availableMetrics }: 
           </div>
         )}
       </div>
+
+      {/* Infinite scroll sentinel */}
+      {hasMore && (
+        <div ref={sentinelRef} className="py-8 text-center text-gray-500 text-sm">
+          Loading more...
+        </div>
+      )}
     </div>
   );
 }

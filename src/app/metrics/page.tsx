@@ -3,15 +3,13 @@
 import { SearchSection } from "@/stories/sections/Search/SearchSection";
 import { print } from "graphql/language/printer";
 import { fetchGraphQL } from "@/utils/fetchGraphQL";
+import { fetchAllGames } from "@/utils/fetchAllGames";
+import { fetchAllRankings } from "@/utils/fetchAllRankings";
 import { sanitizeImageUrl } from "@/utils/sanitizeUrl";
-import { AllGamesQuery } from "@/queries/game/AllGamesQuery";
-import { AllRankingsQuery } from "@/queries/ranking/AllRankingsQuery";
 import { AllMetricsQuery } from "@/queries/general/AllMetricsQuery";
-import {
-  AllGamesQuery as AllGamesQueryType,
-  AllRankingsQuery as AllRankingsQueryType
-} from "@/gql/graphql";
 import { Metadata } from "next";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Game Metrics & Discovery | Metric Gamer",
@@ -23,8 +21,8 @@ export const metadata: Metadata = {
 
 export default async function MetricsPage() {
   const [data, rankingsData, metricsData] = await Promise.all([
-    fetchGraphQL<AllGamesQueryType>(print(AllGamesQuery), { first: 100 }),
-    fetchGraphQL<AllRankingsQueryType>(print(AllRankingsQuery), { first: 100 }),
+    fetchAllGames(),
+    fetchAllRankings(),
     fetchGraphQL<any>(print(AllMetricsQuery))
   ]);
 

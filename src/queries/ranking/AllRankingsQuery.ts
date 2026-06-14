@@ -1,8 +1,12 @@
 import gql from "graphql-tag";
 
 export const AllRankingsQuery = gql`
-  query AllRankings($first: Int) {
-    rankings(first: $first) {
+  query AllRankings($first: Int, $after: String) {
+    rankings(first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       nodes {
         id
         title
