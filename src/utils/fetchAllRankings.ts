@@ -10,7 +10,7 @@ export async function fetchAllRankings(): Promise<{ rankings: { nodes: any[] } }
   let hasMore = true;
 
   while (hasMore) {
-    const data = await fetchGraphQL<any>(print(AllRankingsQuery), {
+    const data: any = await fetchGraphQL<any>(print(AllRankingsQuery), {
       first: BATCH_SIZE,
       after: cursor,
     });
@@ -33,7 +33,7 @@ export async function fetchRankingsForGame(
   let hasMore = true;
 
   while (hasMore && matchingNodes.length < maxResults) {
-    const data = await fetchGraphQL<any>(print(AllRankingsQuery), {
+    const data: any = await fetchGraphQL<any>(print(AllRankingsQuery), {
       first: BATCH_SIZE,
       after: cursor,
     });

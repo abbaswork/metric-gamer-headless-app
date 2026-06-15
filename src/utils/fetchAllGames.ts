@@ -10,7 +10,7 @@ export async function fetchAllGames(): Promise<{ games: { nodes: any[] } }> {
   let hasMore = true;
 
   while (hasMore) {
-    const data = await fetchGraphQL<any>(print(AllGamesQuery), {
+    const data: any = await fetchGraphQL<any>(print(AllGamesQuery), {
       first: BATCH_SIZE,
       after: cursor,
     });

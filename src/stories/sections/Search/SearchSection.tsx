@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { SearchHeader } from "@/stories/search/SearchHeader/SearchHeader";
@@ -42,6 +42,12 @@ function SearchSectionContent({ initialGames, initialBlogs, availableMetrics }: 
   const [selectedBlogTypes, setSelectedBlogTypes] = useState<string[]>([]);
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const filterSignature = JSON.stringify({ searchQuery, resultType, selectedMetrics, selectedGenres, selectedBlogTypes, selectedPlatforms });
+  const [prevFilterSig, setPrevFilterSig] = useState(filterSignature);
+  if (filterSignature !== prevFilterSig) {
+    setPrevFilterSig(filterSignature);
+    setVisibleCount(PAGE_SIZE);
+  }
 
   const sentinelRef = useRef<HTMLDivElement>(null);
 
@@ -106,11 +112,6 @@ function SearchSectionContent({ initialGames, initialBlogs, availableMetrics }: 
 
     return true;
   });
-
-  // Reset visible count when filters change
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [searchQuery, resultType, selectedMetrics, selectedGenres, selectedBlogTypes, selectedPlatforms]);
 
   // Infinite scroll via IntersectionObserver
   useEffect(() => {
