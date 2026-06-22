@@ -1,0 +1,160 @@
+/* palette for the design*/
+$gold: #ffd24d;
+$ink: #23162f;
+$white: #fff;
+$muted: #e9e5f2;
+
+.ranking-strip {
+  /* align with the PageContent width */
+  --container-width: 1040px;
+  --grid-gap: clamp(12px, 1.2vw, 20px);
+  --radius: 1.25rem;
+
+  /* Desktop: locking tile height so the whole strip is never taller than hero component */
+  --tile-height: 260px;     /* hero's 440 baseline */
+
+  /* keep aspect ratio for small screens */
+  --tile-aspect: 16 / 9;
+
+  --badge-min: 36px;
+  --badge-max: 52px;
+  --caption-pad-y: .75rem;
+  --caption-pad-x: .95rem;
+  --heading-size: clamp(1.4rem, 1rem + 1.6vw, 1.2rem);
+
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding-inline: 16px;
+
+  &__heading {
+    margin: 0 0 .85rem 0;
+    color: $white;
+    font-weight: 600;
+    line-height: 1.1;
+    font-size: var(--heading-size);
+    letter-spacing: .3px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--grid-gap);
+  }
+}
+
+/* Tiles */
+.ranking-tile {
+  position: relative;
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: $white;
+  background: #0f061a;
+  box-shadow: 0 16px 40px rgba(0,0,0,.35);
+
+  /* Desktop version: fixed height to stay under hero height */
+  height: var(--tile-height);
+  aspect-ratio: auto;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform .5s cubic-bezier(.22,.61,.36,1);
+    will-change: transform;
+  }
+
+  /* ranking yellow badge */
+  &__badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: clamp(var(--badge-min), 0.9vw + 30px, var(--badge-max));
+    height: clamp(var(--badge-min), 0.9vw + 30px, var(--badge-max));
+    border-radius: 50%;
+
+    background: $gold;
+    color: $ink;
+    font-weight: 500;
+    font-size: clamp(1.05rem, .9rem + .85vw, 1.2rem);
+
+    box-shadow: 0 8px 24px rgba(0,0,0,.35),
+                inset 0 1px 0 rgba(255,255,255,.5);
+  }
+
+  /* darker overlay  for image*/
+  &__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0,0,0,0.10) 0%,
+        rgba(0,0,0,0.25) 45%,
+        rgba(0,0,0,0.70) 100%
+      );
+  }
+
+  /* caption overlay section */
+  &__caption {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: .9rem;
+    z-index: 2;
+
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    border-radius: calc(var(--radius) - .5rem);
+    padding: var(--caption-pad-y) var(--caption-pad-x);
+    box-shadow: 0 6px 18px rgba(0,0,0,.32);
+  }
+
+  &__title {
+    font-weight: 600;
+    color: $gold;
+    letter-spacing: .2px;
+    line-height: 1.1;
+    font-size: clamp(.95rem, .85rem + .5vw, 1.0rem);
+  }
+
+  &__subtitle {
+    margin-top: .25rem;
+    color: $muted;
+    opacity: .95;
+    font-size: clamp(.8rem, .75rem + .3vw, .85rem);
+  }
+
+  &:hover img,
+  &:focus-within img { transform: scale(1.04); }
+}
+
+/* Responsive Design: when we drop to 2 cols / 1 col, go back to aspect-ratio for nice scaling */
+@media (max-width: 1100px) {
+  .ranking-strip__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ranking-tile { height: auto; aspect-ratio: var(--tile-aspect); }
+}
+
+@media (max-width: 600px) {
+  .ranking-strip__grid { grid-template-columns: 1fr; }
+  .ranking-tile { height: auto; aspect-ratio: var(--tile-aspect); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ranking-tile img { transition: none; }
+}
