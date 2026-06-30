@@ -70,7 +70,7 @@ export function AboutSection() {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-300 mx-auto leading-relaxed"
           >
-            Every metric score is based on real gamer feedback and broken down into curated scores. Find your next game based on the metrics that matter to you or browse our ranked lists.
+            Every game is scored against its own unique set of metrics unique to its genre. Find your next game based on the metrics that matter to you or browse our ranked lists.
           </motion.p>
         </div>
 
@@ -84,9 +84,9 @@ export function AboutSection() {
               <div className="w-16 h-16 bg-[#351150] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Gamepad2 className="w-8 h-8 text-[#F6CA56]" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4 font-heading">1. Deep Dive</h3>
+              <h3 className="text-2xl font-bold text-white mb-4 font-heading">1. The Right Questions</h3>
               <p className="text-gray-400">
-                We head straight into the heart of real gaming communities like Steam, Reddit, and Discord to sift through thousands of player reports. Our goal is to bring you a condensed summary of genuine player reviews, cutting through the marketing hype to find the truth about every game and ranking.
+                At Metric Gamer, we don't just ask if a game is good, but rather, is this game for me? Whatever matters to you, be it handling in racing games or the inclusion of fully licenced teams in sports games, our customisable metrics allow you to tailor every game to what you value and the way you play. We also rank games based on a whole host of niches, for example, the best games on a certain console, or top rated free or multiplayer titles.
               </p>
             </div>
             {/* Arrow for desktop */}
@@ -104,9 +104,9 @@ export function AboutSection() {
               <div className="w-16 h-16 bg-[#351150] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Binary className="w-8 h-8 text-[#F6CA56]" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4 font-heading">2. Sentiment Extraction</h3>
+              <h3 className="text-2xl font-bold text-white mb-4 font-heading">2. The Rubric</h3>
               <p className="text-gray-400">
-                We convert real player experiences into hard metrics, identifying specific pain points and standout features that critics often miss. By collating feedback from the people actually playing the game, we create a transparent metric score that reflects the true state of the title.
+                The metrics for each genre don't change between games. Every racing game on the site is scored against the same rubric, so a 4 on handling model for Gran Turismo 7 means the same thing as a 4 on handling model for any other racing game we cover. The rubrics we score each game on are built from the team's own extensive experience in each genre (almost 3 decades of gaming for some of us), shaped by input from our Metric Gamer community and extensive research into what players all around the world actually want from a game.
               </p>
             </div>
             {/* Arrow for desktop */}
@@ -126,7 +126,7 @@ export function AboutSection() {
               </div>
               <h3 className="text-2xl font-bold text-white mb-4 font-heading">3. The Honest Verdict</h3>
               <p className="text-gray-400">
-                Our final score gives you a reliable breakdown of the metrics that matter! Whether it’s a high-tier competitive grind or a casual indie gem, we deliver a verdict you can actually trust before you hit the Buy button.
+                The overall score is the average of the five metric scores. There’s no weighting and no editorial adjustment, even for a game we happen to like. Each game comes with a full metric breakdown explaining the exact aspects of that metric that make it worth it or not. If you’re not interested in, say, the graphics in the games you’re looking at, simply toggle the graphics metric off and watch the scores dynamically adjust based on your preferences!
               </p>
             </div>
           </div>
@@ -135,6 +135,86 @@ export function AboutSection() {
         {/* Author Profiles Section */}
         <div id="team" className="pt-20 border-t border-white/5">
           <AuthorProfiles />
+        </div>
+
+        {/* Founder's Story Section */}
+        <div className="pt-20 border-t border-white/5 mb-24">
+          <div className="text-center mb-12 space-y-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 bg-[#F6CA56] text-black font-bold px-4 py-1 rounded-full text-sm mb-4"
+            >
+              <BookOpen className="w-4 h-4" />
+              The Founder
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-5xl font-bold text-white font-heading"
+            >
+              Our Founder&apos;s Story
+            </motion.h2>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto space-y-6 text-gray-300 leading-relaxed text-lg"
+          >
+            <p>
+              I didn&apos;t set out to build a games website. I set out to find one that already did what I wanted, and after spending more hours than I&apos;d like to admit scrolling through review sites and obscure forum threads, I gave up and built it myself.
+            </p>
+            <p>
+              The problem wasn&apos;t that good information didn&apos;t exist. It was spread across the tenth page of Google, buried inside Steam discussions, tucked into Reddit threads from years back. That&apos;s actually where the most useful stuff was, ironically. The players who really knew a game had long been pushed off the front pages by press coverage that told you something was good without ever telling you whether it was good for you specifically.
+            </p>
+            <p>
+              I&apos;ve been a full stack developer for over a decade, so when I couldn&apos;t find the tool I wanted, I built it. The first version of Metric Gamer went live in 2022, about six months after I started. It was rough around the edges, but the core idea held: score every game against a consistent rubric so that a number on one title actually means something when you put it next to the same number on another.
+            </p>
+            <p>
+              The critic bias thing was what really pushed me over the edge. Not because critics are always wrong, but because their tastes aren&apos;t yours. A game can pull a strong score from the press and still have the one flaw that happens to be the thing you care about most, and you&apos;d never know from the aggregate. I wanted something gamer to gamer, full stop.
+            </p>
+            <p>
+              I&apos;m not trying to build the biggest games site on the internet. I just want it to help people find games they&apos;ll actually enjoy. If someone finds their next favourite game because of something they read here, that&apos;s what it&apos;s for.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Our Mission Section */}
+        <div className="pt-20 border-t border-white/5 mb-24">
+          <div className="text-center mb-12 space-y-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 bg-[#F6CA56] text-black font-bold px-4 py-1 rounded-full text-sm mb-4"
+            >
+              <Target className="w-4 h-4" />
+              Why We Exist
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-5xl font-bold text-white font-heading"
+            >
+              Our Mission
+            </motion.h2>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-lg text-gray-300 leading-relaxed"
+            >
+              A lot of gaming scores out there tell you whether (predominantly) critics liked a game, but we want Metric Gamer to answer something more useful than that; is this game worth it <em>for you</em>? Our unique rubric system is what makes that question answerable. Every game in a genre gets scored the same way, which means you can compare games, metrics, and scores based on the metrics that actually matter to you!
+            </motion.p>
+          </div>
         </div>
 
         {/* How to Get Started Section - Tabbed Interface */}
@@ -227,56 +307,6 @@ export function AboutSection() {
           </motion.div>
         </div>
 
-        {/* Fun Stat Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-[#F6CA56] rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-8"
-        >
-          <div className="flex items-center gap-4">
-            <Trophy className="w-12 h-12 text-black" />
-            <div>
-              <h4 className="text-2xl font-bold text-black font-heading">Join 50,000+ Smart Gamers</h4>
-              <p className="text-black/80 font-medium">Stop guessing. Start playing.</p>
-            </div>
-          </div>
-          <div className="flex-1 w-full max-w-xl">
-            {status === "success" ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="bg-black/10 backdrop-blur-sm rounded-2xl p-4 flex items-center gap-4 border border-black/5"
-              >
-                <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center shrink-0">
-                  <Send className="w-5 h-5 text-[#F6CA56]" />
-                </div>
-                <div>
-                  <div className="font-bold text-black">You&apos;re on the list!</div>
-                  <div className="text-black/60 text-sm font-medium">Get ready for metrics in your inbox.</div>
-                </div>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
-                <Input
-                  type="email"
-                  required
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-black/10 border-transparent placeholder:text-black/40 text-black h-12 rounded-xl focus-visible:ring-black/20"
-                />
-                <Button
-                  type="submit"
-                  disabled={status === "loading"}
-                  className="bg-[#160026] text-white hover:bg-[#351150] h-12 px-8 rounded-xl font-bold transition-all active:scale-95 shrink-0"
-                >
-                  {status === "loading" ? "Joining..." : "Join Now"}
-                </Button>
-              </form>
-            )}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

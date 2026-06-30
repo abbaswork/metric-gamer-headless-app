@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Database, Menu, Home, Gamepad2, X, ListOrdered } from "lucide-react";
+import { Database, Menu, Home, Gamepad2, X, ListOrdered, Mail, Newspaper, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -97,6 +97,39 @@ export const Navbar = memo(function Navbar() {
                 <span className="hidden sm:inline">Find Ranked Lists</span>
               </Button>
             </Link>
+
+            <Link href="/blogs" aria-label="News and Blogs" id="nav-blogs">
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`rounded-full px-4 h-10 gap-1.5 text-xs font-sans transition-all ${pathname === '/blogs' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+              >
+                <Newspaper className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">News / Blogs</span>
+              </Button>
+            </Link>
+
+            <Link href="/about" aria-label="About Metric Gamer" id="nav-about">
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`rounded-full px-4 h-10 gap-1.5 text-xs font-sans transition-all ${pathname === '/about' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+              >
+                <Info className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">About</span>
+              </Button>
+            </Link>
+
+            <Link href="/contact" aria-label="Contact Metric Gamer" id="nav-contact">
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`rounded-full px-4 h-10 gap-1.5 text-xs font-sans transition-all ${pathname === '/contact' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Contact</span>
+              </Button>
+            </Link>
           </nav>
 
           {/* Divider */}
@@ -146,6 +179,21 @@ export const Navbar = memo(function Navbar() {
               <Link href="/metrics">
                 <Button variant="ghost" className="w-full justify-start text-gray-300 hover:text-[#F6CA56] hover:bg-white/5" onClick={() => setIsMenuOpen(false)}>
                   <Database className="w-4 h-4 mr-2" /> Database
+                </Button>
+              </Link>
+              <Link href="/blogs">
+                <Button variant="ghost" className="w-full justify-start text-gray-300 hover:text-white hover:bg-white/5" onClick={() => setIsMenuOpen(false)}>
+                  <Newspaper className="w-4 h-4 mr-2" /> News / Blogs
+                </Button>
+              </Link>
+              <Link href="/about">
+                <Button variant="ghost" className="w-full justify-start text-gray-300 hover:text-white hover:bg-white/5" onClick={() => setIsMenuOpen(false)}>
+                  <Info className="w-4 h-4 mr-2" /> About
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="ghost" className="w-full justify-start text-gray-300 hover:text-[#F6CA56] hover:bg-white/5" onClick={() => setIsMenuOpen(false)}>
+                  <Mail className="w-4 h-4 mr-2" /> Contact
                 </Button>
               </Link>
               <div className="h-px bg-white/10 my-2" />

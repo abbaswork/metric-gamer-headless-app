@@ -19,3 +19,49 @@ a {
   color: #fff;
   text-decoration: underline;
 }
+
+/* ── HubSpot form overrides ── */
+#hubspot-contact-form label,
+#hubspot-contact-form .hs-richtext,
+#hubspot-contact-form .hs-richtext p,
+#hubspot-contact-form .legal-consent-container p,
+#hubspot-contact-form .inputs-list label,
+#hubspot-contact-form .hs-error-msgs label {
+  color: #9ca3af !important;
+}
+
+#hubspot-contact-form .hs-input {
+  background: rgba(53, 17, 80, 0.3) !important;
+  border: 1px solid #351150 !important;
+  color: #fff !important;
+  border-radius: 0.75rem !important;
+  width: 100% !important;
+  padding: 0.75rem 1rem !important;
+}
+
+#hubspot-contact-form .hs-input:focus {
+  border-color: rgba(246, 202, 86, 0.5) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(246, 202, 86, 0.2) !important;
+}
+
+#hubspot-contact-form input[type="submit"],
+#hubspot-contact-form .hs-button {
+  background-color: #F6CA56 !important;
+  color: #000 !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s !important;
+}
+
+#hubspot-contact-form input[type="submit"]:hover,
+#hubspot-contact-form .hs-button:hover {
+  background-color: #e0b545 !important;
+}
+
+/* Hide HubSpot free-tier branding */
+.hs-form-branding {
+  display: none !important;
+}

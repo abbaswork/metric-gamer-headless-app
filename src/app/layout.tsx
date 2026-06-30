@@ -6,7 +6,6 @@ import "@/styles/globals.css";
 
 import { Navbar } from "@/stories/header/Navbar/Navbar";
 import { Footer } from "@/stories/layouts/Footer/Footer";
-import { HelpBubble } from "@/components/HelpBubble/HelpBubble";
 import { PreviewNotice } from "@/components/Globals/PreviewNotice/PreviewNotice";
 import { Metadata } from "next";
 
@@ -64,7 +63,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Navbar />
         {isEnabled && <PreviewNotice />}
         {children}
-        <HelpBubble />
         <Footer />
       </body>
     </html>

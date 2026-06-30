@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, ExternalLink } from "lucide-react";
@@ -22,6 +24,7 @@ export interface ContentCardProps {
   leftImage?: string;
   rightImage?: string;
   isSidebar?: boolean;
+  href?: string;
   onClick?: () => void;
 }
 
@@ -39,14 +42,16 @@ export function ContentCard({
   leftImage,
   rightImage,
   onClick,
-  isSidebar
+  isSidebar,
+  href,
 }: ContentCardProps) {
   const imageSrc = typeof image === 'string' ? image : image.src;
+  const defaultHref = type === 'game' ? `/game/${slug}` : `/ranking/${slug}`;
+  const cardHref = href || defaultHref;
 
   const handleExternalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const url = type === 'game' ? `/game/${slug}` : `/ranking/${slug}`;
-    window.open(url, '_blank');
+    window.open(cardHref, '_blank');
   };
 
   return (
@@ -61,7 +66,7 @@ export function ContentCard({
       onClick={onClick}
     >
       <Link
-        href={type === 'game' ? `/game/${slug}` : `/ranking/${slug}`}
+        href={cardHref}
         className="absolute inset-0 z-10"
         aria-label={`View ${title}`}
       />
@@ -143,7 +148,7 @@ export function ContentCard({
           {/* Top Left: Category/Genre Label (Balanced Size) */}
           <div className="absolute top-4 left-4 z-10">
             <Badge className="bg-[#F6CA56] text-black border-0 shadow-lg font-bold uppercase tracking-widest text-[10px] px-3 py-1 rounded-md flex items-center justify-center h-8 min-w-[80px]">
-              {type === 'game' ? (genre || (genres && genres[0]) || 'Game') : 'Ranking'}
+              {type === 'game' ? (genre || (genres && genres[0]) || 'Game') : (blogType || 'Blog')}
             </Badge>
           </div>
 
@@ -196,10 +201,12 @@ export function ContentCard({
             )}
           </div>
 
-          <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
-            <span className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em]">
-              {type === 'game' ? 'Game' : 'Performance Analysis'}
-            </span>
+          <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-end">
+            {type === 'game' && (
+              <span className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] mr-auto">
+                Game
+              </span>
+            )}
             <span className="flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform text-[#F6CA56] text-xs font-black uppercase tracking-widest">
               View <ArrowRight className="w-3.5 h-3.5" />
             </span>

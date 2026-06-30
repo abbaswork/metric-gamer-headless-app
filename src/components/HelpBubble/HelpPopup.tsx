@@ -27,7 +27,7 @@ export function HelpPopup({ onClose }: HelpPopupProps) {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed bottom-24 right-4 left-4 md:left-auto md:right-8 z-50 md:w-full md:max-w-md bg-[#160026] border border-[#F6CA56]/30 rounded-2xl shadow-2xl overflow-hidden"
+        className="fixed bottom-24 right-4 left-4 md:left-auto md:right-8 z-50 md:w-full md:max-w-lg bg-[#160026] border border-[#F6CA56]/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[calc(100vh-7rem)]"
       >
         {/* Header */}
         <div className="relative bg-gradient-to-r from-[#351150] to-[#160026] p-6 border-b border-[#F6CA56]/20">
@@ -46,7 +46,7 @@ export function HelpPopup({ onClose }: HelpPopupProps) {
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-6">
+        <div className="p-6 space-y-6 overflow-y-auto flex-1">
           {/* Metric Method Section - Now First */}
           <Link href="/about" onClick={onClose} className="block">
             <div className="bg-[#351150]/30 border border-[#F6CA56]/20 rounded-xl p-5 hover:border-[#F6CA56]/40 transition-all group cursor-pointer hover:bg-[#351150]/40">
@@ -59,7 +59,7 @@ export function HelpPopup({ onClose }: HelpPopupProps) {
                     The Metric Method
                   </h4>
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                    Every metric score is based on real gamer feedback and broken down into curated scores. Find your next game based on the metrics that matter to you or browse our ranked lists.
+                    Every game is scored against a pre-determined rubric specific to its genre. These metrics don't change between titles with a shared genre, meaning you're assessing exactly how games in a certain niche compare against each other. Find your next game based on the metrics that matter to you or browse our ranked lists.
                   </p>
                   <div className="text-[#F6CA56] hover:text-[#e0b545] font-bold text-sm flex items-center gap-1">
                     Learn More
